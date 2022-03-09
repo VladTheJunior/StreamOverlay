@@ -33,7 +33,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This project is aimed at improving the quality of streamers' content. Overlay can be set before the start of events such as tournaments or showmatches, or during breaks. The advantages of this tool over manual configuration in obs are ease of installation and high quality overlay in just a minute.
+This project is aimed at improving the quality of streamers' content. Overlay can be set before the start of events such as tournaments or showmatches, or during breaks. The advantages of this tool over manual configuration in OBS Studio are ease of installation and high quality overlay in just a minute.
 The original intent of the app was to make it easy to create an overlay for ESOC streamers, but now it's aimed at regular streamers as well.
 
 You can also join my discord server to stay up to date with the latest updates and news about my current developments and projects: [Commando Squad](https://discord.gg/egcZRKgj4q)
@@ -45,6 +45,7 @@ You can also join my discord server to stay up to date with the latest updates a
 * Map pool ticker.
 * Brand and event logos.
 * Auto updater.
+* Ability to move elements in overlay window.
 
 ## Hotkeys
 * **Ctrl+Up** : Adds 1 minute to countdown timer.
