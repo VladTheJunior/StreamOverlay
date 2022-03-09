@@ -7,7 +7,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/VladTheJunior/StreamOverlay">
-    <img src="StreamOverlay/icon.ico" alt="Logo">
+    <img src="StreamOverlay/Icon.ico" alt="Logo">
   </a>
 </p>
 
