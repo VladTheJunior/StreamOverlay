@@ -1,0 +1,249 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+    <Company>VladTheJunior</Company>
+    <Authors>VladTheJunior</Authors>
+    <Copyright>VladTheJunior</Copyright>
+    <Version>0.1.8</Version>
+    <BaseOutputPath>..\publish\</BaseOutputPath>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Fonts\MTCORSVA.TTF" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LibVLCSharp.WPF" Version="3.6.5" />
+    <PackageReference Include="PixiEditor.ColorPicker" Version="3.2.0" />
+    <PackageReference Include="VideoLAN.LibVLC.Windows" Version="3.0.16" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="data\maps\af_atlas_mini.png" />
+    <Resource Include="data\maps\af_darfur_mini.png" />
+    <Resource Include="data\maps\af_goldcoast_mini.png" />
+    <Resource Include="data\maps\af_greatrift_mini.png" />
+    <Resource Include="data\maps\af_highlands_mini.png" />
+    <Resource Include="data\maps\af_horn_mini.png" />
+    <Resource Include="data\maps\af_lakechad_mini.png" />
+    <Resource Include="data\maps\af_lake_victoria_mini.png" />
+    <Resource Include="data\maps\af_nigerdelta_mini.png" />
+    <Resource Include="data\maps\af_nigerriver_mini.png" />
+    <Resource Include="data\maps\af_nilevalley_mini.png" />
+    <Resource Include="data\maps\af_peppercoast_mini.png" />
+    <Resource Include="data\maps\af_savanna_mini.png" />
+    <Resource Include="data\maps\af_sudd_mini.png" />
+    <Resource Include="data\maps\af_tassili_mini.png" />
+    <Resource Include="data\maps\af_tripolitania_mini.png" />
+    <Resource Include="data\maps\alaska_mini.png" />
+    <Resource Include="data\maps\amazon_mini.png" />
+    <Resource Include="data\maps\andes_mini.png" />
+    <Resource Include="data\maps\andes_upper_mini.png" />
+    <Resource Include="data\maps\arctic_territories_mini.png" />
+    <Resource Include="data\maps\auraucania_mini.png" />
+    <Resource Include="data\maps\bahia_mini.png" />
+    <Resource Include="data\maps\baja_california_mini.png" />
+    <Resource Include="data\maps\bengal_mini.png" />
+    <Resource Include="data\maps\borneo_mini.png" />
+    <Resource Include="data\maps\california_mini.png" />
+    <Resource Include="data\maps\caribbean_mini.png" />
+    <Resource Include="data\maps\carolina_mini.png" />
+    <Resource Include="data\maps\cascade_range_mini.png" />
+    <Resource Include="data\maps\central_plain_mini.png" />
+    <Resource Include="data\maps\ceylon_mini.png" />
+    <Resource Include="data\maps\colorado_mini.png" />
+    <Resource Include="data\maps\dakota_mini.png" />
+    <Resource Include="data\maps\deccan_mini.png" />
+    <Resource Include="data\maps\dunes_mini.png" />
+    <Resource Include="data\maps\everglades_mini.png" />
+    <Resource Include="data\maps\fertile_crescent_mini.png" />
+    <Resource Include="data\maps\florida_mini.png" />
+    <Resource Include="data\maps\gran_chaco_mini.png" />
+    <Resource Include="data\maps\great_lakes_mini.png" />
+    <Resource Include="data\maps\great_plains_mini.png" />
+    <Resource Include="data\maps\guianas_mini.png" />
+    <Resource Include="data\maps\himalayas_mini.png" />
+    <Resource Include="data\maps\himalayas_upper_mini.png" />
+    <Resource Include="data\maps\hispaniola_mini.png" />
+    <Resource Include="data\maps\hokkaido_mini.png" />
+    <Resource Include="data\maps\honshu_mini.png" />
+    <Resource Include="data\maps\indochina_mini.png" />
+    <Resource Include="data\maps\indonesia_mini.png" />
+    <Resource Include="data\maps\ivory_coast_mini.png" />
+    <Resource Include="data\maps\kamchatka_mini.png" />
+    <Resource Include="data\maps\korea_mini.png" />
+    <Resource Include="data\maps\malaysia_mini.png" />
+    <Resource Include="data\maps\manchuria_mini.png" />
+    <Resource Include="data\maps\mexico_mini.png" />
+    <Resource Include="data\maps\minas_gerais_mini.png" />
+    <Resource Include="data\maps\mongolia_mini.png" />
+    <Resource Include="data\maps\new_england_mini.png" />
+    <Resource Include="data\maps\northwest_territory_mini.png" />
+    <Resource Include="data\maps\orinoco_mini.png" />
+    <Resource Include="data\maps\ozarks_mini.png" />
+    <Resource Include="data\maps\painted_desert_mini.png" />
+    <Resource Include="data\maps\pampas_mini.png" />
+    <Resource Include="data\maps\pampas_sierras_mini.png" />
+    <Resource Include="data\maps\panama_mini.png" />
+    <Resource Include="data\maps\parallel_rivers_mini.png" />
+    <Resource Include="data\maps\patagonia_mini.png" />
+    <Resource Include="data\maps\plymouth_mini.png" />
+    <Resource Include="data\maps\punjab_mini.png" />
+    <Resource Include="data\maps\regicide_mini.png" />
+    <Resource Include="data\maps\rockies_mini.png" />
+    <Resource Include="data\maps\saguenay_mini.png" />
+    <Resource Include="data\maps\saharan_routes_lost_mini.png" />
+    <Resource Include="data\maps\saharan_routes_mini.png" />
+    <Resource Include="data\maps\sahel_mini.png" />
+    <Resource Include="data\maps\siberia_mini.png" />
+    <Resource Include="data\maps\silk_road_mini.png" />
+    <Resource Include="data\maps\siwa_oasis_mini.png" />
+    <Resource Include="data\maps\sonora_mini.png" />
+    <Resource Include="data\maps\swahili_mini.png" />
+    <Resource Include="data\maps\texas_mini.png" />
+    <Resource Include="data\maps\unknown_mini.png" />
+    <Resource Include="data\maps\yellow_river_mini.png" />
+    <Resource Include="data\maps\yucatan_mini.png" />
+    <Resource Include="data\maps\yukon_mini.png" />
+    <Resource Include="Fonts\Font Awesome 5 Pro-Solid-900.otf" />
+    <Resource Include="Fonts\MTCORSVA.TTF" />
+    <Resource Include="Fonts\segoepr.ttf" />
+    <Resource Include="Fonts\Trajan.ttf" />
+    <Resource Include="Fonts\TT1141M_.ttf" />
+    <Resource Include="resources\audio\smallbutton.wav" />
+    <Resource Include="resources\button_back_hover.png" />
+    <Resource Include="resources\button_back_large_disabled.png" />
+    <Resource Include="resources\button_back_large_hover.png" />
+    <Resource Include="resources\button_back_large_normal.png" />
+    <Resource Include="resources\button_back_normal.png" />
+    <Resource Include="resources\button_forward_large_disabled.png" />
+    <Resource Include="resources\button_forward_large_hover.png" />
+    <Resource Include="resources\button_forward_large_normal.png" />
+    <Resource Include="resources\button_hud.png" />
+    <Resource Include="resources\button_hud_click.png" />
+    <Resource Include="resources\button_hud_disabled.png" />
+    <Resource Include="resources\button_hud_over.png" />
+    <Resource Include="resources\button_submenu.png" />
+    <Resource Include="resources\button_submenu_click.png" />
+    <Resource Include="resources\button_submenu_disabled.png" />
+    <Resource Include="resources\button_submenu_over.png" />
+    <Resource Include="resources\checkbox_disabled_off.png" />
+    <Resource Include="resources\checkbox_disabled_on.png" />
+    <Resource Include="resources\checkbox_focused_hollow.png" />
+    <Resource Include="resources\checkbox_hover.png" />
+    <Resource Include="resources\checkbox_off.png" />
+    <Resource Include="resources\checkbox_on.png" />
+    <Resource Include="resources\checkbox_on_hover.png" />
+    <Resource Include="resources\close_icon.png" />
+    <Resource Include="resources\combo_arrow.png" />
+    <Resource Include="resources\Error Icon.png" />
+    <Resource Include="resources\history_image_mask.png" />
+    <Resource Include="resources\history_image_mask_vertical.png" />
+    <Resource Include="resources\images\campaignmenu\campaignselect_glow.png" />
+    <Resource Include="resources\images\campaignmenu\campaignselect_highlight.png" />
+    <Resource Include="resources\images\campaignmenu\campaignselect_mask.png" />
+    <Resource Include="resources\images\campaignmenu\campaignselect_textbg.png" />
+    <Resource Include="resources\images\campaignmenu\LevelSelectDivider.png" />
+    <Resource Include="resources\images\campaignmenu\levels\lvlcard_glow.png" />
+    <Resource Include="resources\images\campaignmenu\levels\lvlcard_highlight.png" />
+    <Resource Include="resources\images\campaignmenu\levels\lvlcard_mask.png" />
+    <Resource Include="resources\images\campaignmenu\levels\lvlcard_shadow.png" />
+    <Resource Include="resources\images\campaignmenu\levels\titlebg.png" />
+    <Resource Include="resources\images\hud\hud_chat_combobox.png" />
+    <Resource Include="resources\images\hud\hud_chat_combobox_itembg.png" />
+    <Resource Include="resources\images\hud\hud_chat_combobox_over.png" />
+    <Resource Include="resources\progressbar_glow.png" />
+    <Resource Include="resources\progressbar_glow2.png" />
+    <Resource Include="resources\slider_button.png" />
+    <Resource Include="resources\slider_button_disabled.png" />
+    <Resource Include="resources\slider_button_hover.png" />
+    <Resource Include="resources\slider_line.png" />
+    <Resource Include="resources\titlebar_tile.png" />
+    <Resource Include="resources\wood.png" />
+    <Resource Include="resources\wood_shadow.png" />
+    <Resource Include="resources\Cursor.cur" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="data\animations\Rain\icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\animations\Rain\preview.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\animations\Storm\icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\animations\Storm\preview.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\animations\Waterfall\icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\animations\Waterfall\preview.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\animations\Time2Treaty\icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\animations\Time2Treaty\preview.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\animations\Rain\video.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\animations\Storm\video.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\animations\Waterfall\video.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\animations\Time2Treaty\video.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\brand\Hudson Bay BIGs.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\brand\Cuirassier Management Co.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\brand\Age of Empires 3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\brand\ESOCommunity.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\brand\Mandarin Duck Squad.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\brand\The Nilla Ninjas.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\brand\New World Challengers.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\brand\Somali Kabuli Gaming.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\events\EPL Season 2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\events\Incogs Empire Cup.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\events\Showmatch.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

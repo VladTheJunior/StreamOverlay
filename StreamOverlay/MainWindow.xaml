@@ -1,0 +1,270 @@
+﻿<Window
+    x:Class="StreamOverlay.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:StreamOverlay"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vlc="clr-namespace:LibVLCSharp.WPF;assembly=LibVLCSharp.WPF"
+    Title="Stream Overlay"
+    Width="1920"
+    Height="1080"
+    Background="Black"
+    Closed="Window_Closed"
+    ResizeMode="NoResize"
+    UseLayoutRounding="True"
+    WindowState="Maximized"
+    WindowStyle="None"
+    Focusable="True"
+    FocusManager.FocusedElement="{Binding ElementName=Animation}"
+    mc:Ignorable="d">
+    <Viewbox>
+        <Grid Width="1920" Height="1080">
+
+            <vlc:VideoView x:Name="Animation" Focusable="True">
+                <Viewbox>
+                    <Grid x:Name="OverlayGrid" Width="1920" Height="1080" >
+                        <Canvas x:Name="OverlayCanvas" PreviewMouseMove="ObjectMouseMove" Background="#01000000" MouseDown="OverlayCanvas_MouseDown">
+
+                            <Image x:Name="PreviewImage" />
+                            <Image
+                                x:Name="iBrandLogo"
+                                Width="405"                                
+                                PreviewMouseLeftButtonDown="ObjectMouseDown"
+                                PreviewMouseLeftButtonUp="ObjectMouseUp">
+                                <Image.Effect>
+                                    <DropShadowEffect
+                                            BlurRadius="20"
+                                            Direction="-90"
+                                            RenderingBias="Quality"
+                                            ShadowDepth="3"
+                                            Color="#f0000000" />
+                                </Image.Effect>
+                            </Image>
+                            <Image
+                                x:Name="iEventLogo"
+                                Width="800"
+                                PreviewMouseLeftButtonDown="ObjectMouseDown"
+                                PreviewMouseLeftButtonUp="ObjectMouseUp">
+                                <Image.Effect>
+                                    <DropShadowEffect
+                                            BlurRadius="20"
+                                            Direction="-90"
+                                            RenderingBias="Quality"
+                                            ShadowDepth="3"
+                                            Color="#f0000000" />
+                                </Image.Effect>
+                            </Image>
+                            <Grid
+                                x:Name="gMapPool"
+                                PreviewMouseLeftButtonDown="ObjectMouseDown"
+                                PreviewMouseLeftButtonUp="ObjectMouseUp">
+                                <Grid.Effect>
+                                    <DropShadowEffect
+                                            BlurRadius="20"
+                                            Direction="-90"
+                                            RenderingBias="Quality"
+                                            ShadowDepth="3"
+                                            Color="#f0000000" />
+                                </Grid.Effect>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+                                <Image
+                                    x:Name="ibMapIcon"
+                                    Grid.Row="0"
+                                    Width="250"
+                                    Height="250"
+                                    Margin="0,10,0,0"
+                                    VerticalAlignment="Top"
+                                    RenderOptions.BitmapScalingMode="HighQuality"
+                                    RenderTransformOrigin="0.5,0.5">
+                                    <Image.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform x:Name="stMap" />
+                                        </TransformGroup>
+                                    </Image.RenderTransform>
+                                </Image>
+                                <Grid Grid.Row="1">
+                                    <Grid.OpacityMask>
+                                        <ImageBrush ImageSource="/resources/history_image_mask.png" />
+                                    </Grid.OpacityMask>
+                                    <Grid
+                                        Grid.RowSpan="2"
+                                        Background="Black"
+                                        Opacity="0.3" />
+                                    <Image
+                                        Width="405"
+                                        Height="55"
+                                        Margin="0,3,0,0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Bottom"
+                                        Source="/resources/images/campaignmenu/campaignselect_textbg.png" />
+                                    <TextBlock
+                                        x:Name="tbMapPool"
+                                        Margin="0,0,0,10"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Bottom"
+                                        FontFamily="/Fonts/#Trajan Pro 3"
+                                        FontSize="25"
+                                        FontWeight="Bold"
+                                        Foreground="{StaticResource ButtonTextGradient}"
+                                        Text="COUNTDOWN">
+                                        <TextBlock.Effect>
+                                            <DropShadowEffect
+                                                BlurRadius="3"
+                                                Direction="-90"
+                                                RenderingBias="Quality"
+                                                ShadowDepth="1.7"
+                                                Color="Black" />
+                                        </TextBlock.Effect>
+                                        <TextBlock.OpacityMask>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                <GradientStop x:Name="MapBlackStop" Offset="0" Color="Black" />
+                                                <GradientStop x:Name="MapTransparentStop" Offset="0" Color="Transparent" />
+                                            </LinearGradientBrush>
+                                        </TextBlock.OpacityMask>
+                                    </TextBlock>
+                                </Grid>
+                            </Grid>
+                            <Grid
+                                x:Name="gCountdown"
+                                PreviewMouseLeftButtonDown="ObjectMouseDown"
+                                PreviewMouseLeftButtonUp="ObjectMouseUp">
+                                <Grid.OpacityMask>
+                                    <ImageBrush ImageSource="/resources/history_image_mask.png" />
+                                </Grid.OpacityMask>
+                                <Grid.Effect>
+                                    <DropShadowEffect
+                                        BlurRadius="20"
+                                        Direction="-90"
+                                        RenderingBias="Quality"
+                                        ShadowDepth="3"
+                                        Color="#f0000000" />
+                                </Grid.Effect>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+                                <Grid
+                                    Grid.RowSpan="2"
+                                    Background="Black"
+                                    Opacity="0.3" />
+                                <Image
+                                    Width="405"
+                                    Height="55"
+                                    Margin="0,0,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Bottom"
+                                    Source="/resources/images/campaignmenu/campaignselect_textbg.png" />
+                                <Image
+                                    Width="405"
+                                    VerticalAlignment="Bottom"
+                                    Source="/resources/images/campaignmenu/LevelSelectDivider.png" />
+                                <TextBlock
+                                    Margin="0,0,0,5"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Bottom"
+                                    FontFamily="/Fonts/#Trajan Pro 3"
+                                    FontSize="25"
+                                    FontWeight="Bold"
+                                    Foreground="{StaticResource ButtonTextGradient}"
+                                    Text="COUNTDOWN">
+                                    <TextBlock.Effect>
+                                        <DropShadowEffect
+                                            BlurRadius="3"
+                                            Direction="-90"
+                                            RenderingBias="Quality"
+                                            ShadowDepth="1.7"
+                                            Color="Black" />
+                                    </TextBlock.Effect>
+                                </TextBlock>
+                                <TextBlock
+                                    x:Name="lTimer"
+                                    Grid.Row="1"
+                                    Margin="10"
+                                    HorizontalAlignment="Center"
+                                    FontFamily="/Fonts/#Trajan Pro 3"
+                                    FontSize="60"
+                                    Foreground="White"
+                                    Text="{Binding Time}" />
+                            </Grid>
+                            <Grid
+                                x:Name="gSchedule"
+                                PreviewMouseLeftButtonDown="ObjectMouseDown"
+                                PreviewMouseLeftButtonUp="ObjectMouseUp">
+                                <Grid.OpacityMask>
+                                    <ImageBrush ImageSource="/resources/history_image_mask_vertical.png" />
+                                </Grid.OpacityMask>
+                                <Grid.Effect>
+                                    <DropShadowEffect
+                                        BlurRadius="20"
+                                        Direction="-90"
+                                        RenderingBias="Quality"
+                                        ShadowDepth="3"
+                                        Color="#f0000000" />
+                                </Grid.Effect>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+                                <Grid
+                                    Grid.RowSpan="2"
+                                    Background="Black"
+                                    Opacity="0.3" />
+                                <Image
+                                    Width="405"
+                                    Height="55"
+                                    Margin="0,0,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Bottom"
+                                    Source="/resources/images/campaignmenu/campaignselect_textbg.png" />
+                                <Image
+                                    Width="405"
+                                    VerticalAlignment="Bottom"
+                                    Source="/resources/images/campaignmenu/LevelSelectDivider.png" />
+                                <TextBlock
+                                    Margin="0,0,0,6"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Bottom"
+                                    FontFamily="/Fonts/#Trajan Pro 3"
+                                    FontSize="25"
+                                    FontWeight="Bold"
+                                    Foreground="{StaticResource ButtonTextGradient}"
+                                    Text="SCHEDULE">
+                                    <TextBlock.Effect>
+                                        <DropShadowEffect
+                                            BlurRadius="3"
+                                            Direction="-90"
+                                            RenderingBias="Quality"
+                                            ShadowDepth="1.7"
+                                            Color="Black" />
+                                    </TextBlock.Effect>
+                                </TextBlock>
+                                <TextBox
+                                    x:Name="Schedule"
+                                    Grid.Row="1"
+                                    Width="385"
+                                    Height="450"
+                                    Margin="10"
+                                    HorizontalContentAlignment="Center"
+                                    AcceptsReturn="True"
+                                    Background="Transparent"
+                                    BorderBrush="{x:Null}"
+                                    BorderThickness="0"
+                                    CaretBrush="Transparent"
+                                    FontFamily="/Fonts/#Trajan Pro 3"
+                                    FontSize="24"
+                                    Foreground="White"
+                                    SelectionBrush="{x:Null}"
+                                    TextWrapping="Wrap" />
+                            </Grid>
+                        </Canvas>
+                    </Grid>
+                </Viewbox>
+            </vlc:VideoView>
+
+        </Grid>
+    </Viewbox>
+</Window>

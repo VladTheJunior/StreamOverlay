@@ -1,0 +1,863 @@
+﻿<Window
+    x:Class="StreamOverlay.ThumbnailGenerator"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:StreamOverlay"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Thumbnail Generator"
+    Width="1366"
+    Height="768"
+    Cursor="{Binding AoE}"
+    Style="{StaticResource WindowStyle}"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <local:BorderThicknessConverter x:Key="BorderThicknessConverter" />
+        <local:StringToUpperConverter x:Key="StringToUpperConverter" />
+        <local:BrushColorConverter x:Key="BrushColorConverter" />
+
+    </Window.Resources>
+
+    <Viewbox Style="{StaticResource ViewboxMain}">
+        <Grid
+            x:Name="mainGridPanel"
+            Width="1920"
+            Height="1080">
+            <Grid>
+                <Grid.Background>
+                    <ImageBrush ImageSource="/resources/wood.png"/>
+                </Grid.Background>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <ContentControl Template="{StaticResource Titlebar}" />
+                    <Button
+                        Width="50"
+                        Margin="0,0,0,1"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Click="Button_Click_6"
+                        IsCancel="True"
+                        Style="{StaticResource SubMenuBackButton}" />
+                    <Grid
+                        Margin="50,0,0,6"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Bottom">
+                        <Grid.OpacityMask>
+                            <ImageBrush ImageSource="{StaticResource title_mask}" />
+                        </Grid.OpacityMask>
+                        <Grid.Effect>
+                            <DropShadowEffect
+                                BlurRadius="10"
+                                Direction="-90"
+                                RenderingBias="Quality"
+                                ShadowDepth="5"
+                                Color="Black" />
+                        </Grid.Effect>
+                        <Image
+                            x:Name="textbg"
+                            Width="405"
+                            Height="55"
+                            Margin="0,0,0,0"
+                            HorizontalAlignment="Center"
+                            Source="{StaticResource title_bkg}" />
+
+                        <TextBlock
+                            x:Name="title"
+                            Margin="0,0,0,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Bottom"
+                            FontFamily="/Fonts/#Trajan Pro 3"
+                            FontSize="28"
+                            FontWeight="Bold"
+                            Foreground="{StaticResource ButtonTextGradient}"
+                            Text="Thumbnail Generator">
+                            <TextBlock.Effect>
+                                <DropShadowEffect
+                                    BlurRadius="3"
+                                    Direction="-90"
+                                    RenderingBias="Quality"
+                                    ShadowDepth="1.7"
+                                    Color="Black" />
+                            </TextBlock.Effect>
+                        </TextBlock>
+                    </Grid>
+
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Button
+                        Width="250"
+                        Margin="26,0,0,200"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Bottom"
+                        Click="Button_Click"
+                        Content="Save"
+                        Style="{StaticResource MainMenuButton}" />
+                    <Button
+                        Width="250"
+                        Margin="26,0,0,150"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Bottom"
+                        Click="Button_Click_1"
+                        Content="Youtube Preview"
+                        Style="{StaticResource MainMenuButton}" />
+                    <Image
+                        x:Name="YoutubePreview"
+                        Width="210"
+                        Height="118"
+                        Margin="286,0,0,120"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Bottom"
+                        RenderOptions.BitmapScalingMode="HighQuality"
+                        Stretch="UniformToFill" />
+
+                    <ScrollViewer
+                        Height="740"
+                        Margin="26"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        HorizontalScrollBarVisibility="Visible"
+                        VerticalScrollBarVisibility="Disabled"
+                        VirtualizingPanel.ScrollUnit="Pixel">
+                        <Grid x:Name="Thumbnail">
+                            <Image
+                                Width="1280"
+                                Height="720"
+                                RenderOptions.BitmapScalingMode="HighQuality"
+                                Source="{Binding ElementName=Background, Path=Source}"
+                                Stretch="UniformToFill" />
+                            <Image
+                                x:Name="Background"
+                                Width="1280"
+                                Height="720"
+                                ClipToBounds="True"
+                                RenderOptions.BitmapScalingMode="HighQuality"
+                                Stretch="UniformToFill">
+                                <Image.Effect>
+                                    <BlurEffect Radius="{Binding Path=Value, ElementName=BlurSlider}" RenderingBias="Quality" />
+                                </Image.Effect>
+
+                            </Image>
+                            <Image
+                                x:Name="Overlay"
+                                Width="1280"
+                                Height="720"
+                                RenderOptions.BitmapScalingMode="HighQuality"
+                                Stretch="UniformToFill" />
+                            <Border
+                                x:Name="bThumbnailBorder"
+                                Width="1280"
+                                Height="720"
+                                BorderThickness="{Binding ElementName=BorderSlider, Converter={StaticResource BorderThicknessConverter}, Path=Value, UpdateSourceTrigger=PropertyChanged}" />
+                            <Canvas
+                                x:Name="canvas"
+                                Width="1280"
+                                Height="720"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                PreviewMouseMove="MovedMouseMove">
+                                <Image
+                                    x:Name="iBrandLogo"
+                                    Width="205"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Cursor="Hand"
+                                    PreviewMouseLeftButtonDown="MovedPreviewMouseLeftButtonDown"
+                                    PreviewMouseLeftButtonUp="MovedPreviewMouseLeftButtonUp">
+                                    <Image.Effect>
+                                        <DropShadowEffect
+                                            BlurRadius="20"
+                                            Direction="-90"
+                                            RenderingBias="Quality"
+                                            ShadowDepth="3"
+                                            Color="#f0000000" />
+                                    </Image.Effect>
+                                </Image>
+                                <Image
+                                    x:Name="iEventLogo"
+                                    Width="500"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Cursor="Hand"
+                                    PreviewMouseLeftButtonDown="MovedPreviewMouseLeftButtonDown"
+                                    PreviewMouseLeftButtonUp="MovedPreviewMouseLeftButtonUp">
+                                    <Image.Effect>
+                                        <DropShadowEffect
+                                            BlurRadius="20"
+                                            Direction="-90"
+                                            RenderingBias="Quality"
+                                            ShadowDepth="3"
+                                            Color="#f0000000" />
+                                    </Image.Effect>
+                                </Image>
+                                <TextBlock
+                                    x:Name="TitleThumbnail"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Cursor="Hand"
+                                    FontFamily="{Binding ElementName=FontTitle, Path=Text}"
+                                    FontSize="{Binding Path=Value, ElementName=FontSizeSliderTitle}"
+                                    PreviewMouseLeftButtonDown="MovedPreviewMouseLeftButtonDown"
+                                    PreviewMouseLeftButtonUp="MovedPreviewMouseLeftButtonUp"
+                                    Text="{Binding ElementName=Title, Path=Text}">
+                                    <TextBlock.Effect>
+                                        <DropShadowEffect
+                                            x:Name="DropShadowTitle"
+                                            BlurRadius="{Binding Path=Value, ElementName=ShadowTitleSlider}"
+                                            RenderingBias="Quality"
+                                            ShadowDepth="0" />
+                                    </TextBlock.Effect>
+                                </TextBlock>
+
+
+                                <TextBlock
+                                    x:Name="RoundThumbnail"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Cursor="Hand"
+                                    FontFamily="{Binding ElementName=FontRound, Path=Text}"
+                                    FontSize="{Binding Path=Value, ElementName=FontSizeSliderRound}"
+                                    PreviewMouseLeftButtonDown="MovedPreviewMouseLeftButtonDown"
+                                    PreviewMouseLeftButtonUp="MovedPreviewMouseLeftButtonUp"
+                                    Text="{Binding ElementName=Round, Path=Text}">
+                                    <TextBlock.Effect>
+                                        <DropShadowEffect
+                                            x:Name="DropShadowRound"
+                                            BlurRadius="{Binding Path=Value, ElementName=ShadowRoundSlider}"
+                                            RenderingBias="Quality"
+                                            ShadowDepth="0" />
+                                    </TextBlock.Effect>
+                                </TextBlock>
+                                <TextBlock
+                                    x:Name="Player1Thumbnail"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Cursor="Hand"
+                                    FontFamily="{Binding ElementName=FontPlayer, Path=Text}"
+                                    FontSize="{Binding Path=Value, ElementName=FontSizeSliderPlayer}"
+                                    PreviewMouseLeftButtonDown="MovedPreviewMouseLeftButtonDown"
+                                    PreviewMouseLeftButtonUp="MovedPreviewMouseLeftButtonUp"
+                                    Text="{Binding ElementName=Player1, Path=Text, Converter={StaticResource StringToUpperConverter}}">
+                                    <TextBlock.Effect>
+                                        <DropShadowEffect
+                                            x:Name="DropShadowPlayer"
+                                            BlurRadius="{Binding Path=Value, ElementName=ShadowPlayerSlider}"
+                                            RenderingBias="Quality"
+                                            ShadowDepth="0" />
+                                    </TextBlock.Effect>
+                                </TextBlock>
+                                <TextBlock
+                                    x:Name="Player2Thumbnail"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Cursor="Hand"
+                                    FontFamily="{Binding ElementName=FontPlayer, Path=Text}"
+                                    FontSize="{Binding Path=Value, ElementName=FontSizeSliderPlayer}"
+                                    PreviewMouseLeftButtonDown="MovedPreviewMouseLeftButtonDown"
+                                    PreviewMouseLeftButtonUp="MovedPreviewMouseLeftButtonUp"
+                                    Text="{Binding ElementName=Player2, Path=Text, Converter={StaticResource StringToUpperConverter}}">
+                                    <TextBlock.Effect>
+                                        <DropShadowEffect
+                                            BlurRadius="{Binding Path=Value, ElementName=ShadowPlayerSlider}"
+                                            RenderingBias="Quality"
+                                            ShadowDepth="0" />
+                                    </TextBlock.Effect>
+                                </TextBlock>
+                                <TextBlock
+                                    x:Name="VsThumbnail"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Cursor="Hand"
+                                    FontFamily="{Binding ElementName=FontVS, Path=Text}"
+                                    FontSize="{Binding Path=Value, ElementName=FontSizeSliderVS}"
+                                    PreviewMouseLeftButtonDown="MovedPreviewMouseLeftButtonDown"
+                                    PreviewMouseLeftButtonUp="MovedPreviewMouseLeftButtonUp"
+                                    Text="{Binding ElementName=VS, Path=Text}">
+                                    <TextBlock.Effect>
+                                        <DropShadowEffect
+                                            x:Name="DropShadowVs"
+                                            BlurRadius="{Binding Path=Value, ElementName=ShadowVSSlider}"
+                                            RenderingBias="Quality"
+                                            ShadowDepth="0" />
+                                    </TextBlock.Effect>
+                                </TextBlock>
+                            </Canvas>
+                        </Grid>
+
+                    </ScrollViewer>
+
+                    <ScrollViewer
+                        Grid.Column="1"
+                        Margin="0,26,26,26"
+                        VirtualizingPanel.ScrollUnit="Pixel">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <TextBlock
+                                Grid.Row="0"
+                                Margin="0,0,0,10"
+                                Style="{StaticResource MainTitleTextBlockStyle}"
+                                Text="Background Settings:" />
+
+
+
+                            <Border Grid.Row="1" CornerRadius="4">
+                                <Grid>
+                                    <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource PanelBGSection}" />
+                                    <Grid Margin="10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="300" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="50" />
+                                            <RowDefinition Height="50" />
+
+
+                                        </Grid.RowDefinitions>
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            VerticalAlignment="Center"
+                                            Style="{StaticResource RegularTextBlockStyle}"
+                                            Text="Blur radius: " />
+                                        <Slider
+                                            x:Name="BlurSlider"
+                                            Grid.Row="0"
+                                            Grid.Column="2"
+                                            VerticalAlignment="Center"
+                                            Maximum="100"
+                                            SmallChange="1" />
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            VerticalAlignment="Center"
+                                            Style="{StaticResource RegularTextBlockStyle}"
+                                            Text="Border width: " />
+                                        <colorpicker:PortableColorPicker
+                                            x:Name="FontColorBorder"
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Width="38"
+                                            Height="22"
+                                            Margin="10,0"
+                                            ColorChanged="FontColorBorder_ColorChanged"
+                                            ShowAlpha="True"
+                                            SmallChange="5"
+                                            Style="{StaticResource DefaultColorPickerStyle}" />
+
+                                        <Slider
+                                            x:Name="BorderSlider"
+                                            Grid.Row="1"
+                                            Grid.Column="2"
+                                            VerticalAlignment="Center"
+                                            Maximum="20"
+                                            SmallChange="1"
+                                            Value="0" />
+
+                                    </Grid>
+                                </Grid>
+                            </Border>
+
+                            <TextBlock
+                                Grid.Row="2"
+                                Margin="0,10"
+                                Style="{StaticResource MainTitleTextBlockStyle}"
+                                Text="Title Settings:" />
+
+
+
+                            <Border Grid.Row="3" CornerRadius="4">
+                                <Grid>
+                                    <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource PanelBGSection}" />
+                                    <Grid Margin="10">
+
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="300" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="50" />
+                                            <RowDefinition Height="50" />
+                                            <RowDefinition Height="50" />
+                                            <RowDefinition Height="50" />
+
+                                        </Grid.RowDefinitions>
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            VerticalAlignment="Center"
+                                            Style="{StaticResource RegularTextBlockStyle}"
+                                            Text="Text: " />
+                                        <TextBox
+                                            x:Name="Title"
+                                            Grid.Row="0"
+                                            Grid.Column="2"
+                                            VerticalAlignment="Center"
+                                            Style="{StaticResource hcInfoName}"
+                                            Text="" />
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            VerticalAlignment="Center"
+                                            Style="{StaticResource RegularTextBlockStyle}"
+                                            Text="Font: " />
+                                        <ComboBox
+                                            x:Name="FontTitle"
+                                            Grid.Row="1"
+                                            Grid.Column="2"
+                                            VerticalAlignment="Center"
+                                            SelectedIndex="0"
+                                            Style="{StaticResource OptionsCombobox}" />
+                                        <colorpicker:PortableColorPicker
+                                            x:Name="FontColorTitle"
+                                            Grid.Column="1"
+                                            Width="38"
+                                            Height="22"
+                                            Margin="10,0"
+                                            ColorChanged="FontColorTitle_ColorChanged"
+                                            ShowAlpha="True"
+                                            SmallChange="5"
+                                            Style="{StaticResource DefaultColorPickerStyle}" />
+
+
+                                        <TextBlock
+                                            Grid.Row="2"
+                                            VerticalAlignment="Center"
+                                            Style="{StaticResource RegularTextBlockStyle}"
+                                            Text="Font size: " />
+                                        <Slider
+                                            x:Name="FontSizeSliderTitle"
+                                            Grid.Row="2"
+                                            Grid.Column="2"
+                                            VerticalAlignment="Center"
+                                            Maximum="250"
+                                            Minimum="6"
+                                            SmallChange="1"
+                                            Value="72" />
+                                        <TextBlock
+                                            Grid.Row="3"
+                                            VerticalAlignment="Center"
+                                            Style="{StaticResource RegularTextBlockStyle}"
+                                            Text="Shadow radius: " />
+                                        <colorpicker:PortableColorPicker
+                                            x:Name="ShadowColorTitle"
+                                            Grid.Row="3"
+                                            Grid.Column="1"
+                                            Width="38"
+                                            Height="22"
+                                            Margin="10,0"
+                                            ColorChanged="ShadowColorTitle_ColorChanged"
+                                            ShowAlpha="True"
+                                            SmallChange="5"
+                                            Style="{StaticResource DefaultColorPickerStyle}" />
+
+                                        <Slider
+                                            x:Name="ShadowTitleSlider"
+                                            Grid.Row="3"
+                                            Grid.Column="2"
+                                            VerticalAlignment="Center"
+                                            Maximum="100"
+                                            SmallChange="1"
+                                            Value="0" />
+
+                                    </Grid>
+                                </Grid>
+                            </Border>
+
+                            <TextBlock
+                                Grid.Row="4"
+                                Margin="0,10"
+                                Style="{StaticResource MainTitleTextBlockStyle}"
+                                Text="Round Settings:" />
+
+
+                            <Border Grid.Row="5" CornerRadius="4">
+                                <Grid>
+                                    <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource PanelBGSection}" />
+                                    <Grid Margin="10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="300" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="50" />
+                                            <RowDefinition Height="50" />
+                                            <RowDefinition Height="50" />
+                                            <RowDefinition Height="50" />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            VerticalAlignment="Center"
+                                            Style="{StaticResource RegularTextBlockStyle}"
+                                            Text="Round: " />
+                                        <TextBox
+                                            x:Name="Round"
+                                            Grid.Row="0"
+                                            Grid.Column="2"
+                                            VerticalAlignment="Center"
+                                            Style="{StaticResource hcInfoName}"
+                                            Text="" />
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            VerticalAlignment="Center"
+                                            Style="{StaticResource RegularTextBlockStyle}"
+                                            Text="Font: " />
+                                        <ComboBox
+                                            x:Name="FontRound"
+                                            Grid.Row="1"
+                                            Grid.Column="2"
+                                            VerticalAlignment="Center"
+                                            SelectedIndex="0"
+                                            Style="{StaticResource OptionsCombobox}" />
+                                        <colorpicker:PortableColorPicker
+                                            x:Name="FontColorRound"
+                                            Grid.Column="1"
+                                            Width="38"
+                                            Height="22"
+                                            Margin="10,0"
+                                            ColorChanged="FontColorRound_ColorChanged"
+                                            ShowAlpha="True"
+                                            SmallChange="5"
+                                            Style="{StaticResource DefaultColorPickerStyle}" />
+
+
+                                        <TextBlock
+                                            Grid.Row="2"
+                                            VerticalAlignment="Center"
+                                            Style="{StaticResource RegularTextBlockStyle}"
+                                            Text="Font size: " />
+                                        <Slider
+                                            x:Name="FontSizeSliderRound"
+                                            Grid.Row="2"
+                                            Grid.Column="2"
+                                            VerticalAlignment="Center"
+                                            Maximum="250"
+                                            Minimum="6"
+                                            SmallChange="1"
+                                            Value="72" />
+                                        <TextBlock
+                                            Grid.Row="3"
+                                            VerticalAlignment="Center"
+                                            Style="{StaticResource RegularTextBlockStyle}"
+                                            Text="Shadow radius: " />
+                                        <colorpicker:PortableColorPicker
+                                            x:Name="ShadowColorRound"
+                                            Grid.Row="3"
+                                            Grid.Column="1"
+                                            Width="38"
+                                            Height="22"
+                                            Margin="10,0"
+                                            ColorChanged="ShadowColorRound_ColorChanged"
+                                            ShowAlpha="True"
+                                            SmallChange="5"
+                                            Style="{StaticResource DefaultColorPickerStyle}" />
+
+
+                                        <Slider
+                                            x:Name="ShadowRoundSlider"
+                                            Grid.Row="3"
+                                            Grid.Column="2"
+                                            VerticalAlignment="Center"
+                                            Maximum="100"
+                                            SmallChange="1"
+                                            Value="0" />
+                                    </Grid>
+                                </Grid>
+                            </Border>
+
+                            <TextBlock
+                                Grid.Row="6"
+                                Margin="0,10"
+                                Style="{StaticResource MainTitleTextBlockStyle}"
+                                Text="Players/Teams Settings:" />
+
+
+                            <Border Grid.Row="7" CornerRadius="4">
+                                <Grid>
+                                    <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource PanelBGSection}" />
+                                    <Grid Margin="10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="300" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="50" />
+                                            <RowDefinition Height="50" />
+                                            <RowDefinition Height="50" />
+                                            <RowDefinition Height="50" />
+                                            <RowDefinition Height="50" />
+
+
+                                        </Grid.RowDefinitions>
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            VerticalAlignment="Center"
+                                            Style="{StaticResource RegularTextBlockStyle}"
+                                            Text="Player1/Team1: " />
+                                        <TextBox
+                                            x:Name="Player1"
+                                            Grid.Row="0"
+                                            Grid.Column="2"
+                                            VerticalAlignment="Center"
+                                            Style="{StaticResource hcInfoName}"
+                                            Text="Player1" />
+                                        <colorpicker:PortableColorPicker
+                                            x:Name="FontColorPlayer1"
+                                            Grid.Column="1"
+                                            Width="38"
+                                            Height="22"
+                                            Margin="10,0"
+                                            ColorChanged="FontColorPlayer1_ColorChanged"
+                                            ShowAlpha="True"
+                                            SmallChange="5"
+                                            Style="{StaticResource DefaultColorPickerStyle}" />
+
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            VerticalAlignment="Center"
+                                            Style="{StaticResource RegularTextBlockStyle}"
+                                            Text="Player2/Team2: " />
+                                        <colorpicker:PortableColorPicker
+                                            x:Name="FontColorPlayer2"
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Width="38"
+                                            Height="22"
+                                            Margin="10,0"
+                                            ColorChanged="FontColorPlayer2_ColorChanged"
+                                            ShowAlpha="True"
+                                            SmallChange="5"
+                                            Style="{StaticResource DefaultColorPickerStyle}" />
+
+                                        <TextBox
+                                            x:Name="Player2"
+                                            Grid.Row="1"
+                                            Grid.Column="2"
+                                            VerticalAlignment="Center"
+                                            Style="{StaticResource hcInfoName}"
+                                            Text="Player2" />
+                                        <TextBlock
+                                            Grid.Row="2"
+                                            VerticalAlignment="Center"
+                                            Style="{StaticResource RegularTextBlockStyle}"
+                                            Text="Font: " />
+                                        <Button
+                                            Grid.Row="2"
+                                            Grid.Column="0"
+                                            Width="38"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            Click="Button_Click_5"
+                                            Content="H"
+                                            FontSize="19"
+                                            Style="{StaticResource scenarioEscButton}"
+                                            ToolTip="Align names horizontally relative to VS" />
+                                        <Button
+                                            Grid.Row="2"
+                                            Grid.Column="1"
+                                            Margin="10,0"
+                                            VerticalAlignment="Center"
+                                            Click="Button_Click_4"
+                                            Content="V"
+                                            FontSize="19"
+                                            Style="{StaticResource scenarioEscButton}"
+                                            ToolTip="Center names vertically relative to VS" />
+                                        <ComboBox
+                                            x:Name="FontPlayer"
+                                            Grid.Row="2"
+                                            Grid.Column="2"
+                                            VerticalAlignment="Center"
+                                            SelectedIndex="0"
+                                            Style="{StaticResource OptionsCombobox}" />
+                                        <TextBlock
+                                            Grid.Row="3"
+                                            VerticalAlignment="Center"
+                                            Style="{StaticResource RegularTextBlockStyle}"
+                                            Text="Font size: " />
+                                        <Slider
+                                            x:Name="FontSizeSliderPlayer"
+                                            Grid.Row="3"
+                                            Grid.Column="2"
+                                            VerticalAlignment="Center"
+                                            Maximum="250"
+                                            Minimum="6"
+                                            SmallChange="1"
+                                            Value="72" />
+                                        <TextBlock
+                                            Grid.Row="4"
+                                            VerticalAlignment="Center"
+                                            Style="{StaticResource RegularTextBlockStyle}"
+                                            Text="Shadow radius: " />
+                                        <colorpicker:PortableColorPicker
+                                            x:Name="ShadowColorPlayer"
+                                            Grid.Row="4"
+                                            Grid.Column="1"
+                                            Width="38"
+                                            Height="22"
+                                            Margin="10,0"
+                                            VerticalAlignment="Center"
+                                            ColorChanged="ShadowColorPlayer_ColorChanged"
+                                            ShowAlpha="True"
+                                            SmallChange="5"
+                                            Style="{StaticResource DefaultColorPickerStyle}" />
+
+
+                                        <Slider
+                                            x:Name="ShadowPlayerSlider"
+                                            Grid.Row="4"
+                                            Grid.Column="2"
+                                            VerticalAlignment="Center"
+                                            Maximum="100"
+                                            SmallChange="1"
+                                            Value="0" />
+
+
+                                    </Grid>
+                                </Grid>
+                            </Border>
+
+                            <TextBlock
+                                Grid.Row="8"
+                                Margin="0,10"
+                                Style="{StaticResource MainTitleTextBlockStyle}"
+                                Text="VS Settings:" />
+
+
+                            <Border Grid.Row="9" CornerRadius="4">
+                                <Grid>
+                                    <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource PanelBGSection}" />
+                                    <Grid Margin="10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="300" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="50" />
+                                            <RowDefinition Height="50" />
+                                            <RowDefinition Height="50" />
+                                            <RowDefinition Height="50" />
+
+                                        </Grid.RowDefinitions>
+                                        <TextBlock
+                                            Grid.Row="0"
+                                            VerticalAlignment="Center"
+                                            Style="{StaticResource RegularTextBlockStyle}"
+                                            Text="VS. text: " />
+                                        <TextBox
+                                            x:Name="VS"
+                                            Grid.Row="0"
+                                            Grid.Column="2"
+                                            Width="200"
+                                            VerticalAlignment="Center"
+                                            Style="{StaticResource hcInfoName}"
+                                            Text="VS" />
+
+                                        <colorpicker:PortableColorPicker
+                                            x:Name="FontColorVS"
+                                            Grid.Column="1"
+                                            Width="38"
+                                            Height="22"
+                                            Margin="10,0"
+                                            ColorChanged="FontColorVS_ColorChanged"
+                                            ShowAlpha="True"
+                                            SmallChange="5"
+                                            Style="{StaticResource DefaultColorPickerStyle}" />
+
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            VerticalAlignment="Center"
+                                            Style="{StaticResource RegularTextBlockStyle}"
+                                            Text="Font: " />
+
+                                        <ComboBox
+                                            x:Name="FontVS"
+                                            Grid.Row="1"
+                                            Grid.Column="2"
+                                            VerticalAlignment="Center"
+                                            SelectedIndex="0"
+                                            Style="{StaticResource OptionsCombobox}" />
+                                        <TextBlock
+                                            Grid.Row="2"
+                                            VerticalAlignment="Center"
+                                            Style="{StaticResource RegularTextBlockStyle}"
+                                            Text="Font size: " />
+                                        <Slider
+                                            x:Name="FontSizeSliderVS"
+                                            Grid.Row="2"
+                                            Grid.Column="2"
+                                            VerticalAlignment="Center"
+                                            Maximum="250"
+                                            Minimum="6"
+                                            SmallChange="1"
+                                            Value="72" />
+                                        <TextBlock
+                                            Grid.Row="3"
+                                            VerticalAlignment="Center"
+                                            Style="{StaticResource RegularTextBlockStyle}"
+                                            Text="Shadow radius: " />
+
+                                        <colorpicker:PortableColorPicker
+                                            x:Name="ShadowColorVS"
+                                            Grid.Row="3"
+                                            Grid.Column="1"
+                                            Width="38"
+                                            Height="22"
+                                            Margin="10,0"
+                                            VerticalAlignment="Center"
+                                            ColorChanged="ShadowColorVS_ColorChanged"
+                                            ShowAlpha="True"
+                                            SmallChange="5"
+                                            Style="{StaticResource DefaultColorPickerStyle}" />
+
+
+                                        <Slider
+                                            x:Name="ShadowVSSlider"
+                                            Grid.Row="3"
+                                            Grid.Column="2"
+                                            VerticalAlignment="Center"
+                                            Maximum="100"
+                                            SmallChange="1"
+                                            Value="0" />
+                                    </Grid>
+                                </Grid>
+                            </Border>
+
+
+
+                        </Grid>
+                    </ScrollViewer>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>
