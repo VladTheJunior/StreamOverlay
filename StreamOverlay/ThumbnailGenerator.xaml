@@ -27,7 +27,7 @@
             Height="1080">
             <Grid>
                 <Grid.Background>
-                    <ImageBrush ImageSource="/resources/wood.png"/>
+                    <ImageBrush ImageSource="/resources/wood.png" />
                 </Grid.Background>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50" />
@@ -170,7 +170,7 @@
                                 PreviewMouseMove="MovedMouseMove">
                                 <Image
                                     x:Name="iBrandLogo"
-                                    Width="205"
+                                    Width="250"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Top"
                                     Cursor="Hand"

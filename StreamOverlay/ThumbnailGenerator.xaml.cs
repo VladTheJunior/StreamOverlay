@@ -119,8 +119,8 @@ namespace StreamOverlay
         private void MovedPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             //In this event, we get current mouse position on the control to use it in the MouseMove event.
-            FirstXPos = e.GetPosition(sender as TextBlock).X;
-            FirstYPos = e.GetPosition(sender as TextBlock).Y;
+            FirstXPos = e.GetPosition(sender as FrameworkElement).X;
+            FirstYPos = e.GetPosition(sender as FrameworkElement).Y;
             MovingObject = sender;
         }
 
