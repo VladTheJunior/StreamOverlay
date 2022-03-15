@@ -12,10 +12,9 @@
     Background="Transparent"
     Loaded="Window_Loaded"
     ResizeMode="NoResize"
-    ShowInTaskbar="False"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
-    mc:Ignorable="d">
+    mc:Ignorable="d" PreviewMouseLeftButtonDown="Window_PreviewMouseLeftButtonDown" >
     <Border
         BorderBrush="Black"
         BorderThickness="1"
@@ -44,7 +43,7 @@
                     Text="Stream Overlay"
                     TextAlignment="Center" />
                 <TextBlock
-                    x:Name="tbProgress"
+                    
                     Grid.Row="0"
                     Margin="0,90,0,0"
                     HorizontalAlignment="Center"
@@ -52,32 +51,31 @@
                     FontFamily="/Fonts/#Trajan Pro 3"
                     FontSize="20"
                     Foreground="White"
-                    Text="Checking for updates..."
+                    Text="{Binding ProgressText}"
                     TextDecorations="{x:Null}" />
                 <TextBlock
-                    x:Name="tbFileName"
+                    
                     Grid.Row="1"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     FontFamily="/Fonts/#Trajan Pro 3"
                     FontSize="20"
                     Foreground="White"
-                    Text=""
+                    Text="{Binding UpdateName}"
                     TextDecorations="{x:Null}" />
                 <TextBlock
-                    x:Name="tbDownloaded"
+                    
                     Grid.Row="2"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     FontFamily="/Fonts/#Trajan Pro 3"
                     FontSize="20"
                     Foreground="White"
-                    Text=""
+                    Text="{Binding Downloaded}"
                     TextDecorations="{x:Null}" />
 
 
                 <ProgressBar
-                    x:Name="pbUpdates"
                     Grid.Row="3"
                     Width="520"
                     Height="32"
@@ -85,7 +83,7 @@
                     BorderBrush="Gold"
                     Foreground="Cyan"
                     Style="{StaticResource ProgressBar_Mini}"
-                    Value="0" Maximum="1" />
+                    Value="{Binding Progress}" Maximum="1" />
             </Grid>
         </Border>
     </Border>

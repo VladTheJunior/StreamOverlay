@@ -681,7 +681,18 @@
                                 FontSize="36"
                                 Foreground="#FFFFAE00"
                                 Text="Latest Changes" />
-                                                        <LineBreak />
+                                                       <LineBreak />
+                            <LineBreak />
+                            <Run
+                                FontWeight="Bold"
+                                Text="March 15, 2022"
+                                TextDecorations="Underline" />
+
+                            <LineBreak />
+                            <Run Text="- Added Moss overlay." />
+                            <LineBreak />
+                            <Run Text="- Improved auto-updater." />
+                            <LineBreak />
                             <LineBreak />
                             <Run
                                 FontWeight="Bold"
