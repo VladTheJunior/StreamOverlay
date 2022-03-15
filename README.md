@@ -16,8 +16,8 @@
 *A tool to create a professional looking overlay with an animated video background for Age of Empires 3 streams*
 
 **Developer:** VladTheJunior<br />
-**Current version:** 0.1.8<br />
-[Download Installer from Goolge Drive](https://drive.google.com/file/d/1Zp03iyVIRr77BlO3b-RhjUDFatMO7Uw7/view?usp=sharing)<br />
+**Current version:** 0.1.9<br />
+[Download Installer from Goolge Drive](https://drive.google.com/file/d/1pUYa3oDPbDQr01xzCrIcvm9wwnlgGLVH/view?usp=sharing)<br />
 
 ## Table of Contents
 
@@ -68,6 +68,7 @@ You can also join my discord server to stay up to date with the latest updates a
 ![](Images/3.png)
 ![](Images/4.png)
 ![](Images/5.png)
+![](Images/7.png)
 ![](Images/6.png)
 
 <!-- LICENSE -->
