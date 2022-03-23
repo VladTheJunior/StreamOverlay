@@ -2,6 +2,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/VladTheJunior/StreamOverlay)](https://github.com/VladTheJunior/StreamOverlay/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/VladTheJunior/StreamOverlay)](https://github.com/VladTheJunior/StreamOverlay/network)
 [![GitHub issues](https://img.shields.io/github/issues/VladTheJunior/StreamOverlay)](https://github.com/VladTheJunior/StreamOverlay/issues)
+[![.NET6](https://github.com/VladTheJunior/StreamOverlay/actions/workflows/dotnet6.yml/badge.svg)](https://github.com/VladTheJunior/StreamOverlay/actions/workflows/dotnet6.yml)
 [![GitHub license](https://img.shields.io/github/license/VladTheJunior/StreamOverlay)](https://github.com/VladTheJunior/StreamOverlay/blob/master/LICENSE)
 <!-- PROJECT LOGO -->
 <br />
