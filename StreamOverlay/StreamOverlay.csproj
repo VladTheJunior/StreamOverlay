@@ -9,12 +9,14 @@
     <Company>VladTheJunior</Company>
     <Authors>VladTheJunior</Authors>
     <Copyright>VladTheJunior</Copyright>
-    <Version>0.1.9</Version>
+    <Version>0.2.0</Version>
     <BaseOutputPath>..\publish\</BaseOutputPath>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="data\maps\arabia_mini.png" />
+    <None Remove="data\maps\congo_basin_mini.png" />
     <None Remove="Fonts\MTCORSVA.TTF" />
   </ItemGroup>
 
@@ -49,6 +51,7 @@
     <Resource Include="data\maps\amazon_mini.png" />
     <Resource Include="data\maps\andes_mini.png" />
     <Resource Include="data\maps\andes_upper_mini.png" />
+    <Resource Include="data\maps\arabia_mini.png" />
     <Resource Include="data\maps\arctic_territories_mini.png" />
     <Resource Include="data\maps\auraucania_mini.png" />
     <Resource Include="data\maps\bahia_mini.png" />
@@ -62,6 +65,7 @@
     <Resource Include="data\maps\central_plain_mini.png" />
     <Resource Include="data\maps\ceylon_mini.png" />
     <Resource Include="data\maps\colorado_mini.png" />
+    <Resource Include="data\maps\congo_basin_mini.png" />
     <Resource Include="data\maps\dakota_mini.png" />
     <Resource Include="data\maps\deccan_mini.png" />
     <Resource Include="data\maps\dunes_mini.png" />
@@ -175,6 +179,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="data\animations\BattleField\icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\animations\BattleField\preview.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\animations\BattleField\video.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="data\animations\Moss\icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -220,6 +233,12 @@
     <None Update="data\animations\Time2Treaty\video.mp4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="data\brand\Age of Empires 2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\brand\Age of Empires 4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="data\brand\Hudson Bay BIGs.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -245,6 +264,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="data\events\EPL Season 2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\events\ESOC Grand Tour Season 3.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="data\events\Incogs Empire Cup.png">

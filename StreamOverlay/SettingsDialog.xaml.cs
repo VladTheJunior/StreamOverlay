@@ -164,6 +164,7 @@ namespace StreamOverlay
             Maps.Add(new Map() { title = "Amazonia", icon = "/data/maps/amazon_mini.png" });
             Maps.Add(new Map() { title = "Andes", icon = "/data/maps/andes_mini.png" });
             Maps.Add(new Map() { title = "Andes - Upper", icon = "/data/maps/andes_upper_mini.png" });
+            Maps.Add(new Map() { title = "Arabia", icon = "/data/maps/arabia_mini.png" });
             Maps.Add(new Map() { title = "Araucania", icon = "/data/maps/auraucania_mini.png" });
             Maps.Add(new Map() { title = "Arctic Territories", icon = "/data/maps/arctic_territories_mini.png" });
             Maps.Add(new Map() { title = "Atlas", icon = "/data/maps/af_atlas_mini.png" });
@@ -173,6 +174,7 @@ namespace StreamOverlay
             Maps.Add(new Map() { title = "California", icon = "/data/maps/california_mini.png" });
             Maps.Add(new Map() { title = "Caribbean", icon = "/data/maps/caribbean_mini.png" });
             Maps.Add(new Map() { title = "Cascade Range", icon = "/data/maps/cascade_range_mini.png" });
+            Maps.Add(new Map() { title = "Congo Basin", icon = "/data/maps/congo_basin_mini.png" });
             Maps.Add(new Map() { title = "Central Plain", icon = "/data/maps/central_plain_mini.png" });
             Maps.Add(new Map() { title = "Ceylon", icon = "/data/maps/ceylon_mini.png" });
             Maps.Add(new Map() { title = "Colorado", icon = "/data/maps/colorado_mini.png" });
@@ -356,7 +358,7 @@ namespace StreamOverlay
 
 
 
-        int Version = 19;
+        int Version = 20;
 
         public SettingsDialog()
         {
@@ -592,7 +594,7 @@ namespace StreamOverlay
             MainWindow mainWindow = new MainWindow();
 
 
-            
+
 
             if (tbAnimation.IsChecked == true)
             {
@@ -736,6 +738,12 @@ namespace StreamOverlay
             mainWindow.InputBindings.Add(new InputBinding(mainWindow.TimeDown, new KeyGesture(Key.Down, ModifierKeys.Control)));
             mainWindow.InputBindings.Add(new InputBinding(mainWindow.CloseOverlay, new KeyGesture(Key.Escape)));
             mainWindow.InputBindings.Add(new InputBinding(mainWindow.MinimizeOverlay, new KeyGesture(Key.Space, ModifierKeys.Control)));
+
+            mainWindow.InputBindings.Add(new InputBinding(mainWindow.CountdownVisibility, new KeyGesture(Key.D1, ModifierKeys.Control)));
+            mainWindow.InputBindings.Add(new InputBinding(mainWindow.ScheduleVisibility, new KeyGesture(Key.D2, ModifierKeys.Control)));
+            mainWindow.InputBindings.Add(new InputBinding(mainWindow.MapPoolVisibility, new KeyGesture(Key.D3, ModifierKeys.Control)));
+            mainWindow.InputBindings.Add(new InputBinding(mainWindow.BrandLogoVisibility, new KeyGesture(Key.D4, ModifierKeys.Control)));
+            mainWindow.InputBindings.Add(new InputBinding(mainWindow.EventLogoVisibility, new KeyGesture(Key.D5, ModifierKeys.Control)));
 
             mainWindow.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             mainWindow.Arrange(new Rect(0, 0, mainWindow.DesiredSize.Width, mainWindow.DesiredSize.Height));

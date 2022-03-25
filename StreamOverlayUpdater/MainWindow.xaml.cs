@@ -32,20 +32,31 @@ namespace StreamOverlayUpdater
         public double Progress
         {
             get { return progress; }
-            set 
-            { 
-                progress = value; 
-                NotifyPropertyChanged(); 
+            set
+            {
+                progress = value;
+                NotifyPropertyChanged();
             }
         }
 
-        private string downloaded;
-        public string Downloaded
+        private long downloadedSize;
+        public long DownloadedSize
         {
-            get { return downloaded; }
+            get { return downloadedSize; }
             set
             {
-                downloaded = value;
+                downloadedSize = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private long updatesSize;
+        public long UpdatesSize
+        {
+            get { return updatesSize; }
+            set
+            {
+                updatesSize = value;
                 NotifyPropertyChanged();
             }
         }
@@ -72,17 +83,56 @@ namespace StreamOverlayUpdater
             }
         }
 
+        private string availableVersion;
+        public string AvailableVersion
+        {
+            get { return availableVersion; }
+            set
+            {
+                availableVersion = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         public class Update
         {
             public string name { get; set; }
             public string url { get; set; }
             public string md5 { get; set; }
+            public long size { get; set; }
             public string install_path { get; set; }
+
+        }
+        public string CurrentVersion
+        {
+            get
+            {
+                return "0.2.0";
+            }
+        }
+        public string AvailableVersionUrl
+        {
+            get
+            {
+                return "https://github.com/VladTheJunior/StreamOverlay";
+            }
         }
 
         public class Updates
         {
+            public string version { get; set; }
+            public string url { get; set; }
             public List<Update> files { get; set; } = new List<Update>();
+        }
+
+        private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            var psi = new ProcessStartInfo
+            {
+                FileName = e.Uri.ToString(),
+                UseShellExecute = true
+            };
+            Process.Start(psi);
         }
 
         public Updates ServerUpdates { get; set; } = new Updates();
@@ -106,11 +156,11 @@ namespace StreamOverlayUpdater
 
             }
         }
-
         private void DownloadFile(Queue<Update> urls)
         {
             if (urls.Any())
             {
+                previousDownloaded = 0;
                 WebClient client = new WebClient();
                 client.DownloadProgressChanged += client_DownloadProgressChanged;
                 client.DownloadFileCompleted += client_DownloadFileCompleted;
@@ -118,13 +168,12 @@ namespace StreamOverlayUpdater
                 var url = urls.Dequeue();
                 Directory.CreateDirectory(Path.GetDirectoryName(Path.Combine(Environment.CurrentDirectory, url.install_path)));
                 client.DownloadFileAsync(new Uri((url.url)), Path.Combine(Environment.CurrentDirectory, url.install_path));
-                UpdateName = "Downloading: " + url.name;
+                UpdateName = url.name;
+
+
                 return;
             }
 
-            ProgressText = "Download Complete";
-            UpdateName = "";
-            Downloaded = "";
             using (var batFile = new StreamWriter(File.Create("Update.bat")))
             {
                 string file = Path.GetFileName(Process.GetCurrentProcess().MainModule.FileName);
@@ -132,7 +181,7 @@ namespace StreamOverlayUpdater
                 batFile.WriteLine("TIMEOUT /t 1 /nobreak > NUL");
                 batFile.WriteLine("TASKKILL /F /IM \"{0}\" > NUL", file);
                 batFile.WriteLine("IF EXIST \"{0}\" MOVE \"{0}\" \"{1}\"", file + ".upd", file);
-                batFile.WriteLine("IF EXIST \"{0}\" MOVE \"{0}\" \"{1}\"", Path.GetFileNameWithoutExtension(file) +  ".dll.upd", Path.GetFileNameWithoutExtension(file) + ".dll");
+                batFile.WriteLine("IF EXIST \"{0}\" MOVE \"{0}\" \"{1}\"", Path.GetFileNameWithoutExtension(file) + ".dll.upd", Path.GetFileNameWithoutExtension(file) + ".dll");
                 batFile.WriteLine("DEL \"%~f0\" & START \"\" /B \"{0}\"", "StreamOverlay.exe");
             }
             ProcessStartInfo startInfo = new ProcessStartInfo("Update.bat");
@@ -157,10 +206,24 @@ namespace StreamOverlayUpdater
             DownloadFile(NewUpdates);
         }
 
+        private long previousDownloaded = 0;
+
         void client_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            Progress = (double)e.BytesReceived / (double)e.TotalBytesToReceive;
-            Downloaded = "Downloaded: " + (e.BytesReceived / 1024).ToString("N0") + " KB from " + (e.TotalBytesToReceive / 1024).ToString("N0") + " KB";
+
+            DownloadedSize += e.BytesReceived - previousDownloaded;
+            Progress = (double)DownloadedSize / (double)UpdatesSize;
+            ProgressText = "Downloading: " + FormatFileSize(DownloadedSize) + " of " + FormatFileSize(UpdatesSize);
+            previousDownloaded = e.BytesReceived;
+        }
+
+        public static string FormatFileSize(long bytes)
+        {
+            var unit = 1024;
+            if (bytes < unit) { return $"{bytes} B"; }
+
+            var exp = (int)(Math.Log(bytes) / Math.Log(unit));
+            return $"{bytes / Math.Pow(unit, exp):F2} {("KMGTPE")[exp - 1]}B";
         }
 
         async Task<string> HttpGetAsync(string URI)
@@ -204,25 +267,31 @@ namespace StreamOverlayUpdater
         }
 
 
-
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ProgressText = "Checking for updates...";
-
-            foreach (string path in Directory.GetFiles(Environment.CurrentDirectory, "*.*", SearchOption.AllDirectories))
-            {
-                if (!path.Contains(".git") && Path.GetFileName(Path.GetDirectoryName(path)) != "Thumbnails"
+            AvailableVersion = "checking...";
+            int index = 1;
+            var updateFiles = Directory.GetFiles(Environment.CurrentDirectory, "*.*", SearchOption.AllDirectories).Where(path => !path.Contains(".git") && Path.GetFileName(Path.GetDirectoryName(path)) != "Thumbnails"
                     && Path.GetFileName(path) != "UpdateCounter.txt" && Path.GetFileName(path) != "Updates.json"
-                    && Path.GetFileName(path) != ".gitignore" && Path.GetFileName(Path.GetDirectoryName(path)) != "Output")
-                    ClientUpdates.files.Add(new Update { name = Path.GetFileName(path), install_path = path.Remove(0, Environment.CurrentDirectory.Length + 1), md5 = await CalculateMD5(path), url = new Uri(new Uri("https://raw.githubusercontent.com/VladTheJunior/StreamOverlayUpdates/master/"), path.Remove(0, Environment.CurrentDirectory.Length + 1)).ToString() });
+                    && Path.GetFileName(path) != ".gitignore" && Path.GetFileName(Path.GetDirectoryName(path)) != "Output");
+            foreach (string path in updateFiles)
+            {
+                Progress = (double)index / (double)updateFiles.Count();
+                ClientUpdates.files.Add(new Update { name = Path.GetFileName(path), size = new FileInfo(path).Length, install_path = path.Remove(0, Environment.CurrentDirectory.Length + 1), md5 = await CalculateMD5(path), url = new Uri(new Uri("https://raw.githubusercontent.com/VladTheJunior/StreamOverlayUpdates/master/"), path.Remove(0, Environment.CurrentDirectory.Length + 1)).ToString() });
+                ProgressText = $"Checking: file {index} of {updateFiles.Count()}";
+                UpdateName = Path.GetFileName(path);
+                index++;
             }
+
+            ClientUpdates.version = CurrentVersion;
+            ClientUpdates.url = AvailableVersionUrl;
             await File.WriteAllTextAsync("Updates.json", JsonConvert.SerializeObject(ClientUpdates));
 
-            
+
             ServerUpdates = await CheckUpdates();
+
             if (ServerUpdates.files.Count > 0)
             {
-
                 var differences = ServerUpdates.files.Where(s => !ClientUpdates.files.Any(c => c.install_path == s.install_path && c.md5 == s.md5));
                 foreach (Update f in differences)
                 {
@@ -231,13 +300,21 @@ namespace StreamOverlayUpdater
                     NewUpdates.Enqueue(f);
                 }
             }
-
-            if (!NewUpdates.Any())
-                ProgressText = "No new updates.";
+            if (NewUpdates.Count > 0)
+            {
+                AvailableVersion = ServerUpdates.version;
+                foreach (var process in Process.GetProcessesByName("StreamOverlay"))
+                {
+                    process.Kill();
+                }
+            }
             else
             {
-                ProgressText = "Getting updates...";
+                AvailableVersion = "up-to-dated";
             }
+            Progress = 0;
+            DownloadedSize = 0;
+            UpdatesSize = NewUpdates.Sum(x => x.size);
             DownloadFile(NewUpdates);
         }
 

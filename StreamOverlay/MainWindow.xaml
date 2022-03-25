@@ -258,7 +258,7 @@
                                     FontSize="24"
                                     Foreground="White"
                                     SelectionBrush="{x:Null}"
-                                    TextWrapping="Wrap" />
+                                    TextWrapping="Wrap" MouseEnter="Schedule_MouseEnter" MouseLeave="Schedule_MouseLeave" />
                             </Grid>
                         </Canvas>
                     </Grid>

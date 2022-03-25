@@ -681,6 +681,23 @@
                                 FontSize="36"
                                 Foreground="#FFFFAE00"
                                 Text="Latest Changes" />
+                                                                                   <LineBreak />
+                            <LineBreak />
+                            <Run
+                                FontWeight="Bold"
+                                Text="March 25, 2022"
+                                TextDecorations="Underline" />
+
+                            <LineBreak />
+                            <Run Text="- Added BattleField overlay." />
+                            <LineBreak />
+                            <Run Text="- Added more details to auto-updater." />
+                             <LineBreak />
+                            <Run Text="- Added hotkeys to show/hide elements in overlay window." />
+                            <LineBreak />
+                            <Run Text="- Updated map pool." />
+                             <LineBreak />
+                            <Run Text="- Schedule textbox shows cursor when active." />
                                                        <LineBreak />
                             <LineBreak />
                             <Run
@@ -810,6 +827,51 @@
                                 Text="CTRL+Space" />
 
                             <Run Text="Minimize overlay window." />
+                                                        <LineBreak />
+                            <LineBreak />
+                            <Run
+                                FontSize="22"
+                                FontWeight="Bold"
+                                Foreground="#FF00FF46"
+                                Text="CTRL+1" />
+
+                            <Run Text="Show/hide Countdown element." />
+                                                        <LineBreak />
+                            <LineBreak />
+                            <Run
+                                FontSize="22"
+                                FontWeight="Bold"
+                                Foreground="#FF00FF46"
+                                Text="CTRL+2" />
+
+                            <Run Text="Show/hide Schedule element." />
+                                                                                    <LineBreak />
+                            <LineBreak />
+                            <Run
+                                FontSize="22"
+                                FontWeight="Bold"
+                                Foreground="#FF00FF46"
+                                Text="CTRL+3" />
+
+                            <Run Text="Show/hide MapPool element." />
+                                                                                    <LineBreak />
+                            <LineBreak />
+                            <Run
+                                FontSize="22"
+                                FontWeight="Bold"
+                                Foreground="#FF00FF46"
+                                Text="CTRL+4" />
+
+                            <Run Text="Show/hide BrandLogo element." />
+                                                                                    <LineBreak />
+                            <LineBreak />
+                            <Run
+                                FontSize="22"
+                                FontWeight="Bold"
+                                Foreground="#FF00FF46"
+                                Text="CTRL+5" />
+
+                            <Run Text="Show/hide EventLogo element." />
                         </TextBlock>
                     </ScrollViewer>
 

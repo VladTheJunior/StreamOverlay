@@ -155,6 +155,111 @@ namespace StreamOverlay
             }
         }
 
+        private ICommand countdownVisibility;
+        public ICommand CountdownVisibility
+        {
+            get
+            {
+                return countdownVisibility
+                    ?? (countdownVisibility = new ActionCommand(() =>
+                    {
+                        if (gCountdown.Visibility == Visibility.Visible)
+                        {
+                            gCountdown.Visibility = Visibility.Hidden;
+                        }
+                        else
+                        {
+                            gCountdown.Visibility = Visibility.Visible;
+                        }
+                        
+                    }));
+            }
+        }
+
+        private ICommand scheduleVisibility;
+        public ICommand ScheduleVisibility
+        {
+            get
+            {
+                return scheduleVisibility
+                    ?? (scheduleVisibility = new ActionCommand(() =>
+                    {
+                        if (gSchedule.Visibility == Visibility.Visible)
+                        {
+                            gSchedule.Visibility = Visibility.Hidden;
+                        }
+                        else
+                        {
+                            gSchedule.Visibility = Visibility.Visible;
+                        }
+
+                    }));
+            }
+        }
+
+        private ICommand mapPoolVisibility;
+        public ICommand MapPoolVisibility
+        {
+            get
+            {
+                return mapPoolVisibility
+                    ?? (mapPoolVisibility = new ActionCommand(() =>
+                    {
+                        if (gMapPool.Visibility == Visibility.Visible)
+                        {
+                            gMapPool.Visibility = Visibility.Hidden;
+                        }
+                        else
+                        {
+                            gMapPool.Visibility = Visibility.Visible;
+                        }
+
+                    }));
+            }
+        }
+
+        private ICommand eventLogoVisibility;
+        public ICommand EventLogoVisibility
+        {
+            get
+            {
+                return eventLogoVisibility
+                    ?? (eventLogoVisibility = new ActionCommand(() =>
+                    {
+                        if (iEventLogo.Visibility == Visibility.Visible)
+                        {
+                            iEventLogo.Visibility = Visibility.Hidden;
+                        }
+                        else
+                        {
+                            iEventLogo.Visibility = Visibility.Visible;
+                        }
+
+                    }));
+            }
+        }
+
+        private ICommand brandLogoVisibility;
+        public ICommand BrandLogoVisibility
+        {
+            get
+            {
+                return brandLogoVisibility
+                    ?? (brandLogoVisibility = new ActionCommand(() =>
+                    {
+                        if (iBrandLogo.Visibility == Visibility.Visible)
+                        {
+                            iBrandLogo.Visibility = Visibility.Hidden;
+                        }
+                        else
+                        {
+                            iBrandLogo.Visibility = Visibility.Visible;
+                        }
+
+                    }));
+            }
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -243,6 +348,15 @@ namespace StreamOverlay
                 this.Focus();
         }
 
+        private void Schedule_MouseEnter(object sender, MouseEventArgs e)
+        {
+            Schedule.CaretBrush = new SolidColorBrush(Colors.WhiteSmoke);
+        }
+
+        private void Schedule_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Schedule.CaretBrush = new SolidColorBrush(Colors.Transparent);
+        }
 
         private void ObjectMouseMove(object sender, MouseEventArgs e)
         {
