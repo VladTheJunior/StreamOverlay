@@ -18,7 +18,11 @@
 
 **Developer:** VladTheJunior<br />
 **Current version:** 0.2.0<br />
+
+[Download Portable](https://github.com/VladTheJunior/StreamOverlay/releases/latest/download/StreamOverlay.zip)<br />
 [Download Installer from Goolge Drive](https://drive.google.com/file/d/1n2vaJWSLgs3pHWRigVCdQ6wMBTqnfUNz/view?usp=sharing)<br />
+
+*__Note:__ Portable version may require .NET6 desktop runtime: https://dotnet.microsoft.com/en-us/download/dotnet/6.0*
 
 ## Table of Contents
 
