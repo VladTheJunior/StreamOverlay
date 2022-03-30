@@ -17,8 +17,12 @@
 *A tool to create a professional looking overlay with an animated video background for Age of Empires 3 streams*
 
 **Developer:** VladTheJunior<br />
-**Current version:** 0.1.9<br />
-[Download Installer from Goolge Drive](https://drive.google.com/file/d/1pUYa3oDPbDQr01xzCrIcvm9wwnlgGLVH/view?usp=sharing)<br />
+**Current version:** 0.2.0<br />
+
+[Download Portable](https://github.com/VladTheJunior/StreamOverlay/releases/latest/download/StreamOverlay.zip)<br />
+[Download Installer from Goolge Drive](https://drive.google.com/file/d/1n2vaJWSLgs3pHWRigVCdQ6wMBTqnfUNz/view?usp=sharing)<br />
+
+*__Note:__ Portable version may require .NET6 desktop runtime: https://dotnet.microsoft.com/en-us/download/dotnet/6.0*
 
 ## Table of Contents
 
@@ -46,7 +50,7 @@ You can also join my discord server to stay up to date with the latest updates a
 * Map pool ticker.
 * Brand and event logos.
 * Auto updater.
-* Ability to move elements in overlay window.
+* Ability to move/show/hide elements in overlay window.
 
 ## Hotkeys
 * **Ctrl+Up** : Adds 1 minute to countdown timer.
@@ -54,6 +58,11 @@ You can also join my discord server to stay up to date with the latest updates a
 * **ESC** : Closes the overlay window and opens the settings window. Useful if you need to change some information or if the overlay is not used to reduce the load on the PC.
 * **ALT+F4** : Completely closes the overlay application.
 * **Ctrl+Space** : Minimize overlay window.
+* **Ctrl+1** : Show/hide Countdown element.
+* **Ctrl+2** : Show/hide Schedule element.
+* **Ctrl+3** : Show/hide MapPool element.
+* **Ctrl+4** : Show/hide BrandLogo element.
+* **Ctrl+5** : Show/hide EventLogo element.
 
 ## Tips
 * If there are overlay lags on the stream, you can turn off the animated background in the settings window.
@@ -70,6 +79,7 @@ You can also join my discord server to stay up to date with the latest updates a
 ![](Images/4.png)
 ![](Images/5.png)
 ![](Images/7.png)
+![](Images/8.png)
 ![](Images/6.png)
 
 <!-- LICENSE -->
