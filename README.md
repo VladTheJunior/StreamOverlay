@@ -17,10 +17,10 @@
 *A tool to create a professional looking overlay with an animated video background for Age of Empires 3 streams*
 
 **Developer:** VladTheJunior<br />
-**Current version:** 0.2.0<br />
+**Current version:** 0.2.1<br />
 
 [Download Portable](https://github.com/VladTheJunior/StreamOverlay/releases/latest/download/StreamOverlay.zip)<br />
-[Download Installer from Goolge Drive](https://drive.google.com/file/d/1n2vaJWSLgs3pHWRigVCdQ6wMBTqnfUNz/view?usp=sharing)<br />
+[Download Installer from Goolge Drive](https://drive.google.com/file/d/1y9HxClCK04SZhyUEMFt9fnh-RWK3_dr_/view?usp=sharing)<br />
 
 *__Note:__ Portable version may require .NET6 desktop runtime: https://dotnet.microsoft.com/en-us/download/dotnet/6.0*
 
@@ -80,6 +80,7 @@ You can also join my discord server to stay up to date with the latest updates a
 ![](Images/5.png)
 ![](Images/7.png)
 ![](Images/8.png)
+![](Images/9.png)
 ![](Images/6.png)
 
 <!-- LICENSE -->
