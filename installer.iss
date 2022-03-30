@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Stream Overlay"
-#define MyAppVersion "0.2.0"
+#define MyAppVersion "0.2.1"
 #define MyAppPublisher "VladTheJunior"
 #define MyAppExeName "StreamOverlayUpdater.exe"
 
@@ -42,7 +42,6 @@ Source: "publish\Release\net6.0-windows\ColorPicker.dll"; DestDir: "{app}"; Flag
 Source: "publish\Release\net6.0-windows\LibVLCSharp.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "publish\Release\net6.0-windows\LibVLCSharp.WPF.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "publish\Release\net6.0-windows\Microsoft.Xaml.Behaviors.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "publish\Release\net6.0-windows\Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "publish\Release\net6.0-windows\StreamOverlay.deps.json"; DestDir: "{app}"; Flags: ignoreversion
 Source: "publish\Release\net6.0-windows\StreamOverlay.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "publish\Release\net6.0-windows\StreamOverlay.exe"; DestDir: "{app}"; Flags: ignoreversion

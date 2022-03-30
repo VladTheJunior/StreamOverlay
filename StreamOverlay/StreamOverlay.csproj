@@ -9,7 +9,7 @@
     <Company>VladTheJunior</Company>
     <Authors>VladTheJunior</Authors>
     <Copyright>VladTheJunior</Copyright>
-    <Version>0.2.0</Version>
+    <Version>0.2.1</Version>
     <BaseOutputPath>..\publish\</BaseOutputPath>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
@@ -186,6 +186,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="data\animations\BattleField\video.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\animations\DesertNight\icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\animations\DesertNight\preview.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\animations\DesertNight\video.mp4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="data\animations\Moss\icon.png">

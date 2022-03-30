@@ -683,6 +683,18 @@
                                 Text="Latest Changes" />
                                                                                    <LineBreak />
                             <LineBreak />
+
+                            <Run
+                                FontWeight="Bold"
+                                Text="March 30, 2022"
+                                TextDecorations="Underline" />
+
+                            <LineBreak />
+                            <Run Text="- Added DesertNight overlay." />
+                            <LineBreak />
+                            <Run Text="- Removed Newtonsoft.Json dependency." />
+                                                       <LineBreak />
+                            <LineBreak />
                             <Run
                                 FontWeight="Bold"
                                 Text="March 25, 2022"

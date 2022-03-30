@@ -358,7 +358,7 @@ namespace StreamOverlay
 
 
 
-        int Version = 20;
+        int Version = 21;
 
         public SettingsDialog()
         {

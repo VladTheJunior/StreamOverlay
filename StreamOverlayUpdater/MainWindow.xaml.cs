@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -10,6 +9,7 @@ using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -107,7 +107,7 @@ namespace StreamOverlayUpdater
         {
             get
             {
-                return "0.2.0";
+                return "0.2.1";
             }
         }
         public string AvailableVersionUrl
@@ -251,7 +251,7 @@ namespace StreamOverlayUpdater
             Updates res = new Updates();
             try
             {
-                res = JsonConvert.DeserializeObject<Updates>(json);
+                res = JsonSerializer.Deserialize<Updates>(json);
             }
             catch
             {
@@ -285,7 +285,7 @@ namespace StreamOverlayUpdater
 
             ClientUpdates.version = CurrentVersion;
             ClientUpdates.url = AvailableVersionUrl;
-            await File.WriteAllTextAsync("Updates.json", JsonConvert.SerializeObject(ClientUpdates));
+            await File.WriteAllTextAsync("Updates.json", JsonSerializer.Serialize(ClientUpdates));
 
 
             ServerUpdates = await CheckUpdates();
