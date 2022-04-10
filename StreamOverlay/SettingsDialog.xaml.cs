@@ -4,6 +4,7 @@ using StreamOverlay.Classes.Overlays;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
@@ -358,7 +359,7 @@ namespace StreamOverlay
 
 
 
-        int Version = 21;
+        int Version = 22;
 
         public SettingsDialog()
         {
@@ -367,7 +368,7 @@ namespace StreamOverlay
             MapAlign = "BottomLeft";
             BrandAlign = "TopLeft";
             EventAlign = "TopLeft";
-            SelectedOverlayIndex = 0;
+            
 
 
             Timeline.DesiredFrameRateProperty.OverrideMetadata(typeof(Timeline), new FrameworkPropertyMetadata { DefaultValue = 15 });
@@ -376,7 +377,23 @@ namespace StreamOverlay
 
             AoE = new Cursor(Application.GetResourceStream(new Uri("pack://application:,,,/resources/Cursor.cur")).Stream);
 
+
+            foreach (var mapTitle in Settings1.Default.MapPool)
+            {
+                var map = MapPool.FirstOrDefault(x => x.title == mapTitle);
+                if (map != null)
+                {
+                    map.isSelected = true;
+                }
+            }
+
+            cbCountdown.IsChecked = Settings1.Default.Countdown;
+            cbSchedule.IsChecked = Settings1.Default.Schedule;
+
+
             lvMapPool.ItemsSource = MapPool;
+
+
 
             ICollectionView collectionView = CollectionViewSource.GetDefaultView(lvMapPool.ItemsSource);
             collectionView.SortDescriptions.Add(new SortDescription("title", ListSortDirection.Ascending));
@@ -387,27 +404,48 @@ namespace StreamOverlay
     Directory.GetFiles(Path.Combine(Environment.CurrentDirectory, "data", "brand")).Where(x => Path.GetExtension(x).ToLower() == ".png").Select(x => new Logo { Name = Path.GetFileNameWithoutExtension(x), Path = x }).ToList();
             brandLogos.Insert(0, new Logo() { Name = "<NOT SET>", Path = "" });
 
+
+
+
             ICollectionView brand_view = CollectionViewSource.GetDefaultView(brandLogos);
             brand_view.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
             BrandLogos.ItemsSource = brand_view;
-
-
+            var brand = brandLogos.FirstOrDefault(x => x.Name == Settings1.Default.BrandLogo);
+            if (brand != null)
+            {
+                BrandLogos.SelectedItem = brand;
+            }
+            
             var animations = Directory.GetDirectories(Path.Combine(Environment.CurrentDirectory, "data", "animations"));
-
+            SelectedOverlayIndex = 0;
+            int i = 0;
             foreach (var anim in animations)
             {
                 if (File.Exists(Path.Combine(anim, "video.mp4")) && File.Exists(Path.Combine(anim, "icon.png")) && File.Exists(Path.Combine(anim, "preview.png")))
                 {
                     Overlays.Add(new Overlay() { title = Path.GetFileName(anim), preview = Path.Combine(anim, "preview.png"), icon = Path.Combine(anim, "icon.png"), video = Path.Combine(anim, "video.mp4") });
+                    if (Path.GetFileName(anim) == Settings1.Default.SelectedOverlay)
+                    {
+                        SelectedOverlayIndex = i;
+                    }
+                    i++;
                 }
-
+                
             }
+
+            
 
             List<Logo> eventLogos = Directory.GetFiles(Path.Combine(Environment.CurrentDirectory, "data", "events")).Where(x => Path.GetExtension(x).ToLower() == ".png").Select(x => new Logo { Name = Path.GetFileNameWithoutExtension(x), Path = x }).ToList();
             eventLogos.Insert(0, new Logo() { Name = "<NOT SET>", Path = "" });
             ICollectionView event_view = CollectionViewSource.GetDefaultView(eventLogos);
             brand_view.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
             EventLogos.ItemsSource = event_view;
+
+            var eve = eventLogos.FirstOrDefault(x => x.Name == Settings1.Default.EventLogo);
+            if (eve != null)
+            {
+                EventLogos.SelectedItem = eve;
+            }
 
             if (File.Exists("UpdateCounter.txt"))
             {
@@ -914,6 +952,20 @@ namespace StreamOverlay
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Settings1.Default.Schedule = (bool)cbSchedule.IsChecked;
+            Settings1.Default.Countdown = (bool)cbCountdown.IsChecked;
+
+            Settings1.Default.SelectedOverlay = Overlays[SelectedOverlayIndex].title;
+            var maps = new StringCollection();
+            maps.AddRange(MapPool.Where(x => x.isSelected == true).Select(x => x.title).ToArray());
+            Settings1.Default.MapPool = maps;
+            Settings1.Default.BrandLogo = (BrandLogos.SelectedItem as Logo).Name;
+            Settings1.Default.EventLogo = (EventLogos.SelectedItem as Logo).Name;
+            Settings1.Default.Save();
         }
     }
 

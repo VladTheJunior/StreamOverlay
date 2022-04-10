@@ -13,7 +13,7 @@
     Cursor="{Binding AoE}"
     Initialized="Window_Initialized"
     Style="{StaticResource WindowStyle}"
-    mc:Ignorable="d">
+    mc:Ignorable="d" Closed="Window_Closed">
     <Window.Resources>
         <local:PathToBrushConverter x:Key="PathToBrushConverter" />
         <local:VisibilityConverter x:Key="VisibilityConverter" />
@@ -683,7 +683,17 @@
                                 Text="Latest Changes" />
                                                                                    <LineBreak />
                             <LineBreak />
+ <Run
+                                FontWeight="Bold"
+                                Text="April 10, 2022"
+                                TextDecorations="Underline" />
 
+                            <LineBreak />
+                            <Run Text="- Added Sunset and Caribbean overlay." />
+                            <LineBreak />
+                            <Run Text="- App now remembers the latest settings." />
+                            <LineBreak />
+                            <LineBreak />
                             <Run
                                 FontWeight="Bold"
                                 Text="March 30, 2022"
@@ -693,7 +703,7 @@
                             <Run Text="- Added DesertNight overlay." />
                             <LineBreak />
                             <Run Text="- Removed Newtonsoft.Json dependency." />
-                                                       <LineBreak />
+                            <LineBreak />
                             <LineBreak />
                             <Run
                                 FontWeight="Bold"
