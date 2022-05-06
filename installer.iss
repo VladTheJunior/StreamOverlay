@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Stream Overlay"
-#define MyAppVersion "0.2.2"
+#define MyAppVersion "0.2.3"
 #define MyAppPublisher "VladTheJunior"
 #define MyAppExeName "StreamOverlayUpdater.exe"
 
@@ -39,6 +39,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 [Files]
 Source: "publish\Release\net6.0-windows\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 Source: "publish\Release\net6.0-windows\ColorPicker.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "publish\Release\net6.0-windows\K4os.Hash.xxHash.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "publish\Release\net6.0-windows\LibVLCSharp.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "publish\Release\net6.0-windows\LibVLCSharp.WPF.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "publish\Release\net6.0-windows\Microsoft.Xaml.Behaviors.dll"; DestDir: "{app}"; Flags: ignoreversion
