@@ -54,22 +54,23 @@
                         </Grid.Effect>
                         <Image
                             x:Name="textbg"
-                            Width="405"
+                            Width="495"
                             Height="55"
                             Margin="0,0,0,0"
                             HorizontalAlignment="Center"
-                            Source="{StaticResource title_bkg}" />
+                            Source="{StaticResource title_bkg}" Stretch="UniformToFill" />
 
                         <TextBlock
                             x:Name="title"
-                            Margin="0,0,0,0"
+                            Margin="0,0,0,-2"
+                            
                             HorizontalAlignment="Center"
                             VerticalAlignment="Bottom"
                             FontFamily="/Fonts/#Trajan Pro 3"
                             FontSize="32"
                             FontWeight="Bold"
                             Foreground="{StaticResource ButtonTextGradient}"
-                            Text="Stream Overlay">
+                            Text="Stream Overlay v0.2.3">
                             <TextBlock.Effect>
                                 <DropShadowEffect
                                     BlurRadius="3"
@@ -80,6 +81,23 @@
                             </TextBlock.Effect>
                         </TextBlock>
                     </Grid>
+                    <Button
+                       
+                        Margin="0,0,125,2"
+                        VerticalAlignment="Center"
+                       ToolTip="Leave Feedback"
+                        Style="{StaticResource scenarioEscButton}" Click="Button_Click_5" >
+
+
+                        <Viewbox Width="20" Height="20">
+
+                            <Canvas Width="24" Height="24">
+                                <Path Fill="{StaticResource ButtonTextGradient}" Data="M9 22C8.4 22 8 21.6 8 21V18H4C2.9 18 2 17.1 2 16V4C2 2.9 2.9 2 4 2H20C21.1 2 22 2.9 22 4V16C22 17.1 21.1 18 20 18H13.9L10.2 21.7C10 21.9 9.8 22 9.5 22H9M10 16V19.1L13.1 16H20V4H4V16H10M16.3 6L14.9 9H17V13H13V8.8L14.3 6H16.3M10.3 6L8.9 9H11V13H7V8.8L8.3 6H10.3Z" />
+                            </Canvas>
+
+                        </Viewbox>
+
+                    </Button>
                     <Button
                         Margin="0,0,85,2"
                         VerticalAlignment="Center"
@@ -681,11 +699,22 @@
                                 FontSize="36"
                                 Foreground="#FFFFAE00"
                                 Text="Latest Changes" />
-                                                                                   <LineBreak />
+                                                                                                              <LineBreak />
                             <LineBreak />
  <Run
                                 FontWeight="Bold"
-                                Text="April 10, 2022"
+                                Text="May 6, 2022, version 0.2.3"
+                                TextDecorations="Underline" />
+
+                            <LineBreak />
+                            <Run Text="- Added a link to the Google form for leaving feedback." />
+                            <LineBreak />
+                            <Run Text="- Accelerated сhecking for updates by using a faster hash algorithm." />
+                            <LineBreak />
+                            <LineBreak />
+ <Run
+                                FontWeight="Bold"
+                                Text="April 10, 2022, version 0.2.2"
                                 TextDecorations="Underline" />
 
                             <LineBreak />
@@ -696,7 +725,7 @@
                             <LineBreak />
                             <Run
                                 FontWeight="Bold"
-                                Text="March 30, 2022"
+                                Text="March 30, 2022, version 0.2.1"
                                 TextDecorations="Underline" />
 
                             <LineBreak />
@@ -707,7 +736,7 @@
                             <LineBreak />
                             <Run
                                 FontWeight="Bold"
-                                Text="March 25, 2022"
+                                Text="March 25, 2022, version 0.2.0"
                                 TextDecorations="Underline" />
 
                             <LineBreak />
@@ -724,7 +753,7 @@
                             <LineBreak />
                             <Run
                                 FontWeight="Bold"
-                                Text="March 15, 2022"
+                                Text="March 15, 2022, version 0.1.9"
                                 TextDecorations="Underline" />
 
                             <LineBreak />
@@ -735,7 +764,7 @@
                             <LineBreak />
                             <Run
                                 FontWeight="Bold"
-                                Text="March 7, 2022"
+                                Text="March 7, 2022, version 0.1.8"
                                 TextDecorations="Underline" />
 
                             <LineBreak />
@@ -752,7 +781,7 @@
                             <LineBreak />
                             <Run
                                 FontWeight="Bold"
-                                Text="April 7-8, 2020"
+                                Text="April 7-8, 2020, version 0.1.7"
                                 TextDecorations="Underline" />
 
                             <LineBreak />
@@ -767,7 +796,7 @@
                             <LineBreak />
                             <Run
                                 FontWeight="Bold"
-                                Text="March 21, 2020"
+                                Text="March 21, 2020, version 0.1.6"
                                 TextDecorations="Underline" />
 
                             <LineBreak />
@@ -848,7 +877,7 @@
                                 Foreground="#FF00FF46"
                                 Text="CTRL+Space" />
 
-                            <Run Text="Minimize overlay window." />
+                            <Run Text="Minimize overlay window (Note: it's better not to use this hotkey, just use ALT+Tab)." />
                                                         <LineBreak />
                             <LineBreak />
                             <Run

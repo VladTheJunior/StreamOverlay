@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -359,7 +360,7 @@ namespace StreamOverlay
 
 
 
-        int Version = 22;
+        int Version = 23;
 
         public SettingsDialog()
         {
@@ -401,7 +402,7 @@ namespace StreamOverlay
             view.IsLiveSorting = true;
 
             List<Logo> brandLogos =
-    Directory.GetFiles(Path.Combine(Environment.CurrentDirectory, "data", "brand")).Where(x => Path.GetExtension(x).ToLower() == ".png").Select(x => new Logo { Name = Path.GetFileNameWithoutExtension(x), Path = x }).ToList();
+    Directory.GetFiles(Path.Combine(AppContext.BaseDirectory, "data", "brand")).Where(x => Path.GetExtension(x).ToLower() == ".png").Select(x => new Logo { Name = Path.GetFileNameWithoutExtension(x), Path = x }).ToList();
             brandLogos.Insert(0, new Logo() { Name = "<NOT SET>", Path = "" });
 
 
@@ -416,7 +417,7 @@ namespace StreamOverlay
                 BrandLogos.SelectedItem = brand;
             }
             
-            var animations = Directory.GetDirectories(Path.Combine(Environment.CurrentDirectory, "data", "animations"));
+            var animations = Directory.GetDirectories(Path.Combine(AppContext.BaseDirectory, "data", "animations"));
             SelectedOverlayIndex = 0;
             int i = 0;
             foreach (var anim in animations)
@@ -435,7 +436,7 @@ namespace StreamOverlay
 
             
 
-            List<Logo> eventLogos = Directory.GetFiles(Path.Combine(Environment.CurrentDirectory, "data", "events")).Where(x => Path.GetExtension(x).ToLower() == ".png").Select(x => new Logo { Name = Path.GetFileNameWithoutExtension(x), Path = x }).ToList();
+            List<Logo> eventLogos = Directory.GetFiles(Path.Combine(AppContext.BaseDirectory, "data", "events")).Where(x => Path.GetExtension(x).ToLower() == ".png").Select(x => new Logo { Name = Path.GetFileNameWithoutExtension(x), Path = x }).ToList();
             eventLogos.Insert(0, new Logo() { Name = "<NOT SET>", Path = "" });
             ICollectionView event_view = CollectionViewSource.GetDefaultView(eventLogos);
             brand_view.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
@@ -447,21 +448,21 @@ namespace StreamOverlay
                 EventLogos.SelectedItem = eve;
             }
 
-            if (File.Exists("UpdateCounter.txt"))
+            if (File.Exists(Path.Combine(AppContext.BaseDirectory, "UpdateCounter.txt")))
             {
-                int counter = Convert.ToInt32(File.ReadAllText("UpdateCounter.txt"));
+                int counter = Convert.ToInt32(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "UpdateCounter.txt")));
                 if (counter < Version)
                 {
                     gReleaseNotes.Visibility = Visibility.Visible;
                     BlurControl.Visibility = Visibility.Visible;
-                    File.WriteAllText("UpdateCounter.txt", Version.ToString());
+                    File.WriteAllText(Path.Combine(AppContext.BaseDirectory, "UpdateCounter.txt"), Version.ToString());
                 }
             }
             else
             {
                 gReleaseNotes.Visibility = Visibility.Visible;
                 BlurControl.Visibility = Visibility.Visible;
-                File.WriteAllText("UpdateCounter.txt", Version.ToString());
+                File.WriteAllText(Path.Combine(AppContext.BaseDirectory, "UpdateCounter.txt"), Version.ToString());
             }
         }
 
@@ -646,7 +647,7 @@ namespace StreamOverlay
                 mainWindow.Animation.Loaded += (sender, e) =>
                 {
                     mainWindow.Animation.MediaPlayer = mainWindow._mediaPlayer;
-                    using (var media = new Media(mainWindow._libVLC, new Uri(Path.Combine(Environment.CurrentDirectory, SelectedOverlay.video)), new string[] { ":input-repeat=65535" }))
+                    using (var media = new Media(mainWindow._libVLC, new Uri(Path.Combine(AppContext.BaseDirectory, SelectedOverlay.video)), new string[] { ":input-repeat=65535" }))
                         mainWindow.Animation.MediaPlayer.Play(media);
                     mainWindow.PreviewImage.Visibility = Visibility.Collapsed;
                 };
@@ -966,6 +967,17 @@ namespace StreamOverlay
             Settings1.Default.BrandLogo = (BrandLogos.SelectedItem as Logo).Name;
             Settings1.Default.EventLogo = (EventLogos.SelectedItem as Logo).Name;
             Settings1.Default.Save();
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            string targetURL = "https://docs.google.com/forms/d/e/1FAIpQLScJUrydEvq3TmhGmA2dMmK1mk8tvWGqtDH_9DvmUXK-LTGD9Q/viewform?usp=sf_link";
+            var psi = new ProcessStartInfo
+            {
+                FileName = targetURL,
+                UseShellExecute = true
+            };
+            Process.Start(psi);
         }
     }
 

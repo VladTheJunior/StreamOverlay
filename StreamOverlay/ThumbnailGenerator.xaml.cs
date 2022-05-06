@@ -74,7 +74,7 @@ namespace StreamOverlay
             encoder.Frames.Add(BitmapFrame.Create(rtb));
 
             // Save the file.
-            using (FileStream fs = new FileStream(Path.Combine(Environment.CurrentDirectory, filename),
+            using (FileStream fs = new FileStream(Path.Combine(AppContext.BaseDirectory, filename),
                 FileMode.Create, FileAccess.Write, FileShare.None))
             {
                 encoder.Save(fs);
@@ -84,11 +84,11 @@ namespace StreamOverlay
             Process.Start(new ProcessStartInfo()
             {
                 FileName = "explorer",
-                Arguments = "/e, /select, \"" + Path.Combine(Environment.CurrentDirectory, filename) + "\""
+                Arguments = "/e, /select, \"" + Path.Combine(AppContext.BaseDirectory, filename) + "\""
             });
             Process.Start(new ProcessStartInfo()
             {
-                FileName = Path.Combine(Environment.CurrentDirectory, filename),
+                FileName = Path.Combine(AppContext.BaseDirectory, filename),
                 UseShellExecute = true,
                 Verb = "open"
             });
@@ -147,7 +147,7 @@ namespace StreamOverlay
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Directory.CreateDirectory(Path.Combine(Environment.CurrentDirectory, "Thumbnails"));
+            Directory.CreateDirectory(Path.Combine(AppContext.BaseDirectory, "Thumbnails"));
             SaveControlImage(Thumbnail, Path.Combine("Thumbnails", "[" + Title.Text + " - " + Round.Text + "] " + Player1.Text + " vs. " + Player2.Text + ".png"));
         }
 
