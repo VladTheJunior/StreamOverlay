@@ -1,4 +1,5 @@
 ﻿using LibVLCSharp.Shared;
+using StreamOverlay.Classes.Civ;
 using StreamOverlay.Classes.Map;
 using StreamOverlay.Classes.Overlays;
 using System;
@@ -156,6 +157,7 @@ namespace StreamOverlay
 
         }
         #region Methods
+
         private static ObservableCollection<Map> BuildMaps()
         {
             ObservableCollection<Map> Maps = new ObservableCollection<Map>();
@@ -355,12 +357,13 @@ namespace StreamOverlay
 
         public ObservableCollection<Map> MapPool = new ObservableCollection<Map>(BuildMaps());
 
+
         ObservableCollection<Overlay> Overlays = new ObservableCollection<Overlay>();
         #endregion
 
 
 
-        int Version = 23;
+        int Version = 24;
 
         public SettingsDialog()
         {
@@ -369,7 +372,7 @@ namespace StreamOverlay
             MapAlign = "BottomLeft";
             BrandAlign = "TopLeft";
             EventAlign = "TopLeft";
-            
+
 
 
             Timeline.DesiredFrameRateProperty.OverrideMetadata(typeof(Timeline), new FrameworkPropertyMetadata { DefaultValue = 15 });
@@ -390,7 +393,9 @@ namespace StreamOverlay
 
             cbCountdown.IsChecked = Settings1.Default.Countdown;
             cbSchedule.IsChecked = Settings1.Default.Schedule;
+            cbScorePanel.IsChecked = Settings1.Default.ScorePanelEnabled;
 
+            ScorePanel.SelectedIndex = Settings1.Default.ScorePanelIndex;
 
             lvMapPool.ItemsSource = MapPool;
 
@@ -416,7 +421,7 @@ namespace StreamOverlay
             {
                 BrandLogos.SelectedItem = brand;
             }
-            
+
             var animations = Directory.GetDirectories(Path.Combine(AppContext.BaseDirectory, "data", "animations"));
             SelectedOverlayIndex = 0;
             int i = 0;
@@ -431,10 +436,10 @@ namespace StreamOverlay
                     }
                     i++;
                 }
-                
+
             }
 
-            
+
 
             List<Logo> eventLogos = Directory.GetFiles(Path.Combine(AppContext.BaseDirectory, "data", "events")).Where(x => Path.GetExtension(x).ToLower() == ".png").Select(x => new Logo { Name = Path.GetFileNameWithoutExtension(x), Path = x }).ToList();
             eventLogos.Insert(0, new Logo() { Name = "<NOT SET>", Path = "" });
@@ -495,6 +500,7 @@ namespace StreamOverlay
             else
             {
                 thumbnailGenerator.iEventLogo.Source = new BitmapImage(new Uri((EventLogos.SelectedItem as Logo).Path));
+
             }
 
             thumbnailGenerator.BorderSlider.Value = 10;
@@ -696,6 +702,59 @@ namespace StreamOverlay
 
             List<Map> maps = lvMapPool.SelectedItems.Cast<Map>().Where(x => x.isSelected == true).ToList();
 
+            if (cbScorePanel.IsChecked == true)
+            {
+                for (int i = 0; i < maps.Count; i++)
+                {
+                    mainWindow.Team1Player1CivPool.Add(new Civ() { Tag = i });
+                    mainWindow.Team2Player1CivPool.Add(new Civ() { Tag = i });
+                    if (ScorePanel.SelectedIndex >= 1)
+                    {
+                        mainWindow.Team1Player2CivPool.Add(new Civ() { Tag = i });
+                        mainWindow.Team2Player2CivPool.Add(new Civ() { Tag = i });
+                    }
+                    if (ScorePanel.SelectedIndex >= 2)
+                    {
+                        mainWindow.Team1Player3CivPool.Add(new Civ() { Tag = i });
+                        mainWindow.Team2Player3CivPool.Add(new Civ() { Tag = i });
+                    }
+                }
+                mainWindow.lwTeam1Player1CivPool.ItemsSource = mainWindow.Team1Player1CivPool;
+                mainWindow.lwTeam2Player1CivPool.ItemsSource = mainWindow.Team2Player1CivPool;
+
+                if (ScorePanel.SelectedIndex >= 1)
+                {
+                    mainWindow.lwTeam1Player2CivPool.ItemsSource = mainWindow.Team1Player2CivPool;
+                    mainWindow.lwTeam2Player2CivPool.ItemsSource = mainWindow.Team2Player2CivPool;
+                }
+                if (ScorePanel.SelectedIndex >= 2)
+                {
+                    mainWindow.lwTeam1Player3CivPool.ItemsSource = mainWindow.Team1Player3CivPool;
+                    mainWindow.lwTeam2Player3CivPool.ItemsSource = mainWindow.Team2Player3CivPool;
+                }
+
+                if (ScorePanel.SelectedIndex == 0)
+                {
+                    mainWindow.iTeam1.Source = new BitmapImage(new Uri("pack://application:,,,/resources/Team1_1v1.png"));
+                    mainWindow.iTeam2.Source = new BitmapImage(new Uri("pack://application:,,,/resources/Team2_1v1.png"));
+                }
+                else if (ScorePanel.SelectedIndex == 1)
+                {
+                    mainWindow.iTeam1.Source = new BitmapImage(new Uri("pack://application:,,,/resources/Team1_2v2.png"));
+                    mainWindow.iTeam2.Source = new BitmapImage(new Uri("pack://application:,,,/resources/Team2_2v2.png"));
+                }
+                else
+                {
+                    mainWindow.iTeam1.Source = new BitmapImage(new Uri("pack://application:,,,/resources/Team1_3v3.png"));
+                    mainWindow.iTeam2.Source = new BitmapImage(new Uri("pack://application:,,,/resources/Team2_3v3.png"));
+                }
+
+            }
+            else
+            {
+                mainWindow.gScore.Visibility = Visibility.Hidden;
+                mainWindow.gScorePanel.Visibility = Visibility.Hidden;
+            }
             DoubleAnimation hideMap = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(0));
             mainWindow.ibMapIcon.BeginAnimation(Image.OpacityProperty, hideMap);
 
@@ -712,21 +771,42 @@ namespace StreamOverlay
                 DoubleAnimation center5 = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.8));
                 center5.EasingFunction = ease1;
 
+                DoubleAnimation center11 = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(1));
+
+                center11.EasingFunction = ease1;
+
+                DoubleAnimation center12 = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(0.8));
+
+                center12.EasingFunction = ease1;
+
 
                 DoubleAnimation center7 = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(1));
                 center7.EasingFunction = ease1;
-                center7.BeginTime = TimeSpan.FromSeconds(9);
+                center7.BeginTime = TimeSpan.FromSeconds(6);
 
 
                 DoubleAnimation center3 = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(0.8));
-                center3.BeginTime = TimeSpan.FromSeconds(9);
+                center3.BeginTime = TimeSpan.FromSeconds(6.4);
                 ease1.EasingMode = EasingMode.EaseInOut;
                 center3.EasingFunction = ease1;
 
                 DoubleAnimation center4 = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(1));
-                center4.BeginTime = TimeSpan.FromSeconds(8.4);
+                center4.BeginTime = TimeSpan.FromSeconds(6);
                 center5.EasingFunction = ease1;
 
+                DoubleAnimation center13 = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.8));
+                center13.BeginTime = TimeSpan.FromSeconds(6);
+                ease1.EasingMode = EasingMode.EaseInOut;
+                center13.EasingFunction = ease1;
+
+                DoubleAnimation center14 = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(1));
+                center14.BeginTime = TimeSpan.FromSeconds(6.4);
+                center14.EasingFunction = ease1;
+
+
+
+
+                mainWindow.tbBO.Text = $"Best of {maps.Count}";
 
                 mainWindow.AnimateMapPool.Interval = new TimeSpan(0, 0, 0);
 
@@ -744,8 +824,12 @@ namespace StreamOverlay
                         mainWindow.stMap.BeginAnimation(ScaleTransform.ScaleXProperty, center5);
                         mainWindow.stMap.BeginAnimation(ScaleTransform.ScaleYProperty, center5);
 
+
                         mainWindow.MapTransparentStop.BeginAnimation(GradientStop.OffsetProperty, center);
                         mainWindow.MapBlackStop.BeginAnimation(GradientStop.OffsetProperty, center2);
+
+                        mainWindow.BOTransparentStop.BeginAnimation(GradientStop.OffsetProperty, center11);
+                        mainWindow.BOBlackStop.BeginAnimation(GradientStop.OffsetProperty, center12);
 
                         mainWindow.ibMapIcon.BeginAnimation(Image.OpacityProperty, center5);
 
@@ -758,6 +842,8 @@ namespace StreamOverlay
                             mainWindow.stMap.BeginAnimation(ScaleTransform.ScaleYProperty, center7, HandoffBehavior.Compose);
                             mainWindow.MapTransparentStop.BeginAnimation(GradientStop.OffsetProperty, center3);
                             mainWindow.MapBlackStop.BeginAnimation(GradientStop.OffsetProperty, center4);
+                            mainWindow.BOTransparentStop.BeginAnimation(GradientStop.OffsetProperty, center13);
+                            mainWindow.BOBlackStop.BeginAnimation(GradientStop.OffsetProperty, center14);
                         }
 
                         MapIndex++;
@@ -959,7 +1045,9 @@ namespace StreamOverlay
         {
             Settings1.Default.Schedule = (bool)cbSchedule.IsChecked;
             Settings1.Default.Countdown = (bool)cbCountdown.IsChecked;
+            Settings1.Default.ScorePanelEnabled = (bool)cbScorePanel.IsChecked;
 
+            Settings1.Default.ScorePanelIndex = ScorePanel.SelectedIndex;
             Settings1.Default.SelectedOverlay = Overlays[SelectedOverlayIndex].title;
             var maps = new StringCollection();
             maps.AddRange(MapPool.Where(x => x.isSelected == true).Select(x => x.title).ToArray());

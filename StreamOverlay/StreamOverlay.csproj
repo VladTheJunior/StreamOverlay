@@ -9,15 +9,46 @@
     <Company>VladTheJunior</Company>
     <Authors>VladTheJunior</Authors>
     <Copyright>VladTheJunior</Copyright>
-    <Version>0.2.3</Version>
+    <Version>0.2.4</Version>
     <BaseOutputPath>..\publish\</BaseOutputPath>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="data\civs\flag_hc_american.png" />
+    <None Remove="data\civs\flag_hc_aztec.png" />
+    <None Remove="data\civs\flag_hc_british.png" />
+    <None Remove="data\civs\flag_hc_chinese.png" />
+    <None Remove="data\civs\flag_hc_dutch.png" />
+    <None Remove="data\civs\flag_hc_ethiopian.png" />
+    <None Remove="data\civs\flag_hc_french.png" />
+    <None Remove="data\civs\flag_hc_german.png" />
+    <None Remove="data\civs\flag_hc_hausa.png" />
+    <None Remove="data\civs\flag_hc_inca.png" />
+    <None Remove="data\civs\flag_hc_indian.png" />
+    <None Remove="data\civs\flag_hc_iroquois.png" />
+    <None Remove="data\civs\flag_hc_japanese.png" />
+    <None Remove="data\civs\flag_hc_mexican.png" />
+    <None Remove="data\civs\flag_hc_ottoman.png" />
+    <None Remove="data\civs\flag_hc_portuguese.png" />
+    <None Remove="data\civs\flag_hc_random.png" />
+    <None Remove="data\civs\flag_hc_russian.png" />
+    <None Remove="data\civs\flag_hc_sioux.png" />
+    <None Remove="data\civs\flag_hc_spanish.png" />
+    <None Remove="data\civs\flag_hc_swedish.png" />
     <None Remove="data\maps\arabia_mini.png" />
     <None Remove="data\maps\congo_basin_mini.png" />
     <None Remove="Fonts\MTCORSVA.TTF" />
+    <None Remove="resources\loss.png" />
+    <None Remove="resources\skirmish_victory.png" />
+    <None Remove="resources\skirmish_victory_bg.png" />
+    <None Remove="resources\Team1_1v1.png" />
+    <None Remove="resources\Team1_2v2.png" />
+    <None Remove="resources\Team1_3v3.png" />
+    <None Remove="resources\Team2_1v1.png" />
+    <None Remove="resources\Team2_2v2.png" />
+    <None Remove="resources\Team2_3v3.png" />
+    <None Remove="resources\win.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,6 +62,27 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="data\civs\flag_hc_american.png" />
+    <Resource Include="data\civs\flag_hc_aztec.png" />
+    <Resource Include="data\civs\flag_hc_british.png" />
+    <Resource Include="data\civs\flag_hc_chinese.png" />
+    <Resource Include="data\civs\flag_hc_dutch.png" />
+    <Resource Include="data\civs\flag_hc_ethiopian.png" />
+    <Resource Include="data\civs\flag_hc_french.png" />
+    <Resource Include="data\civs\flag_hc_german.png" />
+    <Resource Include="data\civs\flag_hc_hausa.png" />
+    <Resource Include="data\civs\flag_hc_inca.png" />
+    <Resource Include="data\civs\flag_hc_indian.png" />
+    <Resource Include="data\civs\flag_hc_iroquois.png" />
+    <Resource Include="data\civs\flag_hc_japanese.png" />
+    <Resource Include="data\civs\flag_hc_mexican.png" />
+    <Resource Include="data\civs\flag_hc_ottoman.png" />
+    <Resource Include="data\civs\flag_hc_portuguese.png" />
+    <Resource Include="data\civs\flag_hc_random.png" />
+    <Resource Include="data\civs\flag_hc_russian.png" />
+    <Resource Include="data\civs\flag_hc_sioux.png" />
+    <Resource Include="data\civs\flag_hc_spanish.png" />
+    <Resource Include="data\civs\flag_hc_swedish.png" />
     <Resource Include="data\maps\af_atlas_mini.png" />
     <Resource Include="data\maps\af_darfur_mini.png" />
     <Resource Include="data\maps\af_goldcoast_mini.png" />
@@ -166,13 +218,23 @@
     <Resource Include="resources\images\hud\hud_chat_combobox.png" />
     <Resource Include="resources\images\hud\hud_chat_combobox_itembg.png" />
     <Resource Include="resources\images\hud\hud_chat_combobox_over.png" />
+    <Resource Include="resources\loss.png" />
     <Resource Include="resources\progressbar_glow.png" />
     <Resource Include="resources\progressbar_glow2.png" />
+    <Resource Include="resources\skirmish_victory.png" />
+    <Resource Include="resources\skirmish_victory_bg.png" />
     <Resource Include="resources\slider_button.png" />
     <Resource Include="resources\slider_button_disabled.png" />
     <Resource Include="resources\slider_button_hover.png" />
     <Resource Include="resources\slider_line.png" />
+    <Resource Include="resources\Team1_1v1.png" />
+    <Resource Include="resources\Team1_2v2.png" />
+    <Resource Include="resources\Team1_3v3.png" />
+    <Resource Include="resources\Team2_1v1.png" />
+    <Resource Include="resources\Team2_2v2.png" />
+    <Resource Include="resources\Team2_3v3.png" />
     <Resource Include="resources\titlebar_tile.png" />
+    <Resource Include="resources\win.png" />
     <Resource Include="resources\wood.png" />
     <Resource Include="resources\wood_shadow.png" />
     <Resource Include="resources\Cursor.cur" />
@@ -308,6 +370,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="data\events\Showmatch.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\events\United Empires.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Settings1.settings">

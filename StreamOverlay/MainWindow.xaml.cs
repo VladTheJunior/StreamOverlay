@@ -17,6 +17,8 @@ using LibVLCSharp.Shared;
 using System.Windows.Threading;
 using System.ComponentModel;
 using System.Diagnostics;
+using StreamOverlay.Classes.Civ;
+using System.Collections.ObjectModel;
 
 namespace StreamOverlay
 {
@@ -26,6 +28,15 @@ namespace StreamOverlay
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
         private bool needClose = true;
+
+        public ObservableCollection<Civ> Team1Player1CivPool = new ObservableCollection<Civ>();
+        public ObservableCollection<Civ> Team1Player2CivPool = new ObservableCollection<Civ>();
+        public ObservableCollection<Civ> Team1Player3CivPool = new ObservableCollection<Civ>();
+
+        public ObservableCollection<Civ> Team2Player1CivPool = new ObservableCollection<Civ>();
+        public ObservableCollection<Civ> Team2Player2CivPool = new ObservableCollection<Civ>();
+        public ObservableCollection<Civ> Team2Player3CivPool = new ObservableCollection<Civ>();
+
 
 
         private string _wating = "waiting";
@@ -271,6 +282,8 @@ namespace StreamOverlay
 
         public DispatcherTimer AnimateMapPool = new DispatcherTimer();
 
+        public int Team1Score { get; set; }
+        public int Team2Score { get; set; }
 
         public LibVLC _libVLC;
         public MediaPlayer _mediaPlayer;
@@ -348,14 +361,128 @@ namespace StreamOverlay
                 this.Focus();
         }
 
-        private void Schedule_MouseEnter(object sender, MouseEventArgs e)
+        private void Team1_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Schedule.CaretBrush = new SolidColorBrush(Colors.WhiteSmoke);
+
+           int Tag = Convert.ToInt32((sender as Grid).Tag);
+
+            var civ1 = Team1Player1CivPool.FirstOrDefault(x => x.Tag == Tag);
+            var civ2 = Team1Player2CivPool.FirstOrDefault(x => x.Tag == Tag);
+            var civ3 = Team1Player3CivPool.FirstOrDefault(x => x.Tag == Tag);
+
+            if (civ1 != null)
+            {
+                civ1.NextStatus();
+            }
+            if (civ2 != null)
+            {
+                civ2.NextStatus();
+            }
+            if (civ3 != null)
+            {
+                civ3.NextStatus();
+            }
+            Team1Score = Team1Player1CivPool.Where(x => x.Status == 1).Count();
+            
+            NotifyPropertyChanged("Team1Score");
+
         }
 
-        private void Schedule_MouseLeave(object sender, MouseEventArgs e)
+        private void Team2_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Schedule.CaretBrush = new SolidColorBrush(Colors.Transparent);
+
+            int Tag = Convert.ToInt32((sender as Grid).Tag);
+
+            var civ1 = Team2Player1CivPool.FirstOrDefault(x => x.Tag == Tag);
+            var civ2 = Team2Player2CivPool.FirstOrDefault(x => x.Tag == Tag);
+            var civ3 = Team2Player3CivPool.FirstOrDefault(x => x.Tag == Tag);
+
+            if (civ1 != null)
+            {
+                civ1.NextStatus();
+            }
+            if (civ2 != null)
+            {
+                civ2.NextStatus();
+            }
+            if (civ3 != null)
+            {
+                civ3.NextStatus();
+            }
+            Team2Score = Team2Player1CivPool.Where(x => x.Status == 1).Count();
+            NotifyPropertyChanged("Team2Score");
+        }
+
+        private void Team1_Player1_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            int Tag = Convert.ToInt32((sender as Grid).Tag);
+
+            var civ = Team1Player1CivPool.FirstOrDefault(x => x.Tag == Tag);
+
+            if (civ != null)
+            {
+                civ.NextId();
+            }
+        }
+
+        private void Team1_Player2_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            int Tag = Convert.ToInt32((sender as Grid).Tag);
+
+            var civ = Team1Player2CivPool.FirstOrDefault(x => x.Tag == Tag);
+
+            if (civ != null)
+            {
+                civ.NextId();
+            }
+        }
+
+        private void Team1_Player3_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            int Tag = Convert.ToInt32((sender as Grid).Tag);
+
+            var civ = Team1Player3CivPool.FirstOrDefault(x => x.Tag == Tag);
+
+            if (civ != null)
+            {
+                civ.NextId();
+            }
+        }
+
+        private void Team2_Player1_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            int Tag = Convert.ToInt32((sender as Grid).Tag);
+
+            var civ = Team2Player1CivPool.FirstOrDefault(x => x.Tag == Tag);
+
+            if (civ != null)
+            {
+                civ.NextId();
+            }
+        }
+
+        private void Team2_Player2_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            int Tag = Convert.ToInt32((sender as Grid).Tag);
+
+            var civ = Team2Player2CivPool.FirstOrDefault(x => x.Tag == Tag);
+
+            if (civ != null)
+            {
+                civ.NextId();
+            }
+        }
+
+        private void Team2_Player3_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            int Tag = Convert.ToInt32((sender as Grid).Tag);
+
+            var civ = Team2Player3CivPool.FirstOrDefault(x => x.Tag == Tag);
+
+            if (civ != null)
+            {
+                civ.NextId();
+            }
         }
 
         private void ObjectMouseMove(object sender, MouseEventArgs e)

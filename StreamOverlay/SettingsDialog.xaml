@@ -70,7 +70,7 @@
                             FontSize="32"
                             FontWeight="Bold"
                             Foreground="{StaticResource ButtonTextGradient}"
-                            Text="Stream Overlay v0.2.3">
+                            Text="Stream Overlay v0.2.4">
                             <TextBlock.Effect>
                                 <DropShadowEffect
                                     BlurRadius="3"
@@ -298,6 +298,7 @@
                                 <RowDefinition Height="auto" />
                                 <RowDefinition Height="auto" />
                                 <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto" />
@@ -391,17 +392,43 @@
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
                             <TextBlock
-                            Grid.Row="4"
+                            Grid.Row="5"
                            
                             VerticalAlignment="Center"
                             FontFamily="/Fonts/#Trajan Pro 3"
                             FontSize="19"
                             FontWeight="Bold"
-                            Foreground="#dbd5c3"
-                            Text="Select maps from the map pool:" />
-
-                            <Button x:Name="bMapAlign"
+                            Foreground="#dbd5c3">
+                                <Run Text="Select maps from the map pool:" />
+                                <LineBreak/>
+                                <Run Text="(the order of selection is important)" />
+                            </TextBlock>
+                            <CheckBox
+                                x:Name="cbScorePanel"
                                 Grid.Row="4"
+                                Grid.Column="0"
+                                
+                                Style="{StaticResource Checkbox_Options}">
+                                <TextBlock>
+                                <Run Text="Enable Score Panel"/>
+                                    <LineBreak/>
+                                <Run Text="(depends on the map pool)"/>
+                                </TextBlock>
+                            </CheckBox>
+                            <ComboBox
+                                x:Name="ScorePanel"
+                                Width="400"
+                                Height="30"
+                                Grid.Row="4"
+                                Grid.Column="2"
+                                SelectedIndex="0"
+                                Style="{StaticResource OptionsCombobox}">
+                                <ComboBoxItem Content="1 vs 1"/>
+                                <ComboBoxItem Content="2 vs 2"/>
+                                <ComboBoxItem Content="3 vs 3"/>
+                            </ComboBox>
+                            <Button x:Name="bMapAlign"
+                                Grid.Row="5"
                                 Grid.Column="1"
                                 Margin="30,5"
                                     ToolTip="{Binding MapAlign, StringFormat='{}Align {0}'}"
@@ -700,6 +727,15 @@
                                 Foreground="#FFFFAE00"
                                 Text="Latest Changes" />
                                                                                                               <LineBreak />
+                            <LineBreak />
+                             <Run
+                                FontWeight="Bold"
+                                Text="May 24, 2022, version 0.2.4"
+                                TextDecorations="Underline" />
+
+                            <LineBreak />
+                            <Run Text="- Added Score Panel with civ picks and supporting team games. To change player civ - click Mouse Left Button, to change Win/Loss status - click Right Mouse Button." />
+                            <LineBreak />
                             <LineBreak />
  <Run
                                 FontWeight="Bold"

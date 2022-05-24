@@ -29,7 +29,8 @@
                             <Image x:Name="PreviewImage" />
                             <Image
                                 x:Name="iBrandLogo"
-                                Width="405"                                
+                                Width="405"              
+                                Panel.ZIndex="1"
                                 PreviewMouseLeftButtonDown="ObjectMouseDown"
                                 PreviewMouseLeftButtonUp="ObjectMouseUp">
                                 <Image.Effect>
@@ -43,6 +44,7 @@
                             </Image>
                             <Image
                                 x:Name="iEventLogo"
+                                Panel.ZIndex="1"
                                 Width="800"
                                 PreviewMouseLeftButtonDown="ObjectMouseDown"
                                 PreviewMouseLeftButtonUp="ObjectMouseUp">
@@ -57,6 +59,7 @@
                             </Image>
                             <Grid
                                 x:Name="gMapPool"
+                                Panel.ZIndex="1"
                                 PreviewMouseLeftButtonDown="ObjectMouseDown"
                                 PreviewMouseLeftButtonUp="ObjectMouseUp">
                                 <Grid.Effect>
@@ -110,7 +113,7 @@
                                         FontSize="25"
                                         FontWeight="Bold"
                                         Foreground="{StaticResource ButtonTextGradient}"
-                                        Text="COUNTDOWN">
+                                        Text="">
                                         <TextBlock.Effect>
                                             <DropShadowEffect
                                                 BlurRadius="3"
@@ -126,10 +129,36 @@
                                             </LinearGradientBrush>
                                         </TextBlock.OpacityMask>
                                     </TextBlock>
+                                    <TextBlock
+                                        x:Name="tbBO"
+                                        Margin="0,0,0,10"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Bottom"
+                                        FontFamily="/Fonts/#Trajan Pro 3"
+                                        FontSize="25"
+                                        FontWeight="Bold"
+                                        Foreground="White"
+                                        Text="">
+                                        <TextBlock.Effect>
+                                            <DropShadowEffect
+                                                BlurRadius="3"
+                                                Direction="-90"
+                                                RenderingBias="Quality"
+                                                ShadowDepth="1.7"
+                                                Color="Black" />
+                                        </TextBlock.Effect>
+                                        <TextBlock.OpacityMask>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                <GradientStop x:Name="BOBlackStop" Offset="0" Color="Black" />
+                                                <GradientStop x:Name="BOTransparentStop" Offset="0" Color="Transparent" />
+                                            </LinearGradientBrush>
+                                        </TextBlock.OpacityMask>
+                                    </TextBlock>
                                 </Grid>
                             </Grid>
                             <Grid
                                 x:Name="gCountdown"
+                                Panel.ZIndex="1"
                                 PreviewMouseLeftButtonDown="ObjectMouseDown"
                                 PreviewMouseLeftButtonUp="ObjectMouseUp">
                                 <Grid.OpacityMask>
@@ -192,6 +221,8 @@
                             </Grid>
                             <Grid
                                 x:Name="gSchedule"
+                                Panel.ZIndex="1"
+                                
                                 PreviewMouseLeftButtonDown="ObjectMouseDown"
                                 PreviewMouseLeftButtonUp="ObjectMouseUp">
                                 <Grid.OpacityMask>
@@ -253,13 +284,694 @@
                                     Background="Transparent"
                                     BorderBrush="{x:Null}"
                                     BorderThickness="0"
-                                    CaretBrush="Transparent"
+                                     CaretBrush="#60ffffff"
+                                    SelectionBrush="#60ffffff"
                                     FontFamily="/Fonts/#Trajan Pro 3"
                                     FontSize="24"
                                     Foreground="White"
-                                    SelectionBrush="{x:Null}"
-                                    TextWrapping="Wrap" MouseEnter="Schedule_MouseEnter" MouseLeave="Schedule_MouseLeave" />
+                                  
+                                    TextWrapping="Wrap" />
                             </Grid>
+                            <Grid  Height="1080" x:Name="gScorePanel">
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="2" VerticalAlignment="Bottom" Height="280">
+                                    <Grid.Background>
+                                        <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+                                            <GradientStop Color="#40000000"  Offset="1"/>
+                                            <GradientStop Color="#A0000000" Offset="0.5"/>
+                                            <GradientStop Color="#40000000" Offset="0"/>
+                                        </LinearGradientBrush>
+                                    </Grid.Background>
+                                </Grid>
+                                <Image
+                                    Width="1920"
+                                    Grid.Row="1" 
+                                
+                                    VerticalAlignment="Top"
+                                    Source="/resources/images/campaignmenu/LevelSelectDivider.png" />
+                                <Image Grid.Row="0" Grid.RowSpan="3" HorizontalAlignment="Left" Grid.Column="0" VerticalAlignment="Bottom" Height="400"   x:Name="iTeam1"/>
+                                <Image Grid.Row="0" Grid.RowSpan="3" VerticalAlignment="Bottom"  Height="400" HorizontalAlignment="Right" x:Name="iTeam2"/>
+
+
+                                <Grid Height="270" Width="1292"  Grid.RowSpan="3" VerticalAlignment="Bottom" Margin="0,0,0,147">
+                                    <Grid.Background>
+                                        <ImageBrush ImageSource="/resources/skirmish_victory.png"/>
+                                    </Grid.Background>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid  Grid.Column="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox 
+                                   Grid.Column="0"
+                                    Margin="60,10,0,0"
+                                  Text="Player1's Team"
+                                    
+                                    VerticalAlignment="Center"
+                                        
+                                  
+                                    Background="Transparent"
+                                    BorderBrush="{x:Null}"
+                                    BorderThickness="0"
+                                 
+                                    FontFamily="/Fonts/#Trajan Pro 3"
+                                    FontSize="32"
+                                    Foreground="White"
+                                            CaretBrush="#60ffffff"
+                                    SelectionBrush="#60ffffff"
+                                    />
+                                        <TextBlock 
+                                   Grid.Column="1"
+                                  Margin="0,20,130,0"
+                                  Text="{Binding Team1Score}"
+                                    
+                                    VerticalAlignment="Center"
+                                        
+                                  
+                                    Background="Transparent"
+                                 
+                                    FontFamily="/Fonts/#Trajan Pro 3"
+                                    FontSize="70"
+                                 FontWeight="Bold"
+                                    Foreground="{StaticResource ButtonTextGradient}"
+                                 
+                                    />
+                                    </Grid>
+                                    <Grid  Grid.Column="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox 
+                                   Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                  Text="Player2's Team"
+                                   
+                                 FlowDirection="RightToLeft"
+                                         Margin="0,10,60,0"
+                                  
+                                    Background="Transparent"
+                                    BorderBrush="{x:Null}"
+                                    BorderThickness="0"
+                                  
+                                    FontFamily="/Fonts/#Trajan Pro 3"
+                                    FontSize="32"
+                                    Foreground="White"
+                                    CaretBrush="#60ffffff"
+                                    SelectionBrush="#60ffffff"
+                                    />
+                                        <TextBlock 
+                                   Grid.Column="0"
+                                  Margin="130,20,0,0"
+                                  Text="{Binding Team2Score}"
+                                    
+                                    VerticalAlignment="Center"
+                                        
+                                  
+                                    Background="Transparent"
+                                 
+                                    FontFamily="/Fonts/#Trajan Pro 3"
+                                    FontSize="70"
+                                 FontWeight="Bold"
+                                    Foreground="{StaticResource ButtonTextGradient}"
+                                 
+                                    />
+                                    </Grid>
+
+                                </Grid>
+
+
+
+
+                            </Grid>
+                            <Grid x:Name="gScore" Height="1080" Panel.ZIndex="1" VerticalAlignment="Bottom" >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="400"/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="1"  Width="1920" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="320"/>
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                    
+
+                                        <Grid Grid.Column="1" Margin="0,175,0,0" >
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+
+                                            <ListView Grid.Row="0"  Grid.IsSharedSizeScope="True" Width="550" HorizontalAlignment="Left"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Transparent" BorderBrush="Transparent" x:Name="lwTeam1Player1CivPool">
+                                                <ListView.ItemContainerStyle>
+                                                    <Style TargetType="ListViewItem">
+                                                        <Setter Property="Focusable" Value="False" />
+                                                        <Setter Property="Template">
+                                                            <Setter.Value>
+                                                                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                                                    <Border
+                                                                x:Name="Bd"
+                                                                Padding="{TemplateBinding Padding}"
+                                                                Background="{TemplateBinding Background}"
+                                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                                SnapsToDevicePixels="True">
+                                                                        <ContentPresenter
+                                                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                                    Content="{TemplateBinding Content}"
+                                                                    ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                                                    </Border>
+                                                                    <ControlTemplate.Triggers>
+                                                                        <MultiTrigger>
+                                                                            <MultiTrigger.Conditions>
+                                                                                <Condition Property="IsMouseOver" Value="True" />
+                                                                            </MultiTrigger.Conditions>
+                                                                            <Setter TargetName="Bd" Property="Background" Value="Transparent" />
+                                                                            <Setter TargetName="Bd" Property="BorderBrush" Value="Transparent" />
+
+                                                                        </MultiTrigger>
+                                                                        <MultiTrigger>
+                                                                            <MultiTrigger.Conditions>
+                                                                                <Condition Property="Selector.IsSelectionActive" Value="False" />
+                                                                                <Condition Property="IsSelected" Value="False" />
+                                                                            </MultiTrigger.Conditions>
+                                                                            <Setter TargetName="Bd" Property="Background" Value="Transparent" />
+                                                                            <Setter TargetName="Bd" Property="BorderBrush" Value="Transparent" />
+                                                                        </MultiTrigger>
+                                                                        <MultiTrigger>
+                                                                            <MultiTrigger.Conditions>
+                                                                                <Condition Property="Selector.IsSelectionActive" Value="True" />
+                                                                                <Condition Property="IsSelected" Value="True" />
+                                                                            </MultiTrigger.Conditions>
+                                                                            <Setter TargetName="Bd" Property="Background" Value="Transparent" />
+                                                                            <Setter TargetName="Bd" Property="BorderBrush" Value="Transparent" />
+                                                                        </MultiTrigger>
+                                                                        <Trigger Property="IsEnabled" Value="False">
+                                                                            <Setter TargetName="Bd" Property="Background" Value="Transparent" />
+                                                                        </Trigger>
+                                                                    </ControlTemplate.Triggers>
+                                                                </ControlTemplate>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Style>
+                                                </ListView.ItemContainerStyle>
+                                                <ListView.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <WrapPanel Background="Transparent" Orientation="Horizontal" />
+                                                    </ItemsPanelTemplate>
+                                                </ListView.ItemsPanel>
+                                                <ListView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid MouseLeftButtonDown="Team1_Player1_MouseDown" ToolTipService.IsEnabled="False" Tag="{Binding Path=Tag}" MouseRightButtonDown="Team1_MouseDown">
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition/>
+                                                                <RowDefinition/>
+
+
+                                                            </Grid.RowDefinitions>
+                                                            <Image Grid.Row="0" Height="64" Source="{Binding Path=Icon}"/>
+                                                            <Image Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="32" Source="{Binding Path=StatusIcon}">
+                                                                <Image.Effect>
+                                                                    <DropShadowEffect
+                                            BlurRadius="3"
+                                            Direction="-90"
+                                            RenderingBias="Quality"
+                                            ShadowDepth="1.7"
+                                            Color="Black" />
+                                                                </Image.Effect>
+                                                            </Image>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </ListView.ItemTemplate>
+                                            </ListView>
+                                            <ListView Grid.Row="1" Panel.ZIndex="5" Grid.IsSharedSizeScope="True" Width="550" HorizontalAlignment="Left"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Transparent" BorderBrush="Transparent" x:Name="lwTeam1Player2CivPool">
+                                                <ListView.ItemContainerStyle>
+                                                    <Style TargetType="ListViewItem">
+                                                        <Setter Property="Focusable" Value="False" />
+                                                        <Setter Property="Template">
+                                                            <Setter.Value>
+                                                                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                                                    <Border
+                                                                x:Name="Bd"
+                                                                Padding="{TemplateBinding Padding}"
+                                                                Background="{TemplateBinding Background}"
+                                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                                SnapsToDevicePixels="True">
+                                                                        <ContentPresenter
+                                                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                                    Content="{TemplateBinding Content}"
+                                                                    ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                                                    </Border>
+                                                                    <ControlTemplate.Triggers>
+                                                                        <MultiTrigger>
+                                                                            <MultiTrigger.Conditions>
+                                                                                <Condition Property="IsMouseOver" Value="True" />
+                                                                            </MultiTrigger.Conditions>
+                                                                            <Setter TargetName="Bd" Property="Background" Value="Transparent" />
+                                                                            <Setter TargetName="Bd" Property="BorderBrush" Value="Transparent" />
+
+                                                                        </MultiTrigger>
+                                                                        <MultiTrigger>
+                                                                            <MultiTrigger.Conditions>
+                                                                                <Condition Property="Selector.IsSelectionActive" Value="False" />
+                                                                                <Condition Property="IsSelected" Value="False" />
+                                                                            </MultiTrigger.Conditions>
+                                                                            <Setter TargetName="Bd" Property="Background" Value="Transparent" />
+                                                                            <Setter TargetName="Bd" Property="BorderBrush" Value="Transparent" />
+                                                                        </MultiTrigger>
+                                                                        <MultiTrigger>
+                                                                            <MultiTrigger.Conditions>
+                                                                                <Condition Property="Selector.IsSelectionActive" Value="True" />
+                                                                                <Condition Property="IsSelected" Value="True" />
+                                                                            </MultiTrigger.Conditions>
+                                                                            <Setter TargetName="Bd" Property="Background" Value="Transparent" />
+                                                                            <Setter TargetName="Bd" Property="BorderBrush" Value="Transparent" />
+                                                                        </MultiTrigger>
+                                                                        <Trigger Property="IsEnabled" Value="False">
+                                                                            <Setter TargetName="Bd" Property="Background" Value="Transparent" />
+                                                                        </Trigger>
+                                                                    </ControlTemplate.Triggers>
+                                                                </ControlTemplate>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Style>
+                                                </ListView.ItemContainerStyle>
+                                                <ListView.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <WrapPanel Background="Transparent" Orientation="Horizontal" />
+                                                    </ItemsPanelTemplate>
+                                                </ListView.ItemsPanel>
+                                                <ListView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid MouseLeftButtonDown="Team1_Player2_MouseDown" ToolTipService.IsEnabled="False" Tag="{Binding Path=Tag}" MouseRightButtonDown="Team1_MouseDown">
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition/>
+                                                                <RowDefinition/>
+
+
+                                                            </Grid.RowDefinitions>
+                                                            <Image Grid.Row="0" Height="64" Source="{Binding Path=Icon}"/>
+                                                            <Image Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="32" Source="{Binding Path=StatusIcon}">
+                                                                <Image.Effect>
+                                                                    <DropShadowEffect
+                                            BlurRadius="3"
+                                            Direction="-90"
+                                            RenderingBias="Quality"
+                                            ShadowDepth="1.7"
+                                            Color="Black" />
+                                                                </Image.Effect>
+                                                            </Image>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </ListView.ItemTemplate>
+                                            </ListView>
+                                            <ListView Grid.Row="2"   Grid.IsSharedSizeScope="True" Width="550" HorizontalAlignment="Left"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Transparent" BorderBrush="Transparent" x:Name="lwTeam1Player3CivPool">
+                                                <ListView.ItemContainerStyle>
+                                                    <Style TargetType="ListViewItem">
+                                                        <Setter Property="Focusable" Value="False" />
+                                                        <Setter Property="Template">
+                                                            <Setter.Value>
+                                                                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                                                    <Border
+                                                                x:Name="Bd"
+                                                                Padding="{TemplateBinding Padding}"
+                                                                Background="{TemplateBinding Background}"
+                                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                                SnapsToDevicePixels="True">
+                                                                        <ContentPresenter
+                                                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                                    Content="{TemplateBinding Content}"
+                                                                    ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                                                    </Border>
+                                                                    <ControlTemplate.Triggers>
+                                                                        <MultiTrigger>
+                                                                            <MultiTrigger.Conditions>
+                                                                                <Condition Property="IsMouseOver" Value="True" />
+                                                                            </MultiTrigger.Conditions>
+                                                                            <Setter TargetName="Bd" Property="Background" Value="Transparent" />
+                                                                            <Setter TargetName="Bd" Property="BorderBrush" Value="Transparent" />
+
+                                                                        </MultiTrigger>
+                                                                        <MultiTrigger>
+                                                                            <MultiTrigger.Conditions>
+                                                                                <Condition Property="Selector.IsSelectionActive" Value="False" />
+                                                                                <Condition Property="IsSelected" Value="False" />
+                                                                            </MultiTrigger.Conditions>
+                                                                            <Setter TargetName="Bd" Property="Background" Value="Transparent" />
+                                                                            <Setter TargetName="Bd" Property="BorderBrush" Value="Transparent" />
+                                                                        </MultiTrigger>
+                                                                        <MultiTrigger>
+                                                                            <MultiTrigger.Conditions>
+                                                                                <Condition Property="Selector.IsSelectionActive" Value="True" />
+                                                                                <Condition Property="IsSelected" Value="True" />
+                                                                            </MultiTrigger.Conditions>
+                                                                            <Setter TargetName="Bd" Property="Background" Value="Transparent" />
+                                                                            <Setter TargetName="Bd" Property="BorderBrush" Value="Transparent" />
+                                                                        </MultiTrigger>
+                                                                        <Trigger Property="IsEnabled" Value="False">
+                                                                            <Setter TargetName="Bd" Property="Background" Value="Transparent" />
+                                                                        </Trigger>
+                                                                    </ControlTemplate.Triggers>
+                                                                </ControlTemplate>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Style>
+                                                </ListView.ItemContainerStyle>
+                                                <ListView.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <WrapPanel Background="Transparent" Orientation="Horizontal" />
+                                                    </ItemsPanelTemplate>
+                                                </ListView.ItemsPanel>
+                                                <ListView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid MouseLeftButtonDown="Team1_Player3_MouseDown" ToolTipService.IsEnabled="False" Tag="{Binding Path=Tag}" MouseRightButtonDown="Team1_MouseDown">
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition/>
+                                                                <RowDefinition/>
+
+
+                                                            </Grid.RowDefinitions>
+                                                            <Image Grid.Row="0" Height="64" Source="{Binding Path=Icon}"/>
+                                                            <Image Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="32" Source="{Binding Path=StatusIcon}">
+                                                                <Image.Effect>
+                                                                    <DropShadowEffect
+                                            BlurRadius="3"
+                                            Direction="-90"
+                                            RenderingBias="Quality"
+                                            ShadowDepth="1.7"
+                                            Color="Black" />
+                                                                </Image.Effect>
+                                                            </Image>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </ListView.ItemTemplate>
+                                            </ListView>
+
+                                        </Grid>
+                                    </Grid>
+
+
+                                    <Grid Grid.Column="1" >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition  Width="320"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid Margin="0,175,0,0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+                                            <ListView Grid.Row="0"  HorizontalAlignment="Right" FlowDirection="RightToLeft"   Width="550" Grid.IsSharedSizeScope="True"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Transparent" BorderBrush="Transparent" x:Name="lwTeam2Player1CivPool">
+                                                <ListView.ItemContainerStyle>
+                                                    <Style TargetType="ListViewItem">
+                                                        <Setter Property="Focusable" Value="False" />
+                                                        <Setter Property="Template">
+                                                            <Setter.Value>
+                                                                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                                                    <Border
+                                                                x:Name="Bd"
+                                                                Padding="{TemplateBinding Padding}"
+                                                                Background="{TemplateBinding Background}"
+                                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                                SnapsToDevicePixels="True">
+                                                                        <ContentPresenter
+                                                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                                    Content="{TemplateBinding Content}"
+                                                                    ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                                                    </Border>
+                                                                    <ControlTemplate.Triggers>
+                                                                        <MultiTrigger>
+                                                                            <MultiTrigger.Conditions>
+                                                                                <Condition Property="IsMouseOver" Value="True" />
+                                                                            </MultiTrigger.Conditions>
+                                                                            <Setter TargetName="Bd" Property="Background" Value="Transparent" />
+                                                                            <Setter TargetName="Bd" Property="BorderBrush" Value="Transparent" />
+
+                                                                        </MultiTrigger>
+                                                                        <MultiTrigger>
+                                                                            <MultiTrigger.Conditions>
+                                                                                <Condition Property="Selector.IsSelectionActive" Value="False" />
+                                                                                <Condition Property="IsSelected" Value="False" />
+                                                                            </MultiTrigger.Conditions>
+                                                                            <Setter TargetName="Bd" Property="Background" Value="Transparent" />
+                                                                            <Setter TargetName="Bd" Property="BorderBrush" Value="Transparent" />
+                                                                        </MultiTrigger>
+                                                                        <MultiTrigger>
+                                                                            <MultiTrigger.Conditions>
+                                                                                <Condition Property="Selector.IsSelectionActive" Value="True" />
+                                                                                <Condition Property="IsSelected" Value="True" />
+                                                                            </MultiTrigger.Conditions>
+                                                                            <Setter TargetName="Bd" Property="Background" Value="Transparent" />
+                                                                            <Setter TargetName="Bd" Property="BorderBrush" Value="Transparent" />
+                                                                        </MultiTrigger>
+                                                                        <Trigger Property="IsEnabled" Value="False">
+                                                                            <Setter TargetName="Bd" Property="Background" Value="Transparent" />
+                                                                        </Trigger>
+                                                                    </ControlTemplate.Triggers>
+                                                                </ControlTemplate>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Style>
+                                                </ListView.ItemContainerStyle>
+                                                <ListView.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <WrapPanel Background="Transparent"  Orientation="Horizontal" />
+                                                    </ItemsPanelTemplate>
+                                                </ListView.ItemsPanel>
+                                                <ListView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid MouseLeftButtonDown="Team2_Player1_MouseDown" ToolTipService.IsEnabled="False" Tag="{Binding Path=Tag}" MouseRightButtonDown="Team2_MouseDown">
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition/>
+                                                                <RowDefinition/>
+
+
+                                                            </Grid.RowDefinitions>
+                                                            <Image Grid.Row="0" Height="64" Source="{Binding Path=Icon}"/>
+                                                            <Image Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="32" Source="{Binding Path=StatusIcon}">
+                                                                <Image.Effect>
+                                                                    <DropShadowEffect
+                                            BlurRadius="3"
+                                            Direction="-90"
+                                            RenderingBias="Quality"
+                                            ShadowDepth="1.7"
+                                            Color="Black" />
+                                                                </Image.Effect>
+                                                            </Image>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </ListView.ItemTemplate>
+                                            </ListView>
+                                            <ListView  Grid.Row="1"  HorizontalAlignment="Right" FlowDirection="RightToLeft"   Width="550" Grid.IsSharedSizeScope="True"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Transparent" BorderBrush="Transparent" x:Name="lwTeam2Player2CivPool">
+                                                <ListView.ItemContainerStyle>
+                                                    <Style TargetType="ListViewItem">
+                                                        <Setter Property="Focusable" Value="False" />
+                                                        <Setter Property="Template">
+                                                            <Setter.Value>
+                                                                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                                                    <Border
+                                                                x:Name="Bd"
+                                                                Padding="{TemplateBinding Padding}"
+                                                                Background="{TemplateBinding Background}"
+                                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                                SnapsToDevicePixels="True">
+                                                                        <ContentPresenter
+                                                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                                    Content="{TemplateBinding Content}"
+                                                                    ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                                                    </Border>
+                                                                    <ControlTemplate.Triggers>
+                                                                        <MultiTrigger>
+                                                                            <MultiTrigger.Conditions>
+                                                                                <Condition Property="IsMouseOver" Value="True" />
+                                                                            </MultiTrigger.Conditions>
+                                                                            <Setter TargetName="Bd" Property="Background" Value="Transparent" />
+                                                                            <Setter TargetName="Bd" Property="BorderBrush" Value="Transparent" />
+
+                                                                        </MultiTrigger>
+                                                                        <MultiTrigger>
+                                                                            <MultiTrigger.Conditions>
+                                                                                <Condition Property="Selector.IsSelectionActive" Value="False" />
+                                                                                <Condition Property="IsSelected" Value="False" />
+                                                                            </MultiTrigger.Conditions>
+                                                                            <Setter TargetName="Bd" Property="Background" Value="Transparent" />
+                                                                            <Setter TargetName="Bd" Property="BorderBrush" Value="Transparent" />
+                                                                        </MultiTrigger>
+                                                                        <MultiTrigger>
+                                                                            <MultiTrigger.Conditions>
+                                                                                <Condition Property="Selector.IsSelectionActive" Value="True" />
+                                                                                <Condition Property="IsSelected" Value="True" />
+                                                                            </MultiTrigger.Conditions>
+                                                                            <Setter TargetName="Bd" Property="Background" Value="Transparent" />
+                                                                            <Setter TargetName="Bd" Property="BorderBrush" Value="Transparent" />
+                                                                        </MultiTrigger>
+                                                                        <Trigger Property="IsEnabled" Value="False">
+                                                                            <Setter TargetName="Bd" Property="Background" Value="Transparent" />
+                                                                        </Trigger>
+                                                                    </ControlTemplate.Triggers>
+                                                                </ControlTemplate>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Style>
+                                                </ListView.ItemContainerStyle>
+                                                <ListView.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <WrapPanel Background="Transparent"  Orientation="Horizontal" />
+                                                    </ItemsPanelTemplate>
+                                                </ListView.ItemsPanel>
+                                                <ListView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid MouseLeftButtonDown="Team2_Player2_MouseDown" ToolTipService.IsEnabled="False" Tag="{Binding Path=Tag}" MouseRightButtonDown="Team2_MouseDown">
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition/>
+                                                                <RowDefinition/>
+
+
+                                                            </Grid.RowDefinitions>
+                                                            <Image Grid.Row="0" Height="64" Source="{Binding Path=Icon}"/>
+                                                            <Image Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="32" Source="{Binding Path=StatusIcon}">
+                                                                <Image.Effect>
+                                                                    <DropShadowEffect
+                                            BlurRadius="3"
+                                            Direction="-90"
+                                            RenderingBias="Quality"
+                                            ShadowDepth="1.7"
+                                            Color="Black" />
+                                                                </Image.Effect>
+                                                            </Image>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </ListView.ItemTemplate>
+                                            </ListView>
+                                            <ListView Grid.Row="2"  HorizontalAlignment="Right" FlowDirection="RightToLeft"   Width="550" Grid.IsSharedSizeScope="True"    ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Transparent" BorderBrush="Transparent" x:Name="lwTeam2Player3CivPool">
+                                                <ListView.ItemContainerStyle>
+                                                    <Style TargetType="ListViewItem">
+                                                        <Setter Property="Focusable" Value="False" />
+                                                        <Setter Property="Template">
+                                                            <Setter.Value>
+                                                                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                                                    <Border
+                                                                x:Name="Bd"
+                                                                Padding="{TemplateBinding Padding}"
+                                                                Background="{TemplateBinding Background}"
+                                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                                SnapsToDevicePixels="True">
+                                                                        <ContentPresenter
+                                                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                                    Content="{TemplateBinding Content}"
+                                                                    ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                                                    </Border>
+                                                                    <ControlTemplate.Triggers>
+                                                                        <MultiTrigger>
+                                                                            <MultiTrigger.Conditions>
+                                                                                <Condition Property="IsMouseOver" Value="True" />
+                                                                            </MultiTrigger.Conditions>
+                                                                            <Setter TargetName="Bd" Property="Background" Value="Transparent" />
+                                                                            <Setter TargetName="Bd" Property="BorderBrush" Value="Transparent" />
+
+                                                                        </MultiTrigger>
+                                                                        <MultiTrigger>
+                                                                            <MultiTrigger.Conditions>
+                                                                                <Condition Property="Selector.IsSelectionActive" Value="False" />
+                                                                                <Condition Property="IsSelected" Value="False" />
+                                                                            </MultiTrigger.Conditions>
+                                                                            <Setter TargetName="Bd" Property="Background" Value="Transparent" />
+                                                                            <Setter TargetName="Bd" Property="BorderBrush" Value="Transparent" />
+                                                                        </MultiTrigger>
+                                                                        <MultiTrigger>
+                                                                            <MultiTrigger.Conditions>
+                                                                                <Condition Property="Selector.IsSelectionActive" Value="True" />
+                                                                                <Condition Property="IsSelected" Value="True" />
+                                                                            </MultiTrigger.Conditions>
+                                                                            <Setter TargetName="Bd" Property="Background" Value="Transparent" />
+                                                                            <Setter TargetName="Bd" Property="BorderBrush" Value="Transparent" />
+                                                                        </MultiTrigger>
+                                                                        <Trigger Property="IsEnabled" Value="False">
+                                                                            <Setter TargetName="Bd" Property="Background" Value="Transparent" />
+                                                                        </Trigger>
+                                                                    </ControlTemplate.Triggers>
+                                                                </ControlTemplate>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Style>
+                                                </ListView.ItemContainerStyle>
+                                                <ListView.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <WrapPanel Background="Transparent"  Orientation="Horizontal" />
+                                                    </ItemsPanelTemplate>
+                                                </ListView.ItemsPanel>
+                                                <ListView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid MouseLeftButtonDown="Team2_Player3_MouseDown" ToolTipService.IsEnabled="False" Tag="{Binding Path=Tag}" MouseRightButtonDown="Team2_MouseDown">
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition/>
+                                                                <RowDefinition/>
+
+
+                                                            </Grid.RowDefinitions>
+                                                            <Image Grid.Row="0" Height="64" Source="{Binding Path=Icon}"/>
+                                                            <Image Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="32" Source="{Binding Path=StatusIcon}">
+                                                                <Image.Effect>
+                                                                    <DropShadowEffect
+                                            BlurRadius="3"
+                                            Direction="-90"
+                                            RenderingBias="Quality"
+                                            ShadowDepth="1.7"
+                                            Color="Black" />
+                                                                </Image.Effect>
+                                                            </Image>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </ListView.ItemTemplate>
+                                            </ListView>
+
+                                        </Grid>
+
+                                    </Grid>
+                                </Grid>
+
+                            </Grid>
+
+
                         </Canvas>
                     </Grid>
                 </Viewbox>
