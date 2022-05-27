@@ -27,7 +27,7 @@
 You can also join my Discord server to stay up to date with the latest updates and news about my current developments and projects: [Commando Squad](https://discord.gg/egcZRKgj4q)
 
 ### How to add overlay in OBS/Streamlabs OBS
-Select settings as on image below
+Select settings as on image below<br />
 ![image](https://user-images.githubusercontent.com/30210308/170716870-555ca598-5e89-47d7-bd99-39d15016b507.png)
 
 
