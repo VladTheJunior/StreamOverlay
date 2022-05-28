@@ -107,7 +107,7 @@ namespace StreamOverlayUpdater
         {
             get
             {
-                return "0.2.4";
+                return "0.2.5";
             }
         }
         public string AvailableVersionUrl
@@ -262,7 +262,7 @@ namespace StreamOverlayUpdater
             int index = 1;
             var updateFiles = Directory.GetFiles(AppContext.BaseDirectory, "*.*", SearchOption.AllDirectories).Where(path => !path.Contains(".git") && Path.GetFileName(Path.GetDirectoryName(path)) != "Thumbnails"
                     && Path.GetFileName(path) != "UpdateCounter.txt" && Path.GetFileName(path) != "Updates.json"
-                    && Path.GetFileName(path) != ".gitignore" && Path.GetFileName(Path.GetDirectoryName(path)) != "Output");
+                    && Path.GetFileName(path) != ".gitignore" && Path.GetFileName(path) != ".gitattributes" && Path.GetFileName(Path.GetDirectoryName(path)) != "Output");
             foreach (string path in updateFiles)
             {
                 Progress = (double)index / (double)updateFiles.Count();

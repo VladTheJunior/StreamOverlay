@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 using MediaPlayer = LibVLCSharp.Shared.MediaPlayer;
 using LibVLCSharp.Shared;
 using System.Windows.Threading;
@@ -19,6 +19,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using StreamOverlay.Classes.Civ;
 using System.Collections.ObjectModel;
+using System.IO;
 
 namespace StreamOverlay
 {
@@ -237,13 +238,13 @@ namespace StreamOverlay
                 return eventLogoVisibility
                     ?? (eventLogoVisibility = new ActionCommand(() =>
                     {
-                        if (iEventLogo.Visibility == Visibility.Visible)
+                        if (gEventLogo.Visibility == Visibility.Visible)
                         {
-                            iEventLogo.Visibility = Visibility.Hidden;
+                            gEventLogo.Visibility = Visibility.Hidden;
                         }
                         else
                         {
-                            iEventLogo.Visibility = Visibility.Visible;
+                            gEventLogo.Visibility = Visibility.Visible;
                         }
 
                     }));
@@ -258,13 +259,13 @@ namespace StreamOverlay
                 return brandLogoVisibility
                     ?? (brandLogoVisibility = new ActionCommand(() =>
                     {
-                        if (iBrandLogo.Visibility == Visibility.Visible)
+                        if (gBrandLogo.Visibility == Visibility.Visible)
                         {
-                            iBrandLogo.Visibility = Visibility.Hidden;
+                            gBrandLogo.Visibility = Visibility.Hidden;
                         }
                         else
                         {
-                            iBrandLogo.Visibility = Visibility.Visible;
+                            gBrandLogo.Visibility = Visibility.Visible;
                         }
 
                     }));
@@ -288,6 +289,9 @@ namespace StreamOverlay
         public LibVLC _libVLC;
         public MediaPlayer _mediaPlayer;
 
+        List<string> Playlist = new List<string>();
+        int currentAudioIndex = 0;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -304,7 +308,18 @@ namespace StreamOverlay
 
 
             _timer.Start();
-
+            Playlist = Directory.GetFiles(Path.Combine(AppContext.BaseDirectory, "data", "audio")).Where(x => Path.GetExtension(x).ToLower() == ".mp3").ToList();
+            AudioPlayer.Source = new Uri(Playlist[0]);
+            if (Settings1.Default.Audio)
+            {
+                AudioPlayer.Play();
+                bPlay.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                bPause.Visibility = Visibility.Collapsed;
+            }
+                
         }
 
         public void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -329,6 +344,7 @@ namespace StreamOverlay
             _mediaPlayer.Stop();
             _mediaPlayer.Dispose();
             _libVLC.Dispose();
+            AudioPlayer.Stop();
         }
 
 
@@ -344,15 +360,21 @@ namespace StreamOverlay
 
         private void ObjectMouseDown(object sender, MouseButtonEventArgs e)
         {
-            //In this event, we get current mouse position on the control to use it in the MouseMove event.
-            FirstXPos = e.GetPosition(sender as FrameworkElement).X;
-            FirstYPos = e.GetPosition(sender as FrameworkElement).Y;
-            MovingObject = sender;
+            if (sender is not Slider)
+            {
+                FirstXPos = e.GetPosition(sender as FrameworkElement).X;
+                FirstYPos = e.GetPosition(sender as FrameworkElement).Y;
+                MovingObject = sender;
+            }
+                
         }
 
         private void ObjectMouseUp(object sender, MouseButtonEventArgs e)
         {
-            MovingObject = null;
+            if (sender is not Slider)
+            {
+                MovingObject = null;
+            }
         }
 
         private void OverlayCanvas_MouseDown(object sender, MouseButtonEventArgs e)
@@ -483,6 +505,69 @@ namespace StreamOverlay
             {
                 civ.NextId();
             }
+        }
+
+        private void Slider_ValueChanged(System.Object sender, RoutedPropertyChangedEventArgs<System.Double> e)
+        {
+         
+            ScaleTransform scale = new ScaleTransform(1+ e.NewValue/100, 1 + e.NewValue / 100);
+            iBrandLogo.LayoutTransform = scale;
+        }
+
+        private void Slider_ValueChanged_1(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            ScaleTransform scale = new ScaleTransform(1 + e.NewValue / 100, 1 + e.NewValue / 100);
+            iEventLogo.LayoutTransform = scale;
+        }
+
+        private void AudioPlayer_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            if (currentAudioIndex >= Playlist.Count -1)
+                currentAudioIndex = 0;
+            else
+                currentAudioIndex++;
+            AudioPlayer.Source = new Uri(Playlist[currentAudioIndex]);
+            AudioPlayer.Play();
+            bPlay.Visibility = Visibility.Collapsed;
+            bPause.Visibility = Visibility.Visible;
+        }
+
+        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (currentAudioIndex == 0)
+                currentAudioIndex = Playlist.Count - 1;
+            else
+                currentAudioIndex--;
+            AudioPlayer.Source = new Uri(Playlist[currentAudioIndex]);
+            AudioPlayer.Play();
+            bPlay.Visibility = Visibility.Collapsed;
+            bPause.Visibility = Visibility.Visible;
+        }
+
+        private void Image_MouseDown_1(object sender, MouseButtonEventArgs e)
+        {
+            AudioPlayer.Play();
+            bPlay.Visibility = Visibility.Collapsed;
+            bPause.Visibility = Visibility.Visible;
+        }
+
+        private void Image_MouseDown_2(object sender, MouseButtonEventArgs e)
+        {
+            AudioPlayer.Pause();
+            bPlay.Visibility = Visibility.Visible;
+            bPause.Visibility = Visibility.Collapsed;
+        }
+
+        private void Image_MouseDown_3(object sender, MouseButtonEventArgs e)
+        {
+            if (currentAudioIndex >= Playlist.Count -1)
+                currentAudioIndex = 0;
+            else
+                currentAudioIndex++;
+            AudioPlayer.Source = new Uri(Playlist[currentAudioIndex]);
+            AudioPlayer.Play();
+            bPlay.Visibility = Visibility.Collapsed;
+            bPause.Visibility = Visibility.Visible;
         }
 
         private void ObjectMouseMove(object sender, MouseEventArgs e)

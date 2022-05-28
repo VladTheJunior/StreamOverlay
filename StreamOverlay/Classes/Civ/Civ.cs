@@ -48,7 +48,9 @@ namespace StreamOverlay.Classes.Civ
                     case 18: return "/data/civs/flag_hc_ethiopian.png";
                     case 19: return "/data/civs/flag_hc_hausa.png";
                     case 20: return "/data/civs/flag_hc_mexican.png";
-                    
+                    case 21: return "/data/civs/flag_hc_italian.png";
+                    case 22: return "/data/civs/flag_hc_maltese.png";
+
                 }
                 return "/data/civs/flag_hc_random.png";
             }
@@ -85,7 +87,7 @@ namespace StreamOverlay.Classes.Civ
 
         public void NextId()
         {
-            if (Id == 20)
+            if (Id == 22)
             {
                 Id = 0;
             }

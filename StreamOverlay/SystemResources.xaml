@@ -469,7 +469,7 @@
                 <Setter TargetName="Border" Property="Background" Value="{StaticResource ComboBoxInnerGradientOver}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter TargetName="Border" Property="Background" Value="{StaticResource hud_chat_combobox}" />
+               
                 <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}" />
                 <Setter TargetName="Arrow" Property="Fill" Value="{StaticResource DisabledForegroundBrush}" />
             </Trigger>

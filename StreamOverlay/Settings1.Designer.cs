@@ -120,5 +120,17 @@ namespace StreamOverlay {
                 this["ScorePanelIndex"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Audio {
+            get {
+                return ((bool)(this["Audio"]));
+            }
+            set {
+                this["Audio"] = value;
+            }
+        }
     }
 }

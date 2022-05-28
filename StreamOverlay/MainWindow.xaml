@@ -18,22 +18,110 @@
     Focusable="True"
     FocusManager.FocusedElement="{Binding ElementName=Animation}"
     mc:Ignorable="d">
+    <Window.Resources>
+        <DrawingImage x:Key="PreviousNormal" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+            <DrawingImage.Drawing>
+                <GeometryDrawing Brush="{StaticResource ButtonTextGradient}" Geometry="M6,18V6H8V18H6M9.5,12L18,6V18L9.5,12Z" />
+            </DrawingImage.Drawing>
+        </DrawingImage>
+        <DrawingImage x:Key="PreviousActive" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+            <DrawingImage.Drawing>
+                <GeometryDrawing Brush="{StaticResource ButtonTextGradientOver}" Geometry="M6,18V6H8V18H6M9.5,12L18,6V18L9.5,12Z" />
+            </DrawingImage.Drawing>
+        </DrawingImage>
+
+
+        <DrawingImage x:Key="PlayNormal" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+            <DrawingImage.Drawing>
+                <GeometryDrawing Brush="{StaticResource ButtonTextGradient}" Geometry="M8.5,8.64L13.77,12L8.5,15.36V8.64M6.5,5V19L17.5,12" />
+            </DrawingImage.Drawing>
+        </DrawingImage>
+        <DrawingImage x:Key="PlayActive" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                <DrawingImage.Drawing>
+                <GeometryDrawing Brush="{StaticResource ButtonTextGradientOver}" Geometry="M8.5,8.64L13.77,12L8.5,15.36V8.64M6.5,5V19L17.5,12" />
+                </DrawingImage.Drawing>
+            </DrawingImage>
+
+        <DrawingImage x:Key="PauseNormal" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                <DrawingImage.Drawing>
+                    <GeometryDrawing Brush="{StaticResource ButtonTextGradient}" Geometry="M14,19H18V5H14M6,19H10V5H6V19Z" />
+                </DrawingImage.Drawing>
+            </DrawingImage>
+
+        <DrawingImage x:Key="PauseActive" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+            <DrawingImage.Drawing>
+                <GeometryDrawing Brush="{StaticResource ButtonTextGradientOver}" Geometry="M14,19H18V5H14M6,19H10V5H6V19Z" />
+            </DrawingImage.Drawing>
+        </DrawingImage>
+
+        <DrawingImage  x:Key="NextNormal" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                <DrawingImage.Drawing>
+                    <GeometryDrawing Brush="{StaticResource ButtonTextGradient}" Geometry="M16,18H18V6H16M6,18L14.5,12L6,6V18Z" />
+                </DrawingImage.Drawing>
+            </DrawingImage>
+
+        <DrawingImage  x:Key="NextActive" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+            <DrawingImage.Drawing>
+                <GeometryDrawing Brush="{StaticResource ButtonTextGradientOver}" Geometry="M16,18H18V6H16M6,18L14.5,12L6,6V18Z" />
+            </DrawingImage.Drawing>
+        </DrawingImage>
+
+    </Window.Resources>
     <Viewbox>
         <Grid Width="1920" Height="1080">
-
-            <vlc:VideoView x:Name="Animation" Focusable="True">
+            <MediaElement Volume="{Binding ElementName=sVolume, Path=Value}" x:Name="AudioPlayer" LoadedBehavior="Manual" UnloadedBehavior="Manual" MediaEnded="AudioPlayer_MediaEnded"  />
+            <vlc:VideoView x:Name="Animation"  Focusable="True">
                 <Viewbox>
                     <Grid x:Name="OverlayGrid" Width="1920" Height="1080" >
                         <Canvas x:Name="OverlayCanvas" PreviewMouseMove="ObjectMouseMove" Background="#01000000" MouseDown="OverlayCanvas_MouseDown">
 
                             <Image x:Name="PreviewImage" />
-                            <Image
+                            <Grid x:Name="gBrandLogo" MouseLeftButtonDown="ObjectMouseDown"
+                                  Panel.ZIndex="1"
+                                MouseLeftButtonUp="ObjectMouseUp">
+                                <Grid.Triggers>
+
+                                    <EventTrigger  RoutedEvent="MouseEnter">
+                                        <BeginStoryboard >
+                                            <Storyboard   >
+                                                <DoubleAnimation Storyboard.Target="{Binding Source={x:Reference sBrandLogo}}" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.8">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                    <EventTrigger RoutedEvent="MouseLeave">
+                                        <BeginStoryboard>
+                                            <Storyboard >
+                                                <DoubleAnimation Storyboard.Target="{Binding Source={x:Reference sBrandLogo}}" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.8">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+
+                                </Grid.Triggers>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Image
                                 x:Name="iBrandLogo"
-                                Width="405"              
-                                Panel.ZIndex="1"
-                                PreviewMouseLeftButtonDown="ObjectMouseDown"
-                                PreviewMouseLeftButtonUp="ObjectMouseUp">
-                                <Image.Effect>
+                                Width="405"  
+                                    RenderOptions.BitmapScalingMode="HighQuality"
+
+                        RenderTransformOrigin="0.5,0.5">
+
+                                    <Image.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform />
+                                        </TransformGroup>
+                                    </Image.RenderTransform>
+                                    <Image.Effect>
                                     <DropShadowEffect
                                             BlurRadius="20"
                                             Direction="-90"
@@ -42,21 +130,91 @@
                                             Color="#f0000000" />
                                 </Image.Effect>
                             </Image>
-                            <Image
+                                <Slider
+                                    Name="sBrandLogo"
+                      Width="400"
+                                            Grid.Row="1"
+Focusable="False"
+                                    Opacity="0"
+                                            VerticalAlignment="Center"
+                                    Minimum="-50"
+                                            Maximum="50"
+                                            SmallChange="1"
+                                            Value="0" ValueChanged="Slider_ValueChanged" />
+                            </Grid>
+                            <Grid x:Name="gEventLogo" 
+                                  Panel.ZIndex="1"
+                                  MouseLeftButtonDown="ObjectMouseDown"
+                                    MouseLeftButtonUp="ObjectMouseUp"
+                                >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.Triggers>
+
+                                    <EventTrigger  RoutedEvent="MouseEnter">
+                                        <BeginStoryboard >
+                                            <Storyboard   >
+                                                <DoubleAnimation Storyboard.Target="{Binding Source={x:Reference sEventLogo}}" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.8">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                    <EventTrigger RoutedEvent="MouseLeave">
+                                        <BeginStoryboard>
+                                            <Storyboard >
+                                                <DoubleAnimation Storyboard.Target="{Binding Source={x:Reference sEventLogo}}" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.8">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+
+                                </Grid.Triggers>
+                                <Image
                                 x:Name="iEventLogo"
-                                Panel.ZIndex="1"
-                                Width="800"
-                                PreviewMouseLeftButtonDown="ObjectMouseDown"
-                                PreviewMouseLeftButtonUp="ObjectMouseUp">
-                                <Image.Effect>
-                                    <DropShadowEffect
+                                
+                                Width="700"
+                                                    
+                                    RenderOptions.BitmapScalingMode="HighQuality"
+
+                        RenderTransformOrigin="0.5,0.5">
+
+                                    <Image.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform />
+                                        </TransformGroup>
+                                    </Image.RenderTransform>
+                                    <Image.Effect>
+                                        <DropShadowEffect
                                             BlurRadius="20"
                                             Direction="-90"
                                             RenderingBias="Quality"
                                             ShadowDepth="3"
                                             Color="#f0000000" />
-                                </Image.Effect>
-                            </Image>
+                                    </Image.Effect>
+
+                                </Image>
+                                <Slider
+                                    Name="sEventLogo"
+           Opacity="0"
+                                            Grid.Row="1"
+Width="400"
+                                            VerticalAlignment="Center"
+                                    Minimum="-50"
+                                    Focusable="False"
+                                            Maximum="50"
+                                            SmallChange="1"
+                                            Value="0" ValueChanged="Slider_ValueChanged_1">
+                      
+                                </Slider>
+                            </Grid>
                             <Grid
                                 x:Name="gMapPool"
                                 Panel.ZIndex="1"
@@ -971,7 +1129,113 @@
 
                             </Grid>
 
+                            <Grid x:Name="gPlaybackControl" Width="1920" Height="100" Opacity="0">
+                                <Grid.Background>
+                                    <LinearGradientBrush EndPoint="0,0" StartPoint="0,1">
+                                        <GradientStop Color="#A0000000" Offset="0"/>
+                                        <GradientStop Color="#00000000"  Offset="1"/>
+                                    
+                                       
+                                    </LinearGradientBrush>
+                                </Grid.Background>
+                                <Grid.Triggers>
 
+                                    <EventTrigger  RoutedEvent="MouseEnter">
+                                        <BeginStoryboard >
+                                            <Storyboard   >
+                                                <DoubleAnimation Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.8">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                    <EventTrigger RoutedEvent="MouseLeave">
+                                        <BeginStoryboard>
+                                            <Storyboard >
+                                                <DoubleAnimation Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.8">
+                                                    <DoubleAnimation.EasingFunction>
+                                                        <CircleEase EasingMode="EaseOut"/>
+                                                    </DoubleAnimation.EasingFunction>
+                                                </DoubleAnimation>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+
+                                </Grid.Triggers>
+                                <Image
+                                    Width="1920"
+                                    Grid.Row="1" 
+                                
+                                    VerticalAlignment="Bottom"
+                                    Source="/resources/images/campaignmenu/LevelSelectDivider.png" />
+                                <StackPanel Margin="20" Orientation="Horizontal">
+                                    <TextBlock FontFamily="/Fonts/#Trajan Pro 3"
+                                        FontSize="25"
+                                        FontWeight="Bold"
+                                        Foreground="{StaticResource ButtonTextGradient}" VerticalAlignment="Center" Text="Volume: "/>
+                                    <Slider DockPanel.Dock="Left" VerticalAlignment="Center" Width="300" Grid.Row="0" x:Name="sVolume"  Minimum="0" Maximum="1" Value="0.5" Focusable="False"/>
+                                    
+                                </StackPanel>
+                                <StackPanel HorizontalAlignment="Center"  Orientation="Horizontal">
+                                    <Image Width="30" Margin="15" MouseDown="Image_MouseDown">
+                                        <Image.Style>
+                                            <Style TargetType="Image">
+                                                <Setter Property="Source" Value="{StaticResource PreviousNormal}"/>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" 
+                     Value="True">
+                                                        <Setter Property="Source" Value="{StaticResource PreviousActive}" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Image.Style>
+                                    </Image>
+                                    <Image x:Name="bPlay" Width="40" Margin="15" MouseDown="Image_MouseDown_1">
+                                        <Image.Style>
+                                            <Style TargetType="Image">
+                                                <Setter Property="Source" Value="{StaticResource PlayNormal}"/>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" 
+                     Value="True">
+                                                        <Setter Property="Source" Value="{StaticResource PlayActive}" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Image.Style>
+                                   
+                                    </Image>
+                                    <Image x:Name="bPause" Width="40" Margin="15" MouseDown="Image_MouseDown_2">
+                                        <Image.Style>
+                                            <Style TargetType="Image">
+                                                <Setter Property="Source" Value="{StaticResource PauseNormal}"/>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" 
+                     Value="True">
+                                                        <Setter Property="Source" Value="{StaticResource PauseActive}" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Image.Style>
+                                      
+                                    </Image>
+                                    <Image Width="30" Margin="15" MouseDown="Image_MouseDown_3">
+                                        <Image.Style>
+                                            <Style TargetType="Image">
+                                                <Setter Property="Source" Value="{StaticResource NextNormal}"/>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" 
+                     Value="True">
+                                                        <Setter Property="Source" Value="{StaticResource NextActive}" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Image.Style>
+
+                                    </Image>
+                                </StackPanel>
+                            </Grid>
                         </Canvas>
                     </Grid>
                 </Viewbox>

@@ -70,7 +70,7 @@
                             FontSize="32"
                             FontWeight="Bold"
                             Foreground="{StaticResource ButtonTextGradient}"
-                            Text="Stream Overlay v0.2.4">
+                            Text="Stream Overlay v0.2.5">
                             <TextBlock.Effect>
                                 <DropShadowEffect
                                     BlurRadius="3"
@@ -299,6 +299,7 @@
                                 <RowDefinition Height="auto" />
                                 <RowDefinition Height="auto" />
                                 <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto" />
@@ -306,32 +307,38 @@
                                 <ColumnDefinition Width="auto" />
                             </Grid.ColumnDefinitions>
                             <CheckBox
-                                x:Name="cbCountdown"
+                                x:Name="cbAudio"
                                 Grid.Row="0"
+                                Grid.Column="0"
+                                Content="Enable Age of Empires soundtracks"
+                                Style="{StaticResource Checkbox_Options}" />
+                            <CheckBox
+                                x:Name="cbCountdown"
+                                Grid.Row="1"
                                 Grid.Column="0"
                                 Content="Enable Countdown Timer"
                                 Style="{StaticResource Checkbox_Options}" />
                             <Button x:Name="bTimerAlign"
-                                Grid.Row="0"
+                                Grid.Row="1"
                                 Grid.Column="1"
                                 Margin="30,5"
                                 ToolTip="{Binding TimerAlign, StringFormat='{}Align {0}'}"
                                 Style="{StaticResource alignTimerButton}" Click="bTimerAlign_Click"/>
                             <CheckBox
                             x:Name="cbSchedule"
-                            Grid.Row="1"
+                            Grid.Row="2"
                             Grid.Column="0"
                             Content="Enable Schedule"
                             Style="{StaticResource Checkbox_Options}" />
                             <Button x:Name="bScheduleAlign"
-                                Grid.Row="1"
+                                Grid.Row="2"
                                 Grid.Column="1"
                                 Margin="30,5"
                                     ToolTip="{Binding ScheduleAlign, StringFormat='{}Align {0}'}"
                                 Style="{StaticResource alignScheduleButton}" Click="bScheduleAlign_Click"/>
 
                             <TextBlock
-                                Grid.Row="2"
+                                Grid.Row="3"
                                 VerticalAlignment="Center"
                                 FontFamily="/Fonts/#Trajan Pro 3"
                                 FontSize="19"
@@ -340,7 +347,7 @@
                                 Text="Select brand logo:  " />
 
                             <Button x:Name="bBrandAlign"
-                                Grid.Row="2"
+                                Grid.Row="3"
                                 Grid.Column="1"
                                 Margin="30,5"
                                     ToolTip="{Binding BrandAlign, StringFormat='{}Align {0}'}"
@@ -349,7 +356,7 @@
                                 x:Name="BrandLogos"
                                 Height="30"
                                 Width="400"
-                                Grid.Row="2"
+                                Grid.Row="3"
                                Grid.Column="2"
                                 SelectedIndex="0"
                                 Style="{StaticResource OptionsCombobox}">
@@ -362,7 +369,7 @@
 
                             <TextBlock
                                 VerticalAlignment="Center"
-                                  Grid.Row="3"
+                                  Grid.Row="4"
                                 Grid.Column="0"
                                 FontFamily="/Fonts/#Trajan Pro 3"
                                 FontSize="19"
@@ -371,7 +378,7 @@
                                 Text="Select event logo: " />
 
                             <Button x:Name="bEventAlign"
-                                Grid.Row="3"
+                                Grid.Row="4"
                                 Grid.Column="1"
                                 Margin="30,5"
                                     ToolTip="{Binding EventAlign, StringFormat='{}Align {0}'}"
@@ -381,7 +388,7 @@
                                 x:Name="EventLogos"
                                 Width="400"
                                 Height="30"
-                                Grid.Row="3"
+                                Grid.Row="4"
                                 Grid.Column="2"
                                 SelectedIndex="0"
                                 Style="{StaticResource OptionsCombobox}">
@@ -392,34 +399,35 @@
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
                             <TextBlock
-                            Grid.Row="5"
+                            Grid.Row="6"
                            
                             VerticalAlignment="Center"
                             FontFamily="/Fonts/#Trajan Pro 3"
                             FontSize="19"
                             FontWeight="Bold"
-                            Foreground="#dbd5c3">
+                            Foreground="#dbd5c3"  Margin="0,15,0,0">
                                 <Run Text="Select maps from the map pool:" />
                                 <LineBreak/>
                                 <Run Text="(the order of selection is important)" />
                             </TextBlock>
                             <CheckBox
                                 x:Name="cbScorePanel"
-                                Grid.Row="4"
+                                Grid.Row="5"
                                 Grid.Column="0"
                                 
                                 Style="{StaticResource Checkbox_Options}">
-                                <TextBlock>
+                                <TextBlock >
                                 <Run Text="Enable Score Panel"/>
                                     <LineBreak/>
                                 <Run Text="(depends on the map pool)"/>
                                 </TextBlock>
                             </CheckBox>
                             <ComboBox
+                                IsEnabled="{Binding ElementName=cbScorePanel, Path=IsChecked}"
                                 x:Name="ScorePanel"
                                 Width="400"
                                 Height="30"
-                                Grid.Row="4"
+                                Grid.Row="5"
                                 Grid.Column="2"
                                 SelectedIndex="0"
                                 Style="{StaticResource OptionsCombobox}">
@@ -428,8 +436,9 @@
                                 <ComboBoxItem Content="3 vs 3"/>
                             </ComboBox>
                             <Button x:Name="bMapAlign"
-                                Grid.Row="5"
+                                Grid.Row="6"
                                 Grid.Column="1"
+                                    VerticalAlignment="Center"
                                 Margin="30,5"
                                     ToolTip="{Binding MapAlign, StringFormat='{}Align {0}'}"
                                 Style="{StaticResource alignMapButton}" Click="bMapAlign_Click"/>
@@ -727,6 +736,18 @@
                                 Foreground="#FFFFAE00"
                                 Text="Latest Changes" />
                                                                                                               <LineBreak />
+                              <Run
+                                FontWeight="Bold"
+                                Text="May 28, 2022, version 0.2.5"
+                                TextDecorations="Underline" />
+
+                            <LineBreak />
+                            <Run Text="- Added the ability to change the logo size." />
+                            <LineBreak />
+                            <Run Text="- Added new maps and civs." />
+                            <LineBreak />
+                            <Run Text="- Added playback of Age of Empires series soundtracks." />
+                            <LineBreak />
                             <LineBreak />
                              <Run
                                 FontWeight="Bold"

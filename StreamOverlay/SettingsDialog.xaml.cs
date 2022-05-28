@@ -254,6 +254,41 @@ namespace StreamOverlay
             Maps.Add(new Map() { title = "Panama", icon = "/data/maps/panama_mini.png" });
             Maps.Add(new Map() { title = "Saguenay", icon = "/data/maps/saguenay_mini.png" });
 
+            Maps.Add(new Map() { title = "Alps", icon = "/data/maps/eu_alps_mini.png" });
+            Maps.Add(new Map() { title = "Anatolia", icon = "/data/maps/eu_anatolia_mini.png" });
+            Maps.Add(new Map() { title = "Archipelago", icon = "/data/maps/eu_archipelago_mini.png" });
+            Maps.Add(new Map() { title = "Balkan Mountains", icon = "/data/maps/eu_balkan_mountains_mini.png" });
+            Maps.Add(new Map() { title = "Baltic Sea", icon = "/data/maps/eu_baltic_mini.png" });
+            Maps.Add(new Map() { title = "Black Forest", icon = "/data/maps/eu_black_forest_mini.png" });
+            Maps.Add(new Map() { title = "Bohemia", icon = "/data/maps/eu_bohemia_mini.png" });
+            Maps.Add(new Map() { title = "Budapest", icon = "/data/maps/eu_budapest_mini.png" });
+            Maps.Add(new Map() { title = "Carpathians", icon = "/data/maps/eu_carpathians_mini.png" });
+            Maps.Add(new Map() { title = "Corsica and Sardinia", icon = "/data/maps/eu_corsica_sardinia_mini.png" });
+
+            Maps.Add(new Map() { title = "Courland", icon = "/data/maps/eu_courland_mini.png" });
+            Maps.Add(new Map() { title = "Danish Straits", icon = "/data/maps/eu_danish_strait_mini.png" });
+            Maps.Add(new Map() { title = "Dnieper Basin", icon = "/data/maps/eu_dnieper_basin_mini.png" });
+            Maps.Add(new Map() { title = "England", icon = "/data/maps/eu_england_mini.png" });
+            Maps.Add(new Map() { title = "Eurasian Steppe", icon = "/data/maps/eu_eurasian_steppe_mini.png" });
+            Maps.Add(new Map() { title = "Finland", icon = "/data/maps/eu_finland_mini.png" });
+            Maps.Add(new Map() { title = "Forest Nothing", icon = "/data/maps/eu_forest_nothing_mini.png" });
+            Maps.Add(new Map() { title = "France", icon = "/data/maps/eu_france_mini.png" });
+            Maps.Add(new Map() { title = "Hungarian Plains", icon = "/data/maps/eu_hungarian_plains_mini.png" });
+            Maps.Add(new Map() { title = "Ireland", icon = "/data/maps/eu_ireland_mini.png" });
+
+            Maps.Add(new Map() { title = "Italy", icon = "/data/maps/eu_italy_mini.png" });
+            Maps.Add(new Map() { title = "Lithuania", icon = "/data/maps/eu_lithuania_mini.png" });
+            Maps.Add(new Map() { title = "Low Countries", icon = "/data/maps/eu_low_countries_mini.png" });
+            Maps.Add(new Map() { title = "Pripet Marshes", icon = "/data/maps/eu_pripet_marshes_mini.png" });
+            Maps.Add(new Map() { title = "Pyrenees", icon = "/data/maps/eu_pyrenees_mini.png" });
+            Maps.Add(new Map() { title = "Saxony", icon = "/data/maps/eu_saxony_mini.png" });
+            Maps.Add(new Map() { title = "Scandinavia", icon = "/data/maps/eu_scandinavia_mini.png" });
+            Maps.Add(new Map() { title = "Scotland", icon = "/data/maps/eu_scotland_mini.png" });
+            Maps.Add(new Map() { title = "Spain", icon = "/data/maps/eu_spain_mini.png" });
+            Maps.Add(new Map() { title = "Vistula Basin", icon = "/data/maps/eu_vistula_basin_mini.png" });
+
+            Maps.Add(new Map() { title = "Wallachia", icon = "/data/maps/eu_wallachia_mini.png" });
+
 
             return Maps;
         }
@@ -363,7 +398,7 @@ namespace StreamOverlay
 
 
 
-        int Version = 24;
+        int Version = 25;
 
         public SettingsDialog()
         {
@@ -390,7 +425,7 @@ namespace StreamOverlay
                     map.isSelected = true;
                 }
             }
-
+            cbAudio.IsChecked = Settings1.Default.Audio;
             cbCountdown.IsChecked = Settings1.Default.Countdown;
             cbSchedule.IsChecked = Settings1.Default.Schedule;
             cbScorePanel.IsChecked = Settings1.Default.ScorePanelEnabled;
@@ -635,7 +670,8 @@ namespace StreamOverlay
 
             (sender as Button).IsEnabled = false;
 
-
+            Settings1.Default.Audio = (bool)cbAudio.IsChecked;
+            Settings1.Default.Save();
             MainWindow mainWindow = new MainWindow();
 
 
@@ -665,7 +701,7 @@ namespace StreamOverlay
 
             if (BrandLogos.SelectedIndex == 0)
             {
-                mainWindow.iBrandLogo.Visibility = Visibility.Collapsed;
+                mainWindow.gBrandLogo.Visibility = Visibility.Collapsed;
             }
             else
             {
@@ -674,7 +710,7 @@ namespace StreamOverlay
 
             if (EventLogos.SelectedIndex == 0)
             {
-                mainWindow.iEventLogo.Visibility = Visibility.Collapsed;
+                mainWindow.gEventLogo.Visibility = Visibility.Collapsed;
             }
             else
             {
@@ -884,11 +920,11 @@ namespace StreamOverlay
             mainWindow.gMapPool.Arrange(new Rect(0, 0, mainWindow.gMapPool.DesiredSize.Width, mainWindow.gMapPool.DesiredSize.Height));
 
 
-            mainWindow.iBrandLogo.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-            mainWindow.iBrandLogo.Arrange(new Rect(0, 0, mainWindow.iBrandLogo.DesiredSize.Width, mainWindow.iBrandLogo.DesiredSize.Height));
+            mainWindow.gBrandLogo.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            mainWindow.gBrandLogo.Arrange(new Rect(0, 0, mainWindow.gBrandLogo.DesiredSize.Width, mainWindow.gBrandLogo.DesiredSize.Height));
 
-            mainWindow.iEventLogo.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-            mainWindow.iEventLogo.Arrange(new Rect(0, 0, mainWindow.iEventLogo.DesiredSize.Width, mainWindow.iEventLogo.DesiredSize.Height));
+            mainWindow.gEventLogo.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            mainWindow.gEventLogo.Arrange(new Rect(0, 0, mainWindow.gEventLogo.DesiredSize.Width, mainWindow.gEventLogo.DesiredSize.Height));
 
 
 
@@ -904,13 +940,13 @@ namespace StreamOverlay
             mainWindow.gMapPool.SetValue(Canvas.LeftProperty, pMap.X);
             mainWindow.gMapPool.SetValue(Canvas.TopProperty, pMap.Y);
 
-            Point pBrand = AlignPosition(BrandAlign, mainWindow.iBrandLogo.ActualWidth, mainWindow.iBrandLogo.ActualHeight);
-            mainWindow.iBrandLogo.SetValue(Canvas.LeftProperty, pBrand.X);
-            mainWindow.iBrandLogo.SetValue(Canvas.TopProperty, pBrand.Y);
+            Point pBrand = AlignPosition(BrandAlign, mainWindow.gBrandLogo.ActualWidth, mainWindow.gBrandLogo.ActualHeight);
+            mainWindow.gBrandLogo.SetValue(Canvas.LeftProperty, pBrand.X);
+            mainWindow.gBrandLogo.SetValue(Canvas.TopProperty, pBrand.Y);
 
-            Point pEvent = AlignPosition(EventAlign, mainWindow.iEventLogo.ActualWidth, mainWindow.iEventLogo.ActualHeight);
-            mainWindow.iEventLogo.SetValue(Canvas.LeftProperty, pEvent.X);
-            mainWindow.iEventLogo.SetValue(Canvas.TopProperty, pEvent.Y);
+            Point pEvent = AlignPosition(EventAlign, mainWindow.gEventLogo.ActualWidth, mainWindow.gEventLogo.ActualHeight);
+            mainWindow.gEventLogo.SetValue(Canvas.LeftProperty, pEvent.X);
+            mainWindow.gEventLogo.SetValue(Canvas.TopProperty, pEvent.Y);
 
             mainWindow.Cursor = AoE;
             Mouse.OverrideCursor = AoE;
@@ -1043,6 +1079,7 @@ namespace StreamOverlay
 
         private void Window_Closed(object sender, EventArgs e)
         {
+            Settings1.Default.Audio = (bool)cbAudio.IsChecked;
             Settings1.Default.Schedule = (bool)cbSchedule.IsChecked;
             Settings1.Default.Countdown = (bool)cbCountdown.IsChecked;
             Settings1.Default.ScorePanelEnabled = (bool)cbScorePanel.IsChecked;

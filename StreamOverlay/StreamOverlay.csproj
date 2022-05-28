@@ -9,7 +9,7 @@
     <Company>VladTheJunior</Company>
     <Authors>VladTheJunior</Authors>
     <Copyright>VladTheJunior</Copyright>
-    <Version>0.2.4</Version>
+    <Version>0.2.5</Version>
     <BaseOutputPath>..\publish\</BaseOutputPath>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
@@ -27,7 +27,9 @@
     <None Remove="data\civs\flag_hc_inca.png" />
     <None Remove="data\civs\flag_hc_indian.png" />
     <None Remove="data\civs\flag_hc_iroquois.png" />
+    <None Remove="data\civs\flag_hc_italian.png" />
     <None Remove="data\civs\flag_hc_japanese.png" />
+    <None Remove="data\civs\flag_hc_maltese.png" />
     <None Remove="data\civs\flag_hc_mexican.png" />
     <None Remove="data\civs\flag_hc_ottoman.png" />
     <None Remove="data\civs\flag_hc_portuguese.png" />
@@ -38,6 +40,37 @@
     <None Remove="data\civs\flag_hc_swedish.png" />
     <None Remove="data\maps\arabia_mini.png" />
     <None Remove="data\maps\congo_basin_mini.png" />
+    <None Remove="data\maps\eu_alps_mini.png" />
+    <None Remove="data\maps\eu_anatolia_mini.png" />
+    <None Remove="data\maps\eu_archipelago_mini.png" />
+    <None Remove="data\maps\eu_balkan_mountains_mini.png" />
+    <None Remove="data\maps\eu_baltic_mini.png" />
+    <None Remove="data\maps\eu_black_forest_mini.png" />
+    <None Remove="data\maps\eu_bohemia_mini.png" />
+    <None Remove="data\maps\eu_budapest_mini.png" />
+    <None Remove="data\maps\eu_carpathians_mini.png" />
+    <None Remove="data\maps\eu_corsica_sardinia_mini.png" />
+    <None Remove="data\maps\eu_courland_mini.png" />
+    <None Remove="data\maps\eu_danish_strait_mini.png" />
+    <None Remove="data\maps\eu_dnieper_basin_mini.png" />
+    <None Remove="data\maps\eu_england_mini.png" />
+    <None Remove="data\maps\eu_eurasian_steppe_mini.png" />
+    <None Remove="data\maps\eu_finland_mini.png" />
+    <None Remove="data\maps\eu_forest_nothing_mini.png" />
+    <None Remove="data\maps\eu_france_mini.png" />
+    <None Remove="data\maps\eu_hungarian_plains_mini.png" />
+    <None Remove="data\maps\eu_ireland_mini.png" />
+    <None Remove="data\maps\eu_italy_mini.png" />
+    <None Remove="data\maps\eu_lithuania_mini.png" />
+    <None Remove="data\maps\eu_low_countries_mini.png" />
+    <None Remove="data\maps\eu_pripet_marshes_mini.png" />
+    <None Remove="data\maps\eu_pyrenees_mini.png" />
+    <None Remove="data\maps\eu_saxony_mini.png" />
+    <None Remove="data\maps\eu_scandinavia_mini.png" />
+    <None Remove="data\maps\eu_scotland_mini.png" />
+    <None Remove="data\maps\eu_spain_mini.png" />
+    <None Remove="data\maps\eu_vistula_basin_mini.png" />
+    <None Remove="data\maps\eu_wallachia_mini.png" />
     <None Remove="Fonts\MTCORSVA.TTF" />
     <None Remove="resources\loss.png" />
     <None Remove="resources\skirmish_victory.png" />
@@ -74,7 +107,9 @@
     <Resource Include="data\civs\flag_hc_inca.png" />
     <Resource Include="data\civs\flag_hc_indian.png" />
     <Resource Include="data\civs\flag_hc_iroquois.png" />
+    <Resource Include="data\civs\flag_hc_italian.png" />
     <Resource Include="data\civs\flag_hc_japanese.png" />
+    <Resource Include="data\civs\flag_hc_maltese.png" />
     <Resource Include="data\civs\flag_hc_mexican.png" />
     <Resource Include="data\civs\flag_hc_ottoman.png" />
     <Resource Include="data\civs\flag_hc_portuguese.png" />
@@ -121,6 +156,37 @@
     <Resource Include="data\maps\dakota_mini.png" />
     <Resource Include="data\maps\deccan_mini.png" />
     <Resource Include="data\maps\dunes_mini.png" />
+    <Resource Include="data\maps\eu_alps_mini.png" />
+    <Resource Include="data\maps\eu_anatolia_mini.png" />
+    <Resource Include="data\maps\eu_archipelago_mini.png" />
+    <Resource Include="data\maps\eu_balkan_mountains_mini.png" />
+    <Resource Include="data\maps\eu_baltic_mini.png" />
+    <Resource Include="data\maps\eu_black_forest_mini.png" />
+    <Resource Include="data\maps\eu_bohemia_mini.png" />
+    <Resource Include="data\maps\eu_budapest_mini.png" />
+    <Resource Include="data\maps\eu_carpathians_mini.png" />
+    <Resource Include="data\maps\eu_corsica_sardinia_mini.png" />
+    <Resource Include="data\maps\eu_courland_mini.png" />
+    <Resource Include="data\maps\eu_danish_strait_mini.png" />
+    <Resource Include="data\maps\eu_dnieper_basin_mini.png" />
+    <Resource Include="data\maps\eu_england_mini.png" />
+    <Resource Include="data\maps\eu_eurasian_steppe_mini.png" />
+    <Resource Include="data\maps\eu_finland_mini.png" />
+    <Resource Include="data\maps\eu_forest_nothing_mini.png" />
+    <Resource Include="data\maps\eu_france_mini.png" />
+    <Resource Include="data\maps\eu_hungarian_plains_mini.png" />
+    <Resource Include="data\maps\eu_ireland_mini.png" />
+    <Resource Include="data\maps\eu_italy_mini.png" />
+    <Resource Include="data\maps\eu_lithuania_mini.png" />
+    <Resource Include="data\maps\eu_low_countries_mini.png" />
+    <Resource Include="data\maps\eu_pripet_marshes_mini.png" />
+    <Resource Include="data\maps\eu_pyrenees_mini.png" />
+    <Resource Include="data\maps\eu_saxony_mini.png" />
+    <Resource Include="data\maps\eu_scandinavia_mini.png" />
+    <Resource Include="data\maps\eu_scotland_mini.png" />
+    <Resource Include="data\maps\eu_spain_mini.png" />
+    <Resource Include="data\maps\eu_vistula_basin_mini.png" />
+    <Resource Include="data\maps\eu_wallachia_mini.png" />
     <Resource Include="data\maps\everglades_mini.png" />
     <Resource Include="data\maps\fertile_crescent_mini.png" />
     <Resource Include="data\maps\florida_mini.png" />
@@ -328,6 +394,414 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="data\animations\Time2Treaty\video.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\36519767.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\36519768.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\36519769.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\36519770.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\36519771.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\36519772.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\36519773.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\36519774.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\36519775.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\36519776.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\36519777.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\36519778.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\36519779.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\36519780.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\36519781.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\36519782.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\36519783.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\36519784.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\36519785.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\36519786.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\36519787.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\36519788.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\39189241.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\39189243.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\39189245.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\39189246.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\39189248.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\39189249.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\39189250.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\39189251.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\39189253.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\39189254.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\39189255.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\39189256.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277450.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277453.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277455.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277458.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277460.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277461.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277462.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277463.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277464.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277465.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277466.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277467.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277468.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277469.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277470.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277471.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277472.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277473.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277474.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277475.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277476.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277477.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277478.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277479.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277480.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277481.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277482.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277483.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277484.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277485.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277486.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277487.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277488.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277489.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277490.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277491.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277492.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277493.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277494.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277495.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277496.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277497.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277498.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277499.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277500.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277501.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277502.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277503.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277504.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277505.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277506.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277507.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277508.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277509.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277510.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277511.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277512.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277513.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277514.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277515.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277516.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277517.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277518.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277519.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277520.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277521.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277522.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277523.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277524.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277525.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277526.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277527.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277528.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277529.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277530.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277531.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277532.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277533.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277534.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277535.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277536.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277537.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277538.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277539.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277540.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277541.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277542.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277543.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277544.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277545.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277546.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277547.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277548.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277549.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277550.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277551.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277552.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277553.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277554.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277555.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\73277556.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\90486908.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="data\brand\Age of Empires 2.png">
