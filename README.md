@@ -17,10 +17,10 @@
 *A tool to create a professional looking overlay with an animated video background for Age of Empires 3 streams*
 
 **Developer:** VladTheJunior<br />
-**Current version:** 0.2.5<br />
+**Current version:** 0.2.6<br />
 
 [Download Portable](https://github.com/VladTheJunior/StreamOverlay/releases/latest/download/StreamOverlay.zip)<br />
-[Download Installer from Goolge Drive](https://drive.google.com/file/d/1OtMZxxmcIZ88OXWkCbb_Bec1ZOj4zDZl/view?usp=sharing)<br />
+[Download Installer from Goolge Drive](https://drive.google.com/file/d/1VVqeT90sRsKXnBz1D8Dq4DNF_KXtHqf1/view?usp=sharing)<br />
 
 *__Note:__ Portable version may require .NET6 desktop runtime: https://dotnet.microsoft.com/en-us/download/dotnet/6.0*
 *__Another Note__: Versions below .NET 6.0.5 had a bug with displaying tooltips. Be sure that you are using an updated version of .NET if you find this bug.*
@@ -52,11 +52,16 @@ You can also join my discord server to stay up to date with the latest updates a
 
 ## Features
 * Animated video background.
+* Play all backgrounds in a loop.
 * Countdown timer.
 * Schedule textbox.
 * Map pool ticker.
 * Brand and event logos.
-* Playback of age of empires series soundtracks.
+* Twitch stream info panel.
+* Players panel (civ picks and score)
+* Text score panel.
+* Chromakey instead of overlay.
+* Playback of Age of Empires series soundtracks.
 * Auto updater.
 * Ability to move/show/hide elements in overlay window.
 
@@ -71,11 +76,23 @@ You can also join my discord server to stay up to date with the latest updates a
 * **Ctrl+3** : Show/hide MapPool element.
 * **Ctrl+4** : Show/hide BrandLogo element.
 * **Ctrl+5** : Show/hide EventLogo element.
+* **Ctrl+6** : Show/hide PlayersPanel element.
+* **Ctrl+7** : Show/hide TwitchPanel element.
+* **Ctrl+8** : Show/hide ScorePanel element.
+* **Ctrl+0** : Show/hide Chromakey.
 
 ## Tips
+* Each overlay includes an animated video background and static preview image. Additional elements are countdown timer, schedule textbox, map pool, brand logo, event logo, players panel, twitch panel and score panel.
+* You can move almost all elements inside overlay with your mouse.
 * If there are overlay lags on the stream, you can turn off the animated background in the settings window.
 * There is the possibility of creating automatic thumbnails for YouTube.
-* You can add your own overlay, brand logo or event logo. All related data contains in **data** folder.
+* You can add your own overlay, brand logo or event logo. All related data contains in data folder.
+* Click on Twitch Channel logo to show/hide Caster Name input box.
+* To show the sound controls hover the mouse over the top of the screen.
+* To change player civ - click Mouse Left Button, to change Win/Loss status - click Right Mouse Button.
+* For chromakey use Filters | Chromakey | Opacity in OBS settings.
+* Select settings as on image below to add overlay in OBS.<br />
+![image](https://user-images.githubusercontent.com/30210308/171024011-935a13b3-9964-476d-9bee-ca47d2413a49.png)
 * If you find a bug or have any suggestions, please contact me in Discord: **VladTheJunior#1244**
 
 
