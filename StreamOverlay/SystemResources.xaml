@@ -16,8 +16,168 @@
     <ImageBrush x:Key="hud_chat_combobox" ImageSource="/resources/images/hud/hud_chat_combobox.png" />
     <ImageBrush x:Key="hud_chat_combobox_over" ImageSource="/resources/images/hud/hud_chat_combobox_over.png" />
 
+    <BitmapImage x:Key="uiresourcesicon_bg" UriSource="/resources/images/hud/resources_iconbg.png" />
+
+    <!--  Main Panel Gradients  -->
+    <LinearGradientBrush x:Key="PanelBGStrokeGradient" StartPoint="0,0.5" EndPoint="1,0.5">
+        <GradientStop Offset="0" Color="#b8a444" />
+        <GradientStop Offset="0.35" Color="#f7e79a" />
+        <GradientStop Offset="0.5" Color="#fff8d9" />
+        <GradientStop Offset="0.65" Color="#f7e79a" />
+        <GradientStop Offset="1" Color="#b8a444" />
+    </LinearGradientBrush>
+    <BitmapImage x:Key="resource_gold" UriSource="/resources/images/hud/resource_gold.png" />
+    <BitmapImage x:Key="resource_pop" UriSource="/resources/images/hud/resource_pop.png" />
+    <BitmapImage x:Key="resource_villagers" UriSource="/resources/images/hud/resource_villagers.png" />
+    <BitmapImage x:Key="resource_time" UriSource="/resources/images/hud/resource_time.png" />
+    
+    <Style TargetType="{x:Type Control}" x:Key="Ingame_PanelBGStyle">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Grid>
+                 
+                            <Grid.Background>
+                                <ImageBrush ImageSource="/resources/images/hud/resources_bg.png" />
+                            </Grid.Background>
+                                           </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="IsTabStop" Value="False"/>
+    </Style>
 
 
+    <LinearGradientBrush x:Key="OverlayTitleGradient" EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="#efd365" Offset="0" />
+        <GradientStop Color="#f3e3a6" Offset="0.5" />
+        <GradientStop Color="#b69721" Offset="1" />
+    </LinearGradientBrush>
+
+    <Style TargetType="{x:Type Button}" x:Key="HomeCityHUDButton">
+        <Setter Property="Height" Value="100" />
+        <Setter Property="Width" Value="100" />
+        <Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <ScaleTransform ScaleX="1" ScaleY="1" />
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Grid x:Name="ButtonBody" Height="100" Width="100" RenderTransformOrigin="0.5,0.5">
+                            <Grid.RenderTransform>
+                                <ScaleTransform />
+                            </Grid.RenderTransform>
+
+                            <Image Height="100" Width="100" Source="/resources/images/hud/hud_hcflag_bg.png"></Image>
+
+                            <Grid Height="100" Width="100">
+                                <Grid.OpacityMask>
+                                    <ImageBrush ImageSource="/resources/images/hud/hud_hcflag_mask.png" />
+                                </Grid.OpacityMask>
+
+                                <!-- Flag Image -->
+                                <Image Width="80" Height="80" Source="{Binding TwitchIcon}">
+                                    <Image.OpacityMask>
+                                        <ImageBrush ImageSource="/resources/images/hud/hud_hcflag_mask.png" />
+                                    </Image.OpacityMask>
+                                </Image>
+
+                                <Grid Height="80" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Transparent">
+                                    <Grid.OpacityMask>
+                                        <ImageBrush ImageSource="/resources/images/hud/hud_hcflag_mask.png" />
+                                    </Grid.OpacityMask>
+                                </Grid>
+
+                                <Ellipse Width="100" Height="100" x:Name="glow" Opacity="0">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="resources/images/hud/hud_hcflag_glow.png" />
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <Ellipse Width="100" Height="100" x:Name="flash_glow" Visibility="Hidden">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="resources/images/hud/hud_hcflag_glow.png" />
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                            </Grid>
+                        </Grid>
+
+                        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Margin="-4,0,0,0" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="/Fonts/#Trajan Pro 3" FontWeight="Bold" FontSize="35pt" Foreground="Black" />
+                            <TextBlock Margin=" 4,0,0,0" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="/Fonts/#Trajan Pro 3" FontWeight="Bold" FontSize="35pt" Foreground="Black" />
+                            <TextBlock Margin="0, 4,0,0" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="/Fonts/#Trajan Pro 3" FontWeight="Bold" FontSize="35pt" Foreground="Black" />
+                            <TextBlock Margin="0,-4,0,0" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="/Fonts/#Trajan Pro 3" FontWeight="Bold" FontSize="35pt" Foreground="Black" />
+
+                            <TextBlock Margin="-2.9,-2.9,0,0" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="/Fonts/#Trajan Pro 3" FontWeight="Bold" FontSize="35pt" Foreground="Black" />
+                            <TextBlock Margin="-2.9, 2.9,0,0" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="/Fonts/#Trajan Pro 3" FontWeight="Bold" FontSize="35pt" Foreground="Black" />
+                            <TextBlock Margin=" 2.9,-2.9,0,0" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="/Fonts/#Trajan Pro 3" FontWeight="Bold" FontSize="35pt" Foreground="Black" />
+                            <TextBlock Margin=" 2.9, 2.9,0,0" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="/Fonts/#Trajan Pro 3" FontWeight="Bold" FontSize="35pt" Foreground="Black" />
+
+                            <TextBlock Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Trajan Pro" FontWeight="Bold" FontSize="35pt" Foreground="{StaticResource OverlayTitleGradient}">
+                                <TextBlock.Effect>
+                                    <DropShadowEffect BlurRadius="6" Color="Black" Direction="-90" ShadowDepth="4" RenderingBias="Quality" />
+                                </TextBlock.Effect>
+                            </TextBlock>
+                        </Grid>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Trigger.EnterActions>
+                                <StopStoryboard BeginStoryboardName="MouseOverStoryBoard" />
+                                <StopStoryboard BeginStoryboardName="MouseOverStoryBoard2" />
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="ButtonBody" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.05" />
+                                        <DoubleAnimation Storyboard.TargetName="ButtonBody" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.05" />
+                                        <DoubleAnimation Storyboard.TargetName="glow" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.05" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="ButtonBody" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.025" Duration="0:0:.05" />
+                                        <DoubleAnimation Storyboard.TargetName="ButtonBody" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.025" Duration="0:0:.05" />
+                                        <DoubleAnimation Storyboard.TargetName="glow" Storyboard.TargetProperty="Opacity" To="0.75" Duration="0:0:.05" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard Name="MouseOverStoryBoard">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="ButtonBody" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.025" Duration="0:0:.2" />
+                                        <DoubleAnimation Storyboard.TargetName="ButtonBody" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.025" Duration="0:0:.2" />
+                                        <DoubleAnimation Storyboard.TargetName="glow" Storyboard.TargetProperty="Opacity" To="0.75" Duration="0:0:.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard Name="MouseOverStoryBoard2">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="ButtonBody" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.2" />
+                                        <DoubleAnimation Storyboard.TargetName="ButtonBody" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.2" />
+                                        <DoubleAnimation Storyboard.TargetName="glow" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 
     <ImageBrush
@@ -2709,7 +2869,148 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style x:Key="alignTwitchButton" TargetType="{x:Type Button}">
+        <Setter Property="Height" Value="35" />
+        <Setter Property="Width" Value="35" />
 
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+
+        <Setter Property="FontFamily" Value="/Fonts/#Trajan Pro 3" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Background" Value="#36270f" />
+        <Setter Property="Content" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        Name="border"
+                        Background="{TemplateBinding Background}"
+                        BorderThickness="3"
+                        CornerRadius="4">
+                        <Rectangle
+                            x:Name="content"
+                            Width="20"
+                            Height="20" />
+                        <Border.BorderBrush>
+                            <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStopCollection>
+                                        <GradientStop Offset="0.0" Color="#4f4731" />
+                                        <GradientStop Offset="0.5" Color="#b79f66" />
+                                        <GradientStop Offset="1.0" Color="#4f4731" />
+                                    </GradientStopCollection>
+                                </LinearGradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </Border.BorderBrush>
+                        <Border.Effect>
+                            <DropShadowEffect
+                                BlurRadius="5"
+                                Direction="-90"
+                                RenderingBias="Quality"
+                                ShadowDepth="0"
+                                Color="Black" />
+                        </Border.Effect>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding TwitchAlign}" Value="TopRight">
+                            <Setter TargetName="content" Property="Fill">
+                                <Setter.Value>
+
+                                    <DrawingBrush>
+                                        <DrawingBrush.Drawing>
+                                            <DrawingGroup>
+                                                <DrawingGroup.Children>
+                                                    <GeometryDrawing Brush="{StaticResource ButtonTextGradient}" Geometry="M5.64,4.22H19.78V18.36L15.54,14.12L9.88,19.78L4.22,14.12L9.88,8.46L5.64,4.22M17.66,6.34H10.59L12.71,8.46L7.05,14.12L9.88,16.95L15.54,11.29L17.66,13.41V6.34H17.66Z" />
+                                                </DrawingGroup.Children>
+                                            </DrawingGroup>
+                                        </DrawingBrush.Drawing>
+                                    </DrawingBrush>
+
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding TwitchAlign}" Value="BottomRight">
+                            <Setter TargetName="content" Property="Fill">
+                                <Setter.Value>
+
+                                    <DrawingBrush>
+                                        <DrawingBrush.Drawing>
+                                            <DrawingGroup>
+                                                <DrawingGroup.Children>
+                                                    <GeometryDrawing Brush="{StaticResource ButtonTextGradient}" Geometry="M9.88,15.54L4.22,9.88L9.88,4.22L15.54,9.88L19.78,5.64V19.78H5.64L9.88,15.54M17.66,10.59L15.54,12.71L9.88,7.05L7.05,9.88L12.71,15.54L10.59,17.66H17.66V10.59Z" />
+                                                </DrawingGroup.Children>
+                                            </DrawingGroup>
+                                        </DrawingBrush.Drawing>
+                                    </DrawingBrush>
+
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding TwitchAlign}" Value="BottomLeft">
+                            <Setter TargetName="content" Property="Fill">
+                                <Setter.Value>
+
+                                    <DrawingBrush>
+                                        <DrawingBrush.Drawing>
+                                            <DrawingGroup>
+                                                <DrawingGroup.Children>
+                                                    <GeometryDrawing Brush="{StaticResource ButtonTextGradient}" Geometry="M18.36,19.78H4.22V5.64L8.47,9.88L14.12,4.22L19.78,9.88L14.12,15.54L18.36,19.78M6.34,17.66H13.41L11.29,15.54L16.95,9.88L14.12,7.05L8.46,12.71L6.34,10.59V17.66Z" />
+                                                </DrawingGroup.Children>
+                                            </DrawingGroup>
+                                        </DrawingBrush.Drawing>
+                                    </DrawingBrush>
+
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding TwitchAlign}" Value="TopLeft">
+                            <Setter TargetName="content" Property="Fill">
+                                <Setter.Value>
+
+                                    <DrawingBrush>
+                                        <DrawingBrush.Drawing>
+                                            <DrawingGroup>
+                                                <DrawingGroup.Children>
+                                                    <GeometryDrawing Brush="{StaticResource ButtonTextGradient}" Geometry="M14.12,8.46L19.78,14.12L14.12,19.78L8.46,14.12L4.22,18.36V4.22H18.36L14.12,8.46M6.34,13.41L8.46,11.29L14.12,16.95L16.95,14.12L11.29,8.47L13.41,6.34H6.34V13.41Z" />
+                                                </DrawingGroup.Children>
+                                            </DrawingGroup>
+                                        </DrawingBrush.Drawing>
+                                    </DrawingBrush>
+
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="#5d451e" />
+                                </Setter.Value>
+                            </Setter>
+                            <Trigger.EnterActions>
+                                <!--<SoundPlayerAction Source="resources/audio/mouseover_00.wav"/>-->
+                            </Trigger.EnterActions>
+                        </Trigger>
+
+
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="border" Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="#855c1b" />
+                                </Setter.Value>
+                            </Setter>
+                            <Trigger.EnterActions>
+                                <!--<SoundPlayerAction Source="resources/audio/bigbutton.wav"/>-->
+                            </Trigger.EnterActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <Style x:Key="alignTimerButton" TargetType="{x:Type Button}">
         <Setter Property="Height" Value="35" />
@@ -3454,14 +3755,7 @@
         </Setter>
     </Style>
 
-    <!--  Main Panel Gradients  -->
-    <LinearGradientBrush x:Key="PanelBGStrokeGradient" StartPoint="0,0.5" EndPoint="1,0.5">
-        <GradientStop Offset="0" Color="#b8a444" />
-        <GradientStop Offset="0.35" Color="#f7e79a" />
-        <GradientStop Offset="0.5" Color="#fff8d9" />
-        <GradientStop Offset="0.65" Color="#f7e79a" />
-        <GradientStop Offset="1" Color="#b8a444" />
-    </LinearGradientBrush>
+
 
     <LinearGradientBrush x:Key="PanelBGStrokeGradientGreen" StartPoint="0,0.5" EndPoint="1,0.5">
         <GradientStop Offset="0" Color="#FF69B844" />
@@ -3740,7 +4034,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
 
 
 

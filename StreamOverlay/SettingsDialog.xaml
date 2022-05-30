@@ -70,7 +70,7 @@
                             FontSize="32"
                             FontWeight="Bold"
                             Foreground="{StaticResource ButtonTextGradient}"
-                            Text="Stream Overlay v0.2.5">
+                            Text="Stream Overlay v0.2.6">
                             <TextBlock.Effect>
                                 <DropShadowEffect
                                     BlurRadius="3"
@@ -246,36 +246,60 @@
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="auto" />
-
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
+
+                        <CheckBox
+                            Margin="20,0"
+                                x:Name="cbOverlayLoop"
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Content="Play All Backgrounds in a Loop"
+                                Style="{StaticResource Checkbox_Options}" />
+                        <CheckBox
+                            Margin="20,0"
+                                x:Name="cbAudio"
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                Content="Play Age of Empires Soundtracks"
+                                Style="{StaticResource Checkbox_Options}" />
+                        <CheckBox
+                            Margin="20,0"
+                                x:Name="cbChromakey"
+                                Grid.Row="3"
+                                Grid.Column="0"
+                                Content="Use Chromakey Instead of Overlay"
+                                Style="{StaticResource Checkbox_Options}" />
+
+                        <Viewbox Height="635">
                         <Button
-                            Margin="50,0"
-                            HorizontalAlignment="Left"
+                            
                             Background="{Binding SelectedOverlay.icon, Converter={StaticResource PathToBrushConverter}}"
                             Content="{Binding SelectedOverlay.title}"
                             Template="{StaticResource SelectedOverlayIcon}" />
-
+                        </Viewbox>
                         <Button
                             x:Name="bLaunch"
-                            Grid.Row="2"
-                            Margin="50,6"
+                            Grid.Row="6"
+                            Margin="20,6"
                             VerticalAlignment="Top"
                             Click="Button_Click_1"
                             Content="Launch Overlay"
                             Style="{StaticResource MainMenuButton}" />
                         <Button
                             x:Name="bCreateThumbnail"
-                            Grid.Row="3"
-                            Margin="50,0"
+                            Grid.Row="5"
+                            Margin="20,0"
                             VerticalAlignment="Top"
                             Click="Button_Click_2"
                             Content="Create Thumbnail"
                             Style="{StaticResource MainMenuButton}" />
                         <CheckBox
                             x:Name="tbAnimation"
-                            Grid.Row="1"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Top"
+                            Grid.Row="4"
+                            Margin="20,0"
                             Content="Enable Animated Background"
                             IsChecked="True"
                             Style="{StaticResource Checkbox_Options}"
@@ -285,7 +309,7 @@
                     <Grid
                         Grid.Row="2"
                         Grid.Column="1"
-                        Margin="10,20,50,50">
+                        Margin="10,20,20,20">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto" />
                             
@@ -300,6 +324,7 @@
                                 <RowDefinition Height="auto" />
                                 <RowDefinition Height="auto" />
                                 <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto" />
@@ -307,47 +332,64 @@
                                 <ColumnDefinition Width="auto" />
                             </Grid.ColumnDefinitions>
                             <CheckBox
-                                x:Name="cbAudio"
-                                Grid.Row="0"
-                                Grid.Column="0"
-                                Content="Enable Age of Empires soundtracks"
-                                Style="{StaticResource Checkbox_Options}" />
+                            x:Name="cbScorePanel"
+                            Grid.Row="0"
+                            Grid.Column="0"
+                                Content="Enable Score Input Panel"
+                       
+                            Style="{StaticResource Checkbox_Options}"/>
+                            <CheckBox
+                            x:Name="cbTwitch"
+                            Grid.Row="1"
+                            Grid.Column="0"
+                                Content="Enable Twitch Panel"
+                       
+                            Style="{StaticResource Checkbox_Options}"/>
+                            <Button x:Name="bTwitchAlign"
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Margin="30,5"
+                                ToolTip="{Binding TwitchAlign, StringFormat='{}Align {0}'}"
+                                Style="{StaticResource alignTwitchButton}" Click="bTwitchAlign_Click" />
+                            <TextBox  Grid.Row="1" x:Name="tbTwitchChannel"
+                            Grid.Column="2" IsEnabled="{Binding ElementName=cbTwitch, Path=IsChecked}" Width="400" Style="{StaticResource hcInfoName}"/>
+
                             <CheckBox
                                 x:Name="cbCountdown"
-                                Grid.Row="1"
+                                Grid.Row="2"
                                 Grid.Column="0"
                                 Content="Enable Countdown Timer"
                                 Style="{StaticResource Checkbox_Options}" />
                             <Button x:Name="bTimerAlign"
-                                Grid.Row="1"
+                                Grid.Row="2"
                                 Grid.Column="1"
                                 Margin="30,5"
                                 ToolTip="{Binding TimerAlign, StringFormat='{}Align {0}'}"
                                 Style="{StaticResource alignTimerButton}" Click="bTimerAlign_Click"/>
                             <CheckBox
                             x:Name="cbSchedule"
-                            Grid.Row="2"
+                            Grid.Row="3"
                             Grid.Column="0"
                             Content="Enable Schedule"
                             Style="{StaticResource Checkbox_Options}" />
                             <Button x:Name="bScheduleAlign"
-                                Grid.Row="2"
+                                Grid.Row="3"
                                 Grid.Column="1"
                                 Margin="30,5"
                                     ToolTip="{Binding ScheduleAlign, StringFormat='{}Align {0}'}"
                                 Style="{StaticResource alignScheduleButton}" Click="bScheduleAlign_Click"/>
 
                             <TextBlock
-                                Grid.Row="3"
+                                Grid.Row="4"
                                 VerticalAlignment="Center"
                                 FontFamily="/Fonts/#Trajan Pro 3"
                                 FontSize="19"
                                 FontWeight="Bold"
                                 Foreground="#dbd5c3"
-                                Text="Select brand logo:  " />
+                                Text="Select Brand Logo:  " />
 
                             <Button x:Name="bBrandAlign"
-                                Grid.Row="3"
+                                Grid.Row="4"
                                 Grid.Column="1"
                                 Margin="30,5"
                                     ToolTip="{Binding BrandAlign, StringFormat='{}Align {0}'}"
@@ -356,7 +398,7 @@
                                 x:Name="BrandLogos"
                                 Height="30"
                                 Width="400"
-                                Grid.Row="3"
+                                Grid.Row="4"
                                Grid.Column="2"
                                 SelectedIndex="0"
                                 Style="{StaticResource OptionsCombobox}">
@@ -369,16 +411,16 @@
 
                             <TextBlock
                                 VerticalAlignment="Center"
-                                  Grid.Row="4"
+                                  Grid.Row="5"
                                 Grid.Column="0"
                                 FontFamily="/Fonts/#Trajan Pro 3"
                                 FontSize="19"
                                 FontWeight="Bold"
                                 Foreground="#dbd5c3"
-                                Text="Select event logo: " />
+                                Text="Select Event Logo: " />
 
                             <Button x:Name="bEventAlign"
-                                Grid.Row="4"
+                                Grid.Row="5"
                                 Grid.Column="1"
                                 Margin="30,5"
                                     ToolTip="{Binding EventAlign, StringFormat='{}Align {0}'}"
@@ -388,7 +430,7 @@
                                 x:Name="EventLogos"
                                 Width="400"
                                 Height="30"
-                                Grid.Row="4"
+                                Grid.Row="5"
                                 Grid.Column="2"
                                 SelectedIndex="0"
                                 Style="{StaticResource OptionsCombobox}">
@@ -399,35 +441,35 @@
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
                             <TextBlock
-                            Grid.Row="6"
+                            Grid.Row="7"
                            
                             VerticalAlignment="Center"
                             FontFamily="/Fonts/#Trajan Pro 3"
                             FontSize="19"
                             FontWeight="Bold"
                             Foreground="#dbd5c3"  Margin="0,15,0,0">
-                                <Run Text="Select maps from the map pool:" />
+                                <Run Text="Select Maps From the Map Pool:" />
                                 <LineBreak/>
                                 <Run Text="(the order of selection is important)" />
                             </TextBlock>
                             <CheckBox
-                                x:Name="cbScorePanel"
-                                Grid.Row="5"
+                                x:Name="cbPlayersPanel"
+                                Grid.Row="6"
                                 Grid.Column="0"
                                 
                                 Style="{StaticResource Checkbox_Options}">
                                 <TextBlock >
-                                <Run Text="Enable Score Panel"/>
+                                <Run Text="Enable Players Panel"/>
                                     <LineBreak/>
                                 <Run Text="(depends on the map pool)"/>
                                 </TextBlock>
                             </CheckBox>
                             <ComboBox
-                                IsEnabled="{Binding ElementName=cbScorePanel, Path=IsChecked}"
+                                IsEnabled="{Binding ElementName=cbPlayersPanel, Path=IsChecked}"
                                 x:Name="ScorePanel"
                                 Width="400"
                                 Height="30"
-                                Grid.Row="5"
+                                Grid.Row="6"
                                 Grid.Column="2"
                                 SelectedIndex="0"
                                 Style="{StaticResource OptionsCombobox}">
@@ -436,7 +478,7 @@
                                 <ComboBoxItem Content="3 vs 3"/>
                             </ComboBox>
                             <Button x:Name="bMapAlign"
-                                Grid.Row="6"
+                                Grid.Row="7"
                                 Grid.Column="1"
                                     VerticalAlignment="Center"
                                 Margin="30,5"
@@ -583,21 +625,21 @@
                                                         </MultiDataTrigger.ExitActions>
                                                     </MultiDataTrigger>
                                                 </DataTemplate.Triggers>
-                                                <Grid Margin="10,0,0,0" Background="Transparent">
+                                                <Grid  HorizontalAlignment="Center" Margin="10,0,0,0" Background="Transparent">
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition Height="auto" />
                                                         <RowDefinition Height="auto" />
                                                     </Grid.RowDefinitions>
                                                     <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition SharedSizeGroup="foo" />
+                                                        <ColumnDefinition Width="auto" SharedSizeGroup="foo" />
                                                     </Grid.ColumnDefinitions>
-                                                    <Grid x:Name="g" Background="Transparent">
+                                                    <Grid HorizontalAlignment="Center" x:Name="g" Background="Transparent">
 
 
 
                                                         <Image
-                                                            Width="195"
-                                                            Height="195"
+                                                            Width="180"
+                                                            Height="180"
                                                             Margin="0,10,0,0"
                                                             HorizontalAlignment="Center"
                                                             VerticalAlignment="Top"
@@ -618,6 +660,7 @@
                                                     <CheckBox
                                                         x:Name="cb"
                                                         Grid.Row="1"
+                                                        FontSize="16"
                                                         HorizontalAlignment="Center"
                                                         Content="{Binding Path=title}"
                                                         IsChecked="{Binding Path=isSelected, UpdateSourceTrigger=PropertyChanged}"
@@ -738,134 +781,26 @@
                                                                                                               <LineBreak />
                               <Run
                                 FontWeight="Bold"
-                                Text="May 28, 2022, version 0.2.5"
+                                Text="May 30, 2022, version 0.2.6"
                                 TextDecorations="Underline" />
 
                             <LineBreak />
-                            <Run Text="- Added the ability to change the logo size." />
+                            <Run Text="- Added the ability to loop the soundtrack." />
                             <LineBreak />
-                            <Run Text="- Added new maps and civs." />
+                            <Run Text="- Added navigation to the soundtracks of each Age of Empires game." />
                             <LineBreak />
-                            <Run Text="- Added playback of Age of Empires series soundtracks." />
+                            <Run Text="- Added even more soundtracks." />
+                            <LineBreak />
+                            <Run Text="- Added the ability to play all overlays in a loop." />
+                            <LineBreak />
+                            <Run Text="- Added a TwitchPanel element (click on Twitch Channel logo to show/hide Caster Name input box)." />
+                            <LineBreak />
+                            <Run Text="- Added a text element for the players' score." />
+                            <LineBreak />
+                            <Run Text="- Added the ability to use a chromakey instead of an overlay (use Filters | Chromakey | Opacity in OBS settings)." />
                             <LineBreak />
                             <LineBreak />
-                             <Run
-                                FontWeight="Bold"
-                                Text="May 24, 2022, version 0.2.4"
-                                TextDecorations="Underline" />
 
-                            <LineBreak />
-                            <Run Text="- Added Score Panel with civ picks and supporting team games. To change player civ - click Mouse Left Button, to change Win/Loss status - click Right Mouse Button." />
-                            <LineBreak />
-                            <LineBreak />
- <Run
-                                FontWeight="Bold"
-                                Text="May 6, 2022, version 0.2.3"
-                                TextDecorations="Underline" />
-
-                            <LineBreak />
-                            <Run Text="- Added a link to the Google form for leaving feedback." />
-                            <LineBreak />
-                            <Run Text="- Accelerated сhecking for updates by using a faster hash algorithm." />
-                            <LineBreak />
-                            <LineBreak />
- <Run
-                                FontWeight="Bold"
-                                Text="April 10, 2022, version 0.2.2"
-                                TextDecorations="Underline" />
-
-                            <LineBreak />
-                            <Run Text="- Added Sunset and Caribbean overlay." />
-                            <LineBreak />
-                            <Run Text="- App now remembers the latest settings." />
-                            <LineBreak />
-                            <LineBreak />
-                            <Run
-                                FontWeight="Bold"
-                                Text="March 30, 2022, version 0.2.1"
-                                TextDecorations="Underline" />
-
-                            <LineBreak />
-                            <Run Text="- Added DesertNight overlay." />
-                            <LineBreak />
-                            <Run Text="- Removed Newtonsoft.Json dependency." />
-                            <LineBreak />
-                            <LineBreak />
-                            <Run
-                                FontWeight="Bold"
-                                Text="March 25, 2022, version 0.2.0"
-                                TextDecorations="Underline" />
-
-                            <LineBreak />
-                            <Run Text="- Added BattleField overlay." />
-                            <LineBreak />
-                            <Run Text="- Added more details to auto-updater." />
-                             <LineBreak />
-                            <Run Text="- Added hotkeys to show/hide elements in overlay window." />
-                            <LineBreak />
-                            <Run Text="- Updated map pool." />
-                             <LineBreak />
-                            <Run Text="- Schedule textbox shows cursor when active." />
-                                                       <LineBreak />
-                            <LineBreak />
-                            <Run
-                                FontWeight="Bold"
-                                Text="March 15, 2022, version 0.1.9"
-                                TextDecorations="Underline" />
-
-                            <LineBreak />
-                            <Run Text="- Added Moss overlay." />
-                            <LineBreak />
-                            <Run Text="- Improved auto-updater." />
-                            <LineBreak />
-                            <LineBreak />
-                            <Run
-                                FontWeight="Bold"
-                                Text="March 7, 2022, version 0.1.8"
-                                TextDecorations="Underline" />
-
-                            <LineBreak />
-                            <Run Text="- Reworked for DE version." />
-                            <LineBreak />
-                            <Run Text="- Added full ability to combine any overlay elements with any animation." />
-                            <LineBreak />
-                            <Run Text="- Added the ability to easily add your own overlay." />
-                            <LineBreak />
-                            <Run Text="- Added the ability to move elements in the overlay window." />
-                            <LineBreak />
-                            <Run Text="- Improved perfomance." />
-                            <LineBreak />
-                            <LineBreak />
-                            <Run
-                                FontWeight="Bold"
-                                Text="April 7-8, 2020, version 0.1.7"
-                                TextDecorations="Underline" />
-
-                            <LineBreak />
-                            <Run Text="- Fixed bug that caused crash when creating thumbnails." />
-                            <LineBreak />
-                            <Run Text="- Map pool updated." />
-                            <LineBreak />
-                            <Run Text="- Improved map animation behavior in map pool." />
-
-
-                            <LineBreak />
-                            <LineBreak />
-                            <Run
-                                FontWeight="Bold"
-                                Text="March 21, 2020, version 0.1.6"
-                                TextDecorations="Underline" />
-
-                            <LineBreak />
-                            <Run Text="- Redesigned application style (temporarily unavailable until the release of 3:DE)." />
-                            <LineBreak />
-                            <Run Text="- Completely removed unused parts of overlays." />
-                            <LineBreak />
-                            <Run Text="- Added overlay for ''Incog's Empire Cup'' event." />
-                            <LineBreak />
-                            <Run Text="- Updated overlay and auction for EPL Season 2." />
-                            <LineBreak />
-                            <LineBreak />
                             <Run
                                 FontSize="36"
                                 Foreground="#FFFFAE00"
@@ -874,15 +809,30 @@
                             <LineBreak />
 
 
-                            <Run Text="1. Each overlay includes an animated video background and static preview image. Additional elements are countdown timer, schedule textbox, map pool slider, brand logo and event logo." />
+                            <Run Text="1. Each overlay includes an animated video background and static preview image. Additional elements are countdown timer, schedule textbox, map pool, brand logo, event logo, players panel, twitch panel and score panel." />
+                            <LineBreak />
+                            <Run Text="2. You can move almost all elements inside overlay with your mouse." />
                             <LineBreak />
                             <Run Text="2. If there are overlay lags on the stream, you can turn off the animated background in the settings window." />
                             <LineBreak />
-                            <Run Text="3. There is the possibility of creating automatic thumbnails for YouTube." />
+                            <Run Text="4. There is the possibility of creating automatic thumbnails for YouTube." />
                             <LineBreak />
-                            <Run Text="4. You can add your own overlay, brand logo or event logo. All related data contains in data folder." />
+                            <Run Text="5. You can add your own overlay, brand logo or event logo. All related data contains in data folder." />
                             <LineBreak />
-                            <Run Text="5. If you find a bug or have any suggestions, please contact me in Discord: " /> <Run Foreground="#FF4994FF" Text="VladTheJunior#1244" />
+                            <Run Text="6. Click on Twitch Channel logo to show/hide Caster Name input box." />
+                            <LineBreak />
+                            <Run Text="7. To show the sound controls hover the mouse over the top of the screen." />
+                            <LineBreak />
+                            <Run Text="8. To change player civ - click Mouse Left Button, to change Win/Loss status - click Right Mouse Button." />
+                            <LineBreak />
+                            <Run Text="9. For chromakey use Filters | Chromakey | Opacity in OBS settings." />
+                            <LineBreak />
+                            <Run Text="10. Select settings as on image below to add overlay in OBS." />
+                            <LineBreak />
+<Image Width="500" Source="/resources/OBS settings.PNG"/>
+<LineBreak />
+                            
+                            <Run Text="11. If you find a bug or have any suggestions, please contact me in Discord: " /> <Run Foreground="#FF4994FF" Text="VladTheJunior#1244" />
 
                             <LineBreak />
                             <LineBreak />
@@ -980,7 +930,44 @@
                                 Text="CTRL+5" />
 
                             <Run Text="Show/hide EventLogo element." />
+                            <LineBreak />
+                                                        <LineBreak />
+                            <Run
+                                FontSize="22"
+                                FontWeight="Bold"
+                                Foreground="#FF00FF46"
+                                Text="CTRL+6" />
+
+                            <Run Text="Show/hide PlayersPanel element." />
+                            <LineBreak />
+                             <LineBreak />
+                            <Run
+                                FontSize="22"
+                                FontWeight="Bold"
+                                Foreground="#FF00FF46"
+                                Text="CTRL+7" />
+
+                            <Run Text="Show/hide TwitchPanel element." />
+                            <LineBreak />
+                             <LineBreak />
+                            <Run
+                                FontSize="22"
+                                FontWeight="Bold"
+                                Foreground="#FF00FF46"
+                                Text="CTRL+8" />
+
+                            <Run Text="Show/hide ScorePanel element." />
+                            <LineBreak />
+                             <LineBreak />
+                            <Run
+                                FontSize="22"
+                                FontWeight="Bold"
+                                Foreground="#FF00FF46"
+                                Text="CTRL+0" />
+
+                            <Run Text="Show/hide Chromakey." />
                         </TextBlock>
+
                     </ScrollViewer>
 
                     <Button

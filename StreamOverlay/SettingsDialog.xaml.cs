@@ -11,6 +11,11 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,6 +24,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
+using static StreamOverlay.Classes.Twitch.Twitch;
 using MediaPlayer = LibVLCSharp.Shared.MediaPlayer;
 
 namespace StreamOverlay
@@ -297,6 +303,8 @@ namespace StreamOverlay
 
         #region Properties and Variables
 
+
+
         private int selectedOverlayIndex;
         public int SelectedOverlayIndex
         {
@@ -390,15 +398,27 @@ namespace StreamOverlay
             }
         }
 
+        private string twitchAlign { get; set; }
+        public string TwitchAlign
+        {
+            get { return twitchAlign; }
+            set
+            {
+                twitchAlign = value;
+                NotifyPropertyChanged("TwitchAlign");
+            }
+        }
+
         public ObservableCollection<Map> MapPool = new ObservableCollection<Map>(BuildMaps());
 
 
         ObservableCollection<Overlay> Overlays = new ObservableCollection<Overlay>();
         #endregion
 
+        int CurrentPlayingOverlayIndex = 0;
+        int CurrentPlayingOverlayCount = 0;
 
-
-        int Version = 25;
+        int Version = 26;
 
         public SettingsDialog()
         {
@@ -407,6 +427,7 @@ namespace StreamOverlay
             MapAlign = "BottomLeft";
             BrandAlign = "TopLeft";
             EventAlign = "TopLeft";
+            TwitchAlign = "TopLeft";
 
 
 
@@ -425,12 +446,17 @@ namespace StreamOverlay
                     map.isSelected = true;
                 }
             }
+            cbScorePanel.IsChecked = Settings1.Default.ScorePanel;
+            cbChromakey.IsChecked = Settings1.Default.Chromakey;
+            tbTwitchChannel.Text = Settings1.Default.TwitchChannel;
+            cbTwitch.IsChecked = Settings1.Default.TwitchPanel;
+            cbOverlayLoop.IsChecked = Settings1.Default.OverlayLoop;
             cbAudio.IsChecked = Settings1.Default.Audio;
             cbCountdown.IsChecked = Settings1.Default.Countdown;
             cbSchedule.IsChecked = Settings1.Default.Schedule;
-            cbScorePanel.IsChecked = Settings1.Default.ScorePanelEnabled;
+            cbPlayersPanel.IsChecked = Settings1.Default.PlayersPanelEnabled;
 
-            ScorePanel.SelectedIndex = Settings1.Default.ScorePanelIndex;
+            ScorePanel.SelectedIndex = Settings1.Default.PlayersPanelIndex;
 
             lvMapPool.ItemsSource = MapPool;
 
@@ -442,7 +468,7 @@ namespace StreamOverlay
             view.IsLiveSorting = true;
 
             List<Logo> brandLogos =
-    Directory.GetFiles(Path.Combine(AppContext.BaseDirectory, "data", "brand")).Where(x => Path.GetExtension(x).ToLower() == ".png").Select(x => new Logo { Name = Path.GetFileNameWithoutExtension(x), Path = x }).ToList();
+    Directory.GetFiles(Path.Combine(AppContext.BaseDirectory, "data", "logo")).Where(x => Path.GetExtension(x).ToLower() == ".png").Select(x => new Logo { Name = Path.GetFileNameWithoutExtension(x), Path = x }).ToList();
             brandLogos.Insert(0, new Logo() { Name = "<NOT SET>", Path = "" });
 
 
@@ -464,7 +490,7 @@ namespace StreamOverlay
             {
                 if (File.Exists(Path.Combine(anim, "video.mp4")) && File.Exists(Path.Combine(anim, "icon.png")) && File.Exists(Path.Combine(anim, "preview.png")))
                 {
-                    Overlays.Add(new Overlay() { title = Path.GetFileName(anim), preview = Path.Combine(anim, "preview.png"), icon = Path.Combine(anim, "icon.png"), video = Path.Combine(anim, "video.mp4") });
+                    Overlays.Add(new Overlay() { isLooped = File.Exists(Path.Combine(anim, "looped")), title = Path.GetFileName(anim), preview = Path.Combine(anim, "preview.png"), icon = Path.Combine(anim, "icon.png"), video = Path.Combine(anim, "video.mp4") });
                     if (Path.GetFileName(anim) == Settings1.Default.SelectedOverlay)
                     {
                         SelectedOverlayIndex = i;
@@ -476,7 +502,7 @@ namespace StreamOverlay
 
 
 
-            List<Logo> eventLogos = Directory.GetFiles(Path.Combine(AppContext.BaseDirectory, "data", "events")).Where(x => Path.GetExtension(x).ToLower() == ".png").Select(x => new Logo { Name = Path.GetFileNameWithoutExtension(x), Path = x }).ToList();
+            List<Logo> eventLogos = Directory.GetFiles(Path.Combine(AppContext.BaseDirectory, "data", "logo")).Where(x => Path.GetExtension(x).ToLower() == ".png").Select(x => new Logo { Name = Path.GetFileNameWithoutExtension(x), Path = x }).ToList();
             eventLogos.Insert(0, new Logo() { Name = "<NOT SET>", Path = "" });
             ICollectionView event_view = CollectionViewSource.GetDefaultView(eventLogos);
             brand_view.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
@@ -599,9 +625,12 @@ namespace StreamOverlay
             this.Topmost = false;
         }
 
-        private void Window_Initialized(object sender, EventArgs e)
+
+
+        private async void Window_Initialized(object sender, EventArgs e)
         {
             this.Topmost = true;
+
         }
 
         private void Window_Activated(object sender, EventArgs e)
@@ -660,7 +689,7 @@ namespace StreamOverlay
             return new Point(0, 0);
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private async void Button_Click_1(object sender, RoutedEventArgs e)
         {
             if (SelectedOverlay == null)
             {
@@ -672,6 +701,36 @@ namespace StreamOverlay
 
             Settings1.Default.Audio = (bool)cbAudio.IsChecked;
             Settings1.Default.Save();
+
+
+            if (cbTwitch.IsChecked == true)
+            {
+                try
+                {
+                    var data = new StringContent(
+                        "[{ \"operationName\":\"ChannelShell\",\"variables\":{ \"login\":\"" + tbTwitchChannel.Text + "\"},\"extensions\":{ \"persistedQuery\":{ \"version\":1,\"sha256Hash\":\"580ab410bcd0c1ad194224957ae2241e5d252b2c5173d8e0cce9d32d5bb14efe\"} } }, {\"operationName\":\"ChannelAvatar\",\"variables\":{\"channelLogin\":\"" + tbTwitchChannel.Text + "\"},\"extensions\":{\"persistedQuery\":{\"version\":1,\"sha256Hash\": \"84ed918aaa9aaf930e58ac81733f552abeef8ac26c0117746865428a7e5c8ab0\"}}},{\"operationName\": \"UseLive\",\"variables\": {\"channelLogin\": \"" + tbTwitchChannel.Text + "\"},\"extensions\": {\"persistedQuery\": {\"version\": 1,\"sha256Hash\": \"639d5f11bfb8bf3053b424d9ef650d04c4ebb7d94711d644afb08fe9a0fad5d9\"}}}]", Encoding.UTF8, "application/json");
+
+                    var client = new HttpClient();
+                    client.DefaultRequestHeaders.Add("Client-Id", "kimne78kx3ncx6brgo4mv6wki5h1ko");
+                    HttpResponseMessage response = await client.PostAsync("https://gql.twitch.tv/gql", data);
+                    response.EnsureSuccessStatusCode();
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    var twitch = JsonSerializer.Deserialize<List<Root>>(responseBody);
+                    twitch[1].data.user.followers.totalCount.ToString();
+                }
+                catch
+                {
+                    
+                    mbText.Text = "The entered Twitch channel does not exist.";
+                    BlurControl.Visibility = Visibility.Visible;
+                    gMessageBox.Visibility = Visibility.Visible;
+                    (sender as Button).IsEnabled = true;
+                    return;
+
+                }
+
+            }
+
             MainWindow mainWindow = new MainWindow();
 
 
@@ -686,13 +745,47 @@ namespace StreamOverlay
 
                 mainWindow.Unloaded += mainWindow.Player_Unloaded;
 
+                List<Overlay> loopedOverlays = Overlays.Where(x => x.isLooped).ToList();
+
                 mainWindow.Animation.Loaded += (sender, e) =>
                 {
                     mainWindow.Animation.MediaPlayer = mainWindow._mediaPlayer;
-                    using (var media = new Media(mainWindow._libVLC, new Uri(Path.Combine(AppContext.BaseDirectory, SelectedOverlay.video)), new string[] { ":input-repeat=65535" }))
-                        mainWindow.Animation.MediaPlayer.Play(media);
+                    if (cbOverlayLoop.IsChecked == false)
+                        mainWindow.Animation.MediaPlayer.Play(new Media(mainWindow._libVLC, new Uri(Path.Combine(AppContext.BaseDirectory, SelectedOverlay.video)), new string[] { ":input-repeat=65535" }));
+                    else
+                        mainWindow.Animation.MediaPlayer.Play(new Media(mainWindow._libVLC, new Uri(Path.Combine(AppContext.BaseDirectory, loopedOverlays[0].video))));
                     mainWindow.PreviewImage.Visibility = Visibility.Collapsed;
                 };
+
+
+                if (cbOverlayLoop.IsChecked == true)
+                {
+
+
+                    mainWindow._mediaPlayer.EndReached += (sender, e) =>
+                {
+
+                    ThreadPool.QueueUserWorkItem(_ =>
+                    {
+                        CurrentPlayingOverlayCount++;
+                        if (CurrentPlayingOverlayCount >= 5)
+                        {
+
+
+                            if (CurrentPlayingOverlayIndex >= loopedOverlays.Count - 1)
+                            {
+                                CurrentPlayingOverlayIndex = 0;
+                            }
+                            else
+                            {
+                                CurrentPlayingOverlayIndex++;
+                            }
+                            CurrentPlayingOverlayCount = 0;
+                        }
+                        mainWindow._mediaPlayer.Play(new Media(mainWindow._libVLC, new Uri(Path.Combine(AppContext.BaseDirectory, loopedOverlays[CurrentPlayingOverlayIndex].video))));
+                    });
+                };
+                }
             }
             else
             {
@@ -722,11 +815,15 @@ namespace StreamOverlay
                 mainWindow.gCountdown.Visibility = Visibility.Hidden;
             }
 
-            if (cbSchedule.IsChecked == true)
-            {
+
                 var myCur = Application.GetResourceStream(new Uri("pack://application:,,,/resources/Cursor.cur")).Stream;
                 mainWindow.Schedule.PreviewKeyDown += mainWindow.TextBox_PreviewKeyDown;
                 mainWindow.Schedule.Cursor = new Cursor(myCur);
+            myCur = Application.GetResourceStream(new Uri("pack://application:,,,/resources/Cursor.cur")).Stream;
+            mainWindow.tbScoreText.Cursor = new Cursor(myCur);
+            mainWindow.tbScoreText.PreviewKeyDown += mainWindow.TextBox_PreviewKeyDown;
+            if (cbSchedule.IsChecked == true)
+            {
                 mainWindow.Schedule.Focus();
             }
             else
@@ -734,63 +831,117 @@ namespace StreamOverlay
                 mainWindow.gSchedule.Visibility = Visibility.Hidden;
             }
 
+            if (cbScorePanel.IsChecked == false)
+            {
+  
+                mainWindow.gScorePanel.Visibility = Visibility.Hidden;
+            }
 
+            if (cbTwitch.IsChecked == false)
+            {
+                mainWindow.gTwitchInfo.Visibility = Visibility.Hidden;
+            }
+
+            if (cbChromakey.IsChecked == true)
+            {
+                mainWindow.OverlayCanvas.Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#ff00b140");
+            }
+
+            mainWindow.TwitchInfo.Interval = new TimeSpan(0, 0, 0);
+            mainWindow.TwitchInfo.Tick += async (object s, EventArgs eventArgs) =>
+            {
+                mainWindow.TwitchInfo.Stop();
+                mainWindow.TwitchInfo.Interval = new TimeSpan(0, 0, 30);
+                try
+                {
+                    var data = new StringContent(
+                        "[{ \"operationName\":\"ChannelShell\",\"variables\":{ \"login\":\""+ tbTwitchChannel.Text + "\"},\"extensions\":{ \"persistedQuery\":{ \"version\":1,\"sha256Hash\":\"580ab410bcd0c1ad194224957ae2241e5d252b2c5173d8e0cce9d32d5bb14efe\"} } }, {\"operationName\":\"ChannelAvatar\",\"variables\":{\"channelLogin\":\"" + tbTwitchChannel.Text + "\"},\"extensions\":{\"persistedQuery\":{\"version\":1,\"sha256Hash\": \"84ed918aaa9aaf930e58ac81733f552abeef8ac26c0117746865428a7e5c8ab0\"}}},{\"operationName\": \"UseLive\",\"variables\": {\"channelLogin\": \"" + tbTwitchChannel.Text + "\"},\"extensions\": {\"persistedQuery\": {\"version\": 1,\"sha256Hash\": \"639d5f11bfb8bf3053b424d9ef650d04c4ebb7d94711d644afb08fe9a0fad5d9\"}}}]", Encoding.UTF8, "application/json");
+
+
+                    HttpResponseMessage response = await mainWindow.client.PostAsync("https://gql.twitch.tv/gql", data);
+                    response.EnsureSuccessStatusCode();
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    //Debug.WriteLine(responseBody);
+                    var twitch = JsonSerializer.Deserialize<List<Root>>(responseBody);
+                    mainWindow.TwitchChannel.Text = twitch[0].data.userOrError.displayName;
+                    mainWindow.twitchFollowers.Text = twitch[1].data.user.followers.totalCount.ToString();
+                    if (twitch[0].data.userOrError.stream != null)
+                        mainWindow.twitchViewers.Text = twitch[0].data.userOrError.stream.viewersCount.ToString();
+                    if (twitch[2].data.user.stream != null)
+                    {
+                        var streamLength = DateTime.UtcNow - twitch[2].data.user.stream.createdAt;
+                        mainWindow.twitchStreamLength.Text = $"{Math.Truncate(streamLength.TotalHours)} hr {streamLength.Minutes} min";
+                    }
+
+                    mainWindow.TwitchIcon = twitch[0].data.userOrError.profileImageURL;
+                    mainWindow.NotifyPropertyChanged("TwitchIcon");
+
+                }
+                catch { }
+                mainWindow.TwitchInfo.Start();
+            };
+            mainWindow.TwitchInfo.Start();
 
             List<Map> maps = lvMapPool.SelectedItems.Cast<Map>().Where(x => x.isSelected == true).ToList();
 
-            if (cbScorePanel.IsChecked == true)
-            {
-                for (int i = 0; i < maps.Count; i++)
-                {
-                    mainWindow.Team1Player1CivPool.Add(new Civ() { Tag = i });
-                    mainWindow.Team2Player1CivPool.Add(new Civ() { Tag = i });
-                    if (ScorePanel.SelectedIndex >= 1)
-                    {
-                        mainWindow.Team1Player2CivPool.Add(new Civ() { Tag = i });
-                        mainWindow.Team2Player2CivPool.Add(new Civ() { Tag = i });
-                    }
-                    if (ScorePanel.SelectedIndex >= 2)
-                    {
-                        mainWindow.Team1Player3CivPool.Add(new Civ() { Tag = i });
-                        mainWindow.Team2Player3CivPool.Add(new Civ() { Tag = i });
-                    }
-                }
-                mainWindow.lwTeam1Player1CivPool.ItemsSource = mainWindow.Team1Player1CivPool;
-                mainWindow.lwTeam2Player1CivPool.ItemsSource = mainWindow.Team2Player1CivPool;
 
+            if (maps.Count == 0)
+            {
+                mainWindow.tbTeam1Score.Visibility = Visibility.Hidden;
+                mainWindow.tbTeam2Score.Visibility = Visibility.Hidden;
+            }
+            for (int i = 0; i < maps.Count; i++)
+            {
+                mainWindow.Team1Player1CivPool.Add(new Civ() { Tag = i });
+                mainWindow.Team2Player1CivPool.Add(new Civ() { Tag = i });
                 if (ScorePanel.SelectedIndex >= 1)
                 {
-                    mainWindow.lwTeam1Player2CivPool.ItemsSource = mainWindow.Team1Player2CivPool;
-                    mainWindow.lwTeam2Player2CivPool.ItemsSource = mainWindow.Team2Player2CivPool;
+                    mainWindow.Team1Player2CivPool.Add(new Civ() { Tag = i });
+                    mainWindow.Team2Player2CivPool.Add(new Civ() { Tag = i });
                 }
                 if (ScorePanel.SelectedIndex >= 2)
                 {
-                    mainWindow.lwTeam1Player3CivPool.ItemsSource = mainWindow.Team1Player3CivPool;
-                    mainWindow.lwTeam2Player3CivPool.ItemsSource = mainWindow.Team2Player3CivPool;
+                    mainWindow.Team1Player3CivPool.Add(new Civ() { Tag = i });
+                    mainWindow.Team2Player3CivPool.Add(new Civ() { Tag = i });
                 }
+            }
+            mainWindow.lwTeam1Player1CivPool.ItemsSource = mainWindow.Team1Player1CivPool;
+            mainWindow.lwTeam2Player1CivPool.ItemsSource = mainWindow.Team2Player1CivPool;
 
-                if (ScorePanel.SelectedIndex == 0)
-                {
-                    mainWindow.iTeam1.Source = new BitmapImage(new Uri("pack://application:,,,/resources/Team1_1v1.png"));
-                    mainWindow.iTeam2.Source = new BitmapImage(new Uri("pack://application:,,,/resources/Team2_1v1.png"));
-                }
-                else if (ScorePanel.SelectedIndex == 1)
-                {
-                    mainWindow.iTeam1.Source = new BitmapImage(new Uri("pack://application:,,,/resources/Team1_2v2.png"));
-                    mainWindow.iTeam2.Source = new BitmapImage(new Uri("pack://application:,,,/resources/Team2_2v2.png"));
-                }
-                else
-                {
-                    mainWindow.iTeam1.Source = new BitmapImage(new Uri("pack://application:,,,/resources/Team1_3v3.png"));
-                    mainWindow.iTeam2.Source = new BitmapImage(new Uri("pack://application:,,,/resources/Team2_3v3.png"));
-                }
+            if (ScorePanel.SelectedIndex >= 1)
+            {
+                mainWindow.lwTeam1Player2CivPool.ItemsSource = mainWindow.Team1Player2CivPool;
+                mainWindow.lwTeam2Player2CivPool.ItemsSource = mainWindow.Team2Player2CivPool;
+            }
+            if (ScorePanel.SelectedIndex >= 2)
+            {
+                mainWindow.lwTeam1Player3CivPool.ItemsSource = mainWindow.Team1Player3CivPool;
+                mainWindow.lwTeam2Player3CivPool.ItemsSource = mainWindow.Team2Player3CivPool;
+            }
 
+            if (ScorePanel.SelectedIndex == 0)
+            {
+                mainWindow.iTeam1.Source = new BitmapImage(new Uri("pack://application:,,,/resources/Team1_1v1.png"));
+                mainWindow.iTeam2.Source = new BitmapImage(new Uri("pack://application:,,,/resources/Team2_1v1.png"));
+            }
+            else if (ScorePanel.SelectedIndex == 1)
+            {
+                mainWindow.iTeam1.Source = new BitmapImage(new Uri("pack://application:,,,/resources/Team1_2v2.png"));
+                mainWindow.iTeam2.Source = new BitmapImage(new Uri("pack://application:,,,/resources/Team2_2v2.png"));
             }
             else
             {
-                mainWindow.gScore.Visibility = Visibility.Hidden;
-                mainWindow.gScorePanel.Visibility = Visibility.Hidden;
+                mainWindow.iTeam1.Source = new BitmapImage(new Uri("pack://application:,,,/resources/Team1_3v3.png"));
+                mainWindow.iTeam2.Source = new BitmapImage(new Uri("pack://application:,,,/resources/Team2_3v3.png"));
             }
+
+
+            if (cbPlayersPanel.IsChecked == false)
+            {
+                mainWindow.gPlayers.Visibility = Visibility.Hidden;
+                mainWindow.gPlayersPanel.Visibility = Visibility.Hidden;
+            }
+
             DoubleAnimation hideMap = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(0));
             mainWindow.ibMapIcon.BeginAnimation(Image.OpacityProperty, hideMap);
 
@@ -828,7 +979,7 @@ namespace StreamOverlay
 
                 DoubleAnimation center4 = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(1));
                 center4.BeginTime = TimeSpan.FromSeconds(6);
-                center5.EasingFunction = ease1;
+                center4.EasingFunction = ease1;
 
                 DoubleAnimation center13 = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.8));
                 center13.BeginTime = TimeSpan.FromSeconds(6);
@@ -838,8 +989,6 @@ namespace StreamOverlay
                 DoubleAnimation center14 = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(1));
                 center14.BeginTime = TimeSpan.FromSeconds(6.4);
                 center14.EasingFunction = ease1;
-
-
 
 
                 mainWindow.tbBO.Text = $"Best of {maps.Count}";
@@ -905,6 +1054,12 @@ namespace StreamOverlay
             mainWindow.InputBindings.Add(new InputBinding(mainWindow.MapPoolVisibility, new KeyGesture(Key.D3, ModifierKeys.Control)));
             mainWindow.InputBindings.Add(new InputBinding(mainWindow.BrandLogoVisibility, new KeyGesture(Key.D4, ModifierKeys.Control)));
             mainWindow.InputBindings.Add(new InputBinding(mainWindow.EventLogoVisibility, new KeyGesture(Key.D5, ModifierKeys.Control)));
+            mainWindow.InputBindings.Add(new InputBinding(mainWindow.PlayerPanelVisibility, new KeyGesture(Key.D6, ModifierKeys.Control)));
+            mainWindow.InputBindings.Add(new InputBinding(mainWindow.TwitchPanelVisibility, new KeyGesture(Key.D7, ModifierKeys.Control)));
+            mainWindow.InputBindings.Add(new InputBinding(mainWindow.ScorePanelVisibility, new KeyGesture(Key.D8, ModifierKeys.Control)));
+
+            mainWindow.InputBindings.Add(new InputBinding(mainWindow.ChromakeyVisibility, new KeyGesture(Key.D0, ModifierKeys.Control)));
+
 
             mainWindow.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             mainWindow.Arrange(new Rect(0, 0, mainWindow.DesiredSize.Width, mainWindow.DesiredSize.Height));
@@ -926,6 +1081,11 @@ namespace StreamOverlay
             mainWindow.gEventLogo.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             mainWindow.gEventLogo.Arrange(new Rect(0, 0, mainWindow.gEventLogo.DesiredSize.Width, mainWindow.gEventLogo.DesiredSize.Height));
 
+            mainWindow.gTwitchInfo.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            mainWindow.gTwitchInfo.Arrange(new Rect(0, 0, mainWindow.gTwitchInfo.DesiredSize.Width, mainWindow.gTwitchInfo.DesiredSize.Height));
+
+            mainWindow.gScorePanel.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            mainWindow.gScorePanel.Arrange(new Rect(0, 0, mainWindow.gScorePanel.DesiredSize.Width, mainWindow.gScorePanel.DesiredSize.Height));
 
 
             Point pCountdown = AlignPosition(TimerAlign, mainWindow.gCountdown.ActualWidth, mainWindow.gCountdown.ActualHeight);
@@ -948,6 +1108,13 @@ namespace StreamOverlay
             mainWindow.gEventLogo.SetValue(Canvas.LeftProperty, pEvent.X);
             mainWindow.gEventLogo.SetValue(Canvas.TopProperty, pEvent.Y);
 
+            Point pTwitch = AlignPosition(TwitchAlign, mainWindow.gTwitchInfo.ActualWidth, mainWindow.gTwitchInfo.ActualHeight);
+            mainWindow.gTwitchInfo.SetValue(Canvas.LeftProperty, pTwitch.X);
+            mainWindow.gTwitchInfo.SetValue(Canvas.TopProperty, pTwitch.Y);
+
+            mainWindow.gScorePanel.SetValue(Canvas.LeftProperty, 10.0);
+            mainWindow.gScorePanel.SetValue(Canvas.TopProperty, 10.0);
+
             mainWindow.Cursor = AoE;
             Mouse.OverrideCursor = AoE;
             mainWindow.Show();
@@ -956,6 +1123,8 @@ namespace StreamOverlay
 
             (sender as Button).IsEnabled = true;
         }
+
+
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
@@ -1079,12 +1248,17 @@ namespace StreamOverlay
 
         private void Window_Closed(object sender, EventArgs e)
         {
+            Settings1.Default.ScorePanel = (bool)cbScorePanel.IsChecked;
+            Settings1.Default.Chromakey = (bool)cbChromakey.IsChecked;
+            Settings1.Default.TwitchChannel = tbTwitchChannel.Text;
+            Settings1.Default.TwitchPanel = (bool)cbTwitch.IsChecked;
+            Settings1.Default.OverlayLoop = (bool)cbOverlayLoop.IsChecked;
             Settings1.Default.Audio = (bool)cbAudio.IsChecked;
             Settings1.Default.Schedule = (bool)cbSchedule.IsChecked;
             Settings1.Default.Countdown = (bool)cbCountdown.IsChecked;
-            Settings1.Default.ScorePanelEnabled = (bool)cbScorePanel.IsChecked;
+            Settings1.Default.PlayersPanelEnabled = (bool)cbPlayersPanel.IsChecked;
 
-            Settings1.Default.ScorePanelIndex = ScorePanel.SelectedIndex;
+            Settings1.Default.PlayersPanelIndex = ScorePanel.SelectedIndex;
             Settings1.Default.SelectedOverlay = Overlays[SelectedOverlayIndex].title;
             var maps = new StringCollection();
             maps.AddRange(MapPool.Where(x => x.isSelected == true).Select(x => x.title).ToArray());
@@ -1103,6 +1277,25 @@ namespace StreamOverlay
                 UseShellExecute = true
             };
             Process.Start(psi);
+        }
+
+        private void bTwitchAlign_Click(object sender, RoutedEventArgs e)
+        {
+            switch (TwitchAlign)
+            {
+                case "TopRight":
+                    TwitchAlign = "BottomRight";
+                    break;
+                case "BottomRight":
+                    TwitchAlign = "BottomLeft";
+                    break;
+                case "BottomLeft":
+                    TwitchAlign = "TopLeft";
+                    break;
+                case "TopLeft":
+                    TwitchAlign = "TopRight";
+                    break;
+            }
         }
     }
 

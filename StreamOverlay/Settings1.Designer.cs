@@ -100,24 +100,24 @@ namespace StreamOverlay {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool ScorePanelEnabled {
+        public bool PlayersPanelEnabled {
             get {
-                return ((bool)(this["ScorePanelEnabled"]));
+                return ((bool)(this["PlayersPanelEnabled"]));
             }
             set {
-                this["ScorePanelEnabled"] = value;
+                this["PlayersPanelEnabled"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int ScorePanelIndex {
+        public int PlayersPanelIndex {
             get {
-                return ((int)(this["ScorePanelIndex"]));
+                return ((int)(this["PlayersPanelIndex"]));
             }
             set {
-                this["ScorePanelIndex"] = value;
+                this["PlayersPanelIndex"] = value;
             }
         }
         
@@ -130,6 +130,66 @@ namespace StreamOverlay {
             }
             set {
                 this["Audio"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool OverlayLoop {
+            get {
+                return ((bool)(this["OverlayLoop"]));
+            }
+            set {
+                this["OverlayLoop"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool TwitchPanel {
+            get {
+                return ((bool)(this["TwitchPanel"]));
+            }
+            set {
+                this["TwitchPanel"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TwitchChannel {
+            get {
+                return ((string)(this["TwitchChannel"]));
+            }
+            set {
+                this["TwitchChannel"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Chromakey {
+            get {
+                return ((bool)(this["Chromakey"]));
+            }
+            set {
+                this["Chromakey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ScorePanel {
+            get {
+                return ((bool)(this["ScorePanel"]));
+            }
+            set {
+                this["ScorePanel"] = value;
             }
         }
     }

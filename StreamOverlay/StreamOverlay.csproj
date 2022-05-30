@@ -9,7 +9,7 @@
     <Company>VladTheJunior</Company>
     <Authors>VladTheJunior</Authors>
     <Copyright>VladTheJunior</Copyright>
-    <Version>0.2.5</Version>
+    <Version>0.2.6</Version>
     <BaseOutputPath>..\publish\</BaseOutputPath>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
@@ -72,7 +72,18 @@
     <None Remove="data\maps\eu_vistula_basin_mini.png" />
     <None Remove="data\maps\eu_wallachia_mini.png" />
     <None Remove="Fonts\MTCORSVA.TTF" />
+    <None Remove="resources\images\hud\hud_hcflag_bg.png" />
+    <None Remove="resources\images\hud\hud_hcflag_glow.png" />
+    <None Remove="resources\images\hud\hud_hcflag_mask.png" />
+    <None Remove="resources\images\hud\resources_bg.png" />
+    <None Remove="resources\images\hud\resources_iconbg.png" />
+    <None Remove="resources\images\hud\resource_gold.png" />
+    <None Remove="resources\images\hud\resource_pop.png" />
+    <None Remove="resources\images\hud\resource_time.png" />
+    <None Remove="resources\images\hud\resource_villagers.png" />
+    <None Remove="resources\images\hud\resource_xp.png" />
     <None Remove="resources\loss.png" />
+    <None Remove="resources\OBS settings.PNG" />
     <None Remove="resources\skirmish_victory.png" />
     <None Remove="resources\skirmish_victory_bg.png" />
     <None Remove="resources\Team1_1v1.png" />
@@ -284,7 +295,18 @@
     <Resource Include="resources\images\hud\hud_chat_combobox.png" />
     <Resource Include="resources\images\hud\hud_chat_combobox_itembg.png" />
     <Resource Include="resources\images\hud\hud_chat_combobox_over.png" />
+    <Resource Include="resources\images\hud\hud_hcflag_bg.png" />
+    <Resource Include="resources\images\hud\hud_hcflag_glow.png" />
+    <Resource Include="resources\images\hud\hud_hcflag_mask.png" />
+    <Resource Include="resources\images\hud\resources_bg.png" />
+    <Resource Include="resources\images\hud\resources_iconbg.png" />
+    <Resource Include="resources\images\hud\resource_gold.png" />
+    <Resource Include="resources\images\hud\resource_pop.png" />
+    <Resource Include="resources\images\hud\resource_time.png" />
+    <Resource Include="resources\images\hud\resource_villagers.png" />
+    <Resource Include="resources\images\hud\resource_xp.png" />
     <Resource Include="resources\loss.png" />
+    <Resource Include="resources\OBS settings.PNG" />
     <Resource Include="resources\progressbar_glow.png" />
     <Resource Include="resources\progressbar_glow2.png" />
     <Resource Include="resources\skirmish_victory.png" />
@@ -318,6 +340,9 @@
     <None Update="data\animations\BattleField\icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="data\animations\BattleField\looped">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="data\animations\BattleField\preview.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -325,6 +350,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="data\animations\Caribbean\icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\animations\Caribbean\looped">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="data\animations\Caribbean\preview.png">
@@ -336,6 +364,9 @@
     <None Update="data\animations\DesertNight\icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="data\animations\DesertNight\looped">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="data\animations\DesertNight\preview.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -343,6 +374,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="data\animations\Moss\icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\animations\Moss\looped">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="data\animations\Moss\preview.png">
@@ -354,16 +388,25 @@
     <None Update="data\animations\Rain\icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="data\animations\Rain\looped">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="data\animations\Rain\preview.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="data\animations\Storm\icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="data\animations\Storm\looped">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="data\animations\Storm\preview.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="data\animations\Sunset\icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\animations\Sunset\looped">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="data\animations\Sunset\preview.png">
@@ -373,6 +416,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="data\animations\Waterfall\icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\animations\Waterfall\looped">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="data\animations\Waterfall\preview.png">
@@ -804,49 +850,628 @@
     <None Update="data\audio\90486908.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="data\brand\Age of Empires 2.png">
+    <None Update="data\audio\Age of Empires III\001 Age of Empires III - Noddingagushpa.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="data\brand\Age of Empires 4.png">
+    <None Update="data\audio\Age of Empires III\002 Age of Empires III - Across the Ocean Sea.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="data\brand\Hudson Bay BIGs.png">
+    <None Update="data\audio\Age of Empires III\003 Age of Empires III - Get off My Band.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="data\brand\Cuirassier Management Co.png">
+    <None Update="data\audio\Age of Empires III\004 Age of Empires III - Felonious Junk.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="data\brand\Age of Empires 3.png">
+    <None Update="data\audio\Age of Empires III\005 Age of Empires III - Runion.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="data\brand\ESOCommunity.png">
+    <None Update="data\audio\Age of Empires III\006 Age of Empires III - A Pirate%27s Temper.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="data\brand\Mandarin Duck Squad.png">
+    <None Update="data\audio\Age of Empires III\007 Age of Empires III - I, Menevero.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="data\brand\The Nilla Ninjas.png">
+    <None Update="data\audio\Age of Empires III\008 Age of Empires III - Scruffy and Underfed.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="data\brand\New World Challengers.png">
+    <None Update="data\audio\Age of Empires III\009 Age of Empires III - Leisurely Brows.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="data\brand\Somali Kabuli Gaming.png">
+    <None Update="data\audio\Age of Empires III\010 Age of Empires III - A Hot Meal.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="data\events\EPL Season 2.png">
+    <None Update="data\audio\Age of Empires III\011 Age of Empires III - Bubble Chum.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="data\events\ESOC Grand Tour Season 3.png">
+    <None Update="data\audio\Age of Empires III\012 Age of Empires III - Of Licious.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="data\events\Incogs Empire Cup.png">
+    <None Update="data\audio\Age of Empires III\013 Age of Empires III - Rest with Us.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="data\events\Showmatch.png">
+    <None Update="data\audio\Age of Empires III\014 Age of Empires III - Get Ye Sum.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="data\events\United Empires.png">
+    <None Update="data\audio\Age of Empires III\015 Age of Empires III - Where%27s My Uncle.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\016 Age of Empires III - Muptop.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\017 Age of Empires III - Meet These French.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\018 Age of Empires III - Old Timer.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\019 Age of Empires III - Major Rewrite_General Chunks.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\020 Age of Empires III - Take His Toes.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\021 Age of Empires III - Happy to You.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\022 Age of Empires III - Camels, Straws, and Backs.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\023 Age of Empires III - Years in the Making.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\024 Age of Empires III - Last Name Crane, Icabod.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\025 Age of Empires III - Ludus Oerditus.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\026 Age of Empires III - Niceterium.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\027 Age of Empires III - There Is Weather Decisions Are Made.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\028 Age of Empires III - A Little Something.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\029 Age of Empires III - A Relic.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\030 Age of Empires III - Ammanagushpa.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\031 Age of Empires III - Back on Their Heels.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\032 Age of Empires III - Clean Yourself Up.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\033 Age of Empires III - Gunwales.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\034 Age of Empires III - I Warned the Conquistador.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\035 Age of Empires III - Standing on It.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\036 Age of Empires III - Surrender.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\037 Age of Empires III - Thank the Indian.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\038 Age of Empires III - The Modern World.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\039 Age of Empires III - This Creature Serves the Circle.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\040 Age of Empires III - This Will End Badly.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\041 Age of Empires III - Track Your Traitor.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\042 Age of Empires III - What Year This Is.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\043 Age of Empires III - A Humble Servant.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\044 Age of Empires III - Ain%27t Too Popular.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\045 Age of Empires III - Between the Settlers.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\046 Age of Empires III - Claim of a Lifetime.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\047 Age of Empires III - Didn%27t See It Coming.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\048 Age of Empires III - Geldovamagushpa.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\049 Age of Empires III - Gelus Austrinium.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\050 Age of Empires III - Holed Up.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\051 Age of Empires III - Holiday to Remember.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\052 Age of Empires III - Into the Wilderness.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\053 Age of Empires III - Intro.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\054 Age of Empires III - It%27s Never Pretty.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\055 Age of Empires III - Just like Old Times.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\056 Age of Empires III - More Than Training.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\057 Age of Empires III - Muster.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\058 Age of Empires III - My Father Went Home.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\059 Age of Empires III - On the Fence.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\060 Age of Empires III - Pork Chop Forest.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\061 Age of Empires III - Revolootin.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\062 Age of Empires III - Sikovmagushpa.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\063 Age of Empires III - Some of a Kind.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\064 Age of Empires III - Somewhere in the Black Hills.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\065 Age of Empires III - There at the End.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\066 Age of Empires III - We Are Militia.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\067 Age of Empires III - Where is My Mother.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\068 Age of Empires III - Wronged.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\069 Age of Empires III - You Will Learn.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\070 Age of Empires III - Your Old Pal Crazy.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\071 Age of Empires III - Baktumagushpa.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\072 Age of Empires III - Blazing Souls.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\073 Age of Empires III - Elephant Sand a Bad Thing.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\074 Age of Empires III - Fire Goes Outward.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\075 Age of Empires III - Fughettamagushpa2.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\076 Age of Empires III - Fughettamagushpa.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\077 Age of Empires III - Guarding Change.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\078 Age of Empires III - Hedge of the World.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\079 Age of Empires III - It Cannot Be Said.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\080 Age of Empires III - It Is What It Is.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\081 Age of Empires III - Know Not the Water%27s Edge.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\082 Age of Empires III - Last Wor.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\083 Age of Empires III - Made to Be Nothing.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\084 Age of Empires III - Men Should Not Sit like Ducks.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\085 Age of Empires III - More Eveywhere.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\086 Age of Empires III - Nation Fresh.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\087 Age of Empires III - Odessagushpa.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\088 Age of Empires III - Onto Glory.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\089 Age of Empires III - Out of Fog.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\090 Age of Empires III - Primal Shot.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\091 Age of Empires III - Rebels General.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\092 Age of Empires III - Rook for Where It Hurts.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\093 Age of Empires III - Sea Change.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\094 Age of Empires III - Spark Sin to Fame.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\095 Age of Empires III - Spoil O War.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\096 Age of Empires III - Stop for Fire.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\097 Age of Empires III - Threat to the Yeast.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\098 Age of Empires III - Velocity of a Dead Man.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\099 Age of Empires III - Wadettagushpa.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\100 Age of Empires III - Walk Slow to Death.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires III\101 Age of Empires III - Win a Holy Bone.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\001 Age of Empires II - Age of Empires II Main Theme.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\002 Age of Empires II - Maps of the World.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\003 Age of Empires II - Ready for Battle.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\004 Age of Empires II - Shamburger.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\005 Age of Empires II - I Will Beat on Your Behind.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\006 Age of Empires II - Drizzle.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\007 Age of Empires II - Machina del Diablo.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\008 Age of Empires II - T Station.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\009 Age of Empires II - Bass Bag.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\010 Age of Empires II - Ride Lawrence Ride.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\011 Age of Empires II - Smells like Crickets, Tastes Like Chicken.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\012 Age of Empires II - Operation Monkey.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\013 Age of Empires II - Tazer.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\014 Age of Empires II - Pork Parts.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\015 Age of Empires II - The Monkey Book.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\016 Age of Empires II - Rich Corinthian Leather.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\017 Age of Empires II - Carne y Helado.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\018 Age of Empires II - Spring War.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\019 Age of Empires II - Uluzah.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\020 Age of Empires II - Hazulu.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\021 Age of Empires II - Zuluha.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\022 Age of Empires II - Love and Will.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\023 Age of Empires II - Main Theme %28Extended Mix%29.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\024 Age of Empires II - Tide Me Over, Warm %27em Ups.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\025 Age of Empires II - Voodoodoodoo.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\026 Age of Empires II - The Bovinian Derivative.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\027 Age of Empires II - Case in Point, Paste.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\028 Age of Empires II - Seamus and Chamois.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\029 Age of Empires II - Shookies in the Bank.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\030 Age of Empires II - Basura! Basura!.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\031 Age of Empires II - Neep Ninny Bod.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\032 Age of Empires II - Neep Ninny Bod v2.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\033 Age of Empires II - Bus.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\034 Age of Empires II - Gyam Shorts.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\035 Age of Empires II - Joey Jojo.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\036 Age of Empires II - Diamond Dragon.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\037 Age of Empires II - Southeast Side.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\038 Age of Empires II - Movement Atnadev.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\039 Age of Empires II - Booty and Kings.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\040 Age of Empires II - Bad Harvest.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\041 Age of Empires II - Manas.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\042 Age of Empires II - Flesh and Ice Cream.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires II\043 Age of Empires II - Rich Slavic Leather.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires IV\001 Age of Empires IV - The Age of Empires.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires IV\002 Age of Empires IV - Age of Empires IV Main Theme.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires IV\003 Age of Empires IV - Dragons of the Wall.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires IV\004 Age of Empires IV - The Maid of Orleans.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires IV\005 Age of Empires IV - Under the Eternal Blue Sky.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires IV\006 Age of Empires IV - The Winter Hunt.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires IV\007 Age of Empires IV - By the Sword and the Bow.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires IV\008 Age of Empires IV - Through Forest and Field.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires IV\009 Age of Empires IV - Cathedral of Kings.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires IV\010 Age of Empires IV - From the Sand to the Stars.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires IV\011 Age of Empires IV - Dawn of Glory.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires IV\012 Age of Empires IV - Epic Theme.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires IV\013 Age of Empires IV - Last Transmission.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires IV\014 Age of Empires IV - Main Theme Epic Version.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires\001 Age of Empires - Main Theme.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires\002 Age of Empires - Campaign Intro.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires\003 Age of Empires - Cradle of Civilization.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires\004 Age of Empires - Spear Rhythm.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires\005 Age of Empires - Singing Bronze Bowls.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires\006 Age of Empires - Mist Along the Nile.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires\007 Age of Empires - Whirling Dulcimer.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires\008 Age of Empires - War Drums in the East.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires\009 Age of Empires - Temple Bells.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires\010 Age of Empires - Siege of Winter.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires\011 Age of Empires - Seasons Through the Ages.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires\012 Age of Empires - I Shall Return.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires\013 Age of Empires - Mountain Temple.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires\014 Age of Empires - Ransom at Ctesiphon.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires\015 Age of Empires - Year of the Four Emperors.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires\016 Age of Empires - Queen of Palmyra.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires\017 Age of Empires - Coming of the Huns.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires\018 Age of Empires - Pyrrhus of Epirus.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires\019 Age of Empires - Revolt of Spartacus.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires\020 Age of Empires - Mission Won.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires\021 Age of Empires - Mission Loss.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires\022 Age of Empires - Gray Skies.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires\023 Age of Empires - Wonder of the World.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires\024 Age of Empires - Battle of Kadesh.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires\025 Age of Empires - Caesar%27s Revenge.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires\026 Age of Empires - Caravan.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires\027 Age of Empires - Holy Man.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires\028 Age of Empires - Battle of Tunis.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires\029 Age of Empires - Canyon of Death.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires\030 Age of Empires - Release Trailer.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires\031 Age of Empires - Splash.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires\032 Age of Empires - 30sec Trailer, Ver. 1.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires\033 Age of Empires - 30sec Trailer, Ver. 2.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Age of Empires\034 Age of Empires - Launch Trailer.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\logo\Age of Empires 2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\logo\Age of Empires 4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\logo\Hudson Bay BIGs.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\logo\Cuirassier Management Co.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\logo\Age of Empires 3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\logo\ESOCommunity.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\logo\Mandarin Duck Squad.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\logo\Royal Clan.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\logo\The Nilla Ninjas.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\logo\New World Challengers.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\logo\Somali Kabuli Gaming.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\logo\EPL Season 2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\logo\ESOC Grand Tour Season 3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\logo\Incogs Empire Cup.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\logo\Showmatch.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\logo\United Empires.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Settings1.settings">

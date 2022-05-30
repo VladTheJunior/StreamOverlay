@@ -377,6 +377,8 @@ Width="400"
                                     Foreground="White"
                                     Text="{Binding Time}" />
                             </Grid>
+
+           
                             <Grid
                                 x:Name="gSchedule"
                                 Panel.ZIndex="1"
@@ -398,6 +400,7 @@ Width="400"
                                     <RowDefinition Height="auto" />
                                     <RowDefinition Height="auto" />
                                 </Grid.RowDefinitions>
+                                
                                 <Grid
                                     Grid.RowSpan="2"
                                     Background="Black"
@@ -450,7 +453,7 @@ Width="400"
                                   
                                     TextWrapping="Wrap" />
                             </Grid>
-                            <Grid  Height="1080" x:Name="gScorePanel">
+                            <Grid  Height="1080" x:Name="gPlayersPanel">
 
                                 <Grid.RowDefinitions>
                                     <RowDefinition/>
@@ -510,6 +513,7 @@ Width="400"
                                         <TextBlock 
                                    Grid.Column="1"
                                   Margin="0,20,130,0"
+                                           x:Name="tbTeam1Score"
                                   Text="{Binding Team1Score}"
                                     
                                     VerticalAlignment="Center"
@@ -550,6 +554,7 @@ Width="400"
                                         <TextBlock 
                                    Grid.Column="0"
                                   Margin="130,20,0,0"
+                                            x:Name="tbTeam2Score"
                                   Text="{Binding Team2Score}"
                                     
                                     VerticalAlignment="Center"
@@ -571,7 +576,7 @@ Width="400"
 
 
                             </Grid>
-                            <Grid x:Name="gScore" Height="1080" Panel.ZIndex="1" VerticalAlignment="Bottom" >
+                            <Grid x:Name="gPlayers" Height="1080" Panel.ZIndex="1" VerticalAlignment="Bottom" >
                                 <Grid.RowDefinitions>
                                     <RowDefinition/>
                                     <RowDefinition Height="400"/>
@@ -1129,10 +1134,150 @@ Width="400"
 
                             </Grid>
 
-                            <Grid x:Name="gPlaybackControl" Width="1920" Height="100" Opacity="0">
+                            <Grid x:Name="gTwitchInfo" MouseLeftButtonDown="ObjectMouseDown"
+                                  Panel.ZIndex="1"
+                                MouseLeftButtonUp="ObjectMouseUp">
+                           
+
+                                <Grid  HorizontalAlignment="Left" Margin="55,0,0,0" >
+
+                                    <Grid>
+                                        <TextBox HorizontalAlignment="Left" Text="casted by CasterName " 
+                           MinWidth="280" MaxWidth="650" Padding="0,0,15,0" Margin="50,80,0,0" Style="{StaticResource hcInfoName}">
+                                            <TextBox.OpacityMask>
+                                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                    <GradientStop x:Name="CasterBlackStop" Offset="0" Color="Black" />
+                                                    <GradientStop x:Name="CasterTransparentStop" Offset="0" Color="Transparent" />
+                                                </LinearGradientBrush>
+                                            </TextBox.OpacityMask>
+                                        </TextBox>
+                                        <Control HorizontalAlignment="Left"  x:Name="resourcePanelBG" Style="{StaticResource Ingame_PanelBGStyle}" Height="60" Width="750" Margin="0" />
+
+                                  
+                                        <StackPanel x:Name="resourcePanel" Orientation="Horizontal">
+                                            <StackPanel.Resources>
+                                                <Style TargetType="TextBlock" BasedOn="{StaticResource RegularTextBlockStyle}">
+                                                    <Setter Property="FontFamily" Value="/Fonts/#Trajan Pro 3" />
+                                                    <Setter Property="FontWeight" Value="Bold" />
+                                                    <Setter Property="FontSize" Value="18" />
+                                                    <Setter Property="Foreground" Value="White" />
+                                                    <Setter Property="HorizontalAlignment" Value="Left" />
+                                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                                    <Setter Property="TextAlignment" Value="Left" />
+                                                    <Setter Property="Height" Value="auto" />
+                                                    <Setter Property="Width" Value="auto" />
+                                                    <Setter Property="Margin" Value="5,2,5,2" />
+                                                    <Setter Property="Effect">
+                                                        <Setter.Value>
+                                                            <DropShadowEffect BlurRadius="3" Color="Black" Direction="-90" ShadowDepth="3" RenderingBias="Quality" />
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </StackPanel.Resources>
+
+                                            <StackPanel x:Name="resourcePanel2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="40,0,30,0" Visibility="Visible">
+                                                <TextBlock MinWidth="270" FontSize="24" Foreground="{StaticResource ButtonTextGradient}" x:Name="TwitchChannel" Margin="20,2" Text=""/>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" >
+                                                    
+                                                    <Rectangle Width="40" Height="40" Margin="0,0,0,0">
+                                                        <Rectangle.Fill>
+                                                            <ImageBrush ImageSource="{StaticResource uiresourcesicon_bg}" />
+                                                        </Rectangle.Fill>
+                                                    </Rectangle>
+
+                                                    <Rectangle Width="40" Height="40" Margin="-40,0,0,0">
+                                                        <Rectangle.Fill>
+                                                            <ImageBrush ImageSource="{StaticResource resource_pop}" />
+                                                        </Rectangle.Fill>
+                                                    </Rectangle>
+
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Width="60">
+                                                        <TextBlock Margin="5,2,0,0" x:Name="twitchFollowers" Text="---"/>
+
+                                                    </StackPanel>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" >
+
+                                                    <Rectangle Width="40" Height="40" Margin="0,0,0,0">
+                                                        <Rectangle.Fill>
+                                                            <ImageBrush ImageSource="{StaticResource uiresourcesicon_bg}" />
+                                                        </Rectangle.Fill>
+                                                    </Rectangle>
+
+                                                    <Rectangle Width="40" Height="40" Margin="-40,0,0,0">
+                                                        <Rectangle.Fill>
+                                                            <ImageBrush ImageSource="{StaticResource resource_villagers}" />
+                                                        </Rectangle.Fill>
+                                                    </Rectangle>
+
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="60">
+                                                        <TextBlock Margin="5,2,0,0" x:Name="twitchViewers" Text="---"/>
+
+                                                    </StackPanel>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" >
+
+                                                    <Rectangle Width="40" Height="40" Margin="0,0,0,0">
+                                                        <Rectangle.Fill>
+                                                            <ImageBrush ImageSource="{StaticResource uiresourcesicon_bg}" />
+                                                        </Rectangle.Fill>
+                                                    </Rectangle>
+
+                                                    <Rectangle Width="40" Height="40" Margin="-40,0,0,0">
+                                                        <Rectangle.Fill>
+                                                            <ImageBrush ImageSource="{StaticResource resource_time}" />
+                                                        </Rectangle.Fill>
+                                                    </Rectangle>
+
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="60">
+                                                        <TextBlock Margin="5,2,0,0" x:Name="twitchStreamLength" Text="---"/>
+
+                                                    </StackPanel>
+                                                </StackPanel>
+
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Grid>
+
+
+                                </Grid>
+                                <Button ToolTip="Show Caster Name" HorizontalAlignment="Left" Style="{StaticResource HomeCityHUDButton}" Focusable="False" Click="Button_Click" />
+                            </Grid>
+                            <Grid   x:Name="gScorePanel" 
+                                  Panel.ZIndex="1"
+                                PreviewMouseLeftButtonDown="ObjectMouseDown"
+                                PreviewMouseLeftButtonUp="ObjectMouseUp">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="/resources/images/hud/resources_bg.png"
+                                    Width="600" Height="60"
+                               >
+
+                                </Image>
+
+                                <TextBox  VerticalContentAlignment="Center" Width="560" Height="60" Margin="20,0"  x:Name="tbScoreText"
+   HorizontalContentAlignment="Center"
+                             Text="Someone 0:0 Somebody"
+                                    Background="Transparent"
+                                    BorderBrush="{x:Null}"
+                                    BorderThickness="0"
+                                     CaretBrush="#60ffffff"
+                                    SelectionBrush="#60ffffff"
+                                    FontFamily="/Fonts/#Trajan Pro 3"
+                                    FontSize="24"
+                                    Foreground="White"
+                                  />
+                            </Grid>
+
+                            <Grid x:Name="gPlaybackControl" Width="1920" Height="150" Opacity="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
                                 <Grid.Background>
                                     <LinearGradientBrush EndPoint="0,0" StartPoint="0,1">
-                                        <GradientStop Color="#A0000000" Offset="0"/>
+                                        <GradientStop Color="#90000000" Offset="0"/>
                                         <GradientStop Color="#00000000"  Offset="1"/>
                                     
                                        
@@ -1164,22 +1309,79 @@ Width="400"
                                     </EventTrigger>
 
                                 </Grid.Triggers>
-                                <Image
-                                    Width="1920"
-                                    Grid.Row="1" 
-                                
-                                    VerticalAlignment="Bottom"
-                                    Source="/resources/images/campaignmenu/LevelSelectDivider.png" />
-                                <StackPanel Margin="20" Orientation="Horizontal">
+
+                                <StackPanel VerticalAlignment="Center" Grid.Row="1" Margin="20" Orientation="Horizontal">
                                     <TextBlock FontFamily="/Fonts/#Trajan Pro 3"
                                         FontSize="25"
                                         FontWeight="Bold"
-                                        Foreground="{StaticResource ButtonTextGradient}" VerticalAlignment="Center" Text="Volume: "/>
+                                        Foreground="{StaticResource ButtonTextGradient}" VerticalAlignment="Center" Text="Volume ">
+                                        <TextBlock.Effect>
+                                            <DropShadowEffect
+                    BlurRadius="3"
+                    Direction="-90"
+                    RenderingBias="Quality"
+                    ShadowDepth="1"
+                    Color="Black" />
+                                        </TextBlock.Effect>
+                                    </TextBlock>
                                     <Slider DockPanel.Dock="Left" VerticalAlignment="Center" Width="300" Grid.Row="0" x:Name="sVolume"  Minimum="0" Maximum="1" Value="0.5" Focusable="False"/>
                                     
                                 </StackPanel>
-                                <StackPanel HorizontalAlignment="Center"  Orientation="Horizontal">
+                                <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"  Orientation="Horizontal">
+                                    <TextBlock Text="I" FontFamily="/Fonts/#Trajan Pro 3"
+                                        FontSize="30"
+                                        FontWeight="UltraBlack"
+                                               Margin="0,25,12,0" MouseDown="TextBlock_MouseDown">
+                                        <TextBlock.Effect>
+                                            <DropShadowEffect
+                    BlurRadius="3"
+                    Direction="-90"
+                    RenderingBias="Quality"
+                    ShadowDepth="1"
+                    Color="Black" />
+                                        </TextBlock.Effect>
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Foreground" Value="{StaticResource ButtonTextGradient}"/>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Foreground" Value="{StaticResource ButtonTextGradientOver}"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <TextBlock Margin="0,25,30,0" Text="II" FontFamily="/Fonts/#Trajan Pro 3"
+                                        FontSize="30"
+                                        FontWeight="UltraBlack" MouseDown="TextBlock_MouseDown_1">
+                                        <TextBlock.Effect>
+                                            <DropShadowEffect
+                    BlurRadius="3"
+                    Direction="-90"
+                    RenderingBias="Quality"
+                    ShadowDepth="1"
+                    Color="Black" />
+                                        </TextBlock.Effect>
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Foreground" Value="{StaticResource ButtonTextGradient}"/>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Foreground" Value="{StaticResource ButtonTextGradientOver}"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
                                     <Image Width="30" Margin="15" MouseDown="Image_MouseDown">
+                                        <Image.Effect>
+                                            <DropShadowEffect
+                    BlurRadius="3"
+                    Direction="-90"
+                    RenderingBias="Quality"
+                    ShadowDepth="1"
+                    Color="Black" />
+                                        </Image.Effect>
                                         <Image.Style>
                                             <Style TargetType="Image">
                                                 <Setter Property="Source" Value="{StaticResource PreviousNormal}"/>
@@ -1193,6 +1395,14 @@ Width="400"
                                         </Image.Style>
                                     </Image>
                                     <Image x:Name="bPlay" Width="40" Margin="15" MouseDown="Image_MouseDown_1">
+                                        <Image.Effect>
+                                            <DropShadowEffect
+                    BlurRadius="3"
+                    Direction="-90"
+                    RenderingBias="Quality"
+                    ShadowDepth="1"
+                    Color="Black" />
+                                        </Image.Effect>
                                         <Image.Style>
                                             <Style TargetType="Image">
                                                 <Setter Property="Source" Value="{StaticResource PlayNormal}"/>
@@ -1207,6 +1417,14 @@ Width="400"
                                    
                                     </Image>
                                     <Image x:Name="bPause" Width="40" Margin="15" MouseDown="Image_MouseDown_2">
+                                        <Image.Effect>
+                                            <DropShadowEffect
+                    BlurRadius="3"
+                    Direction="-90"
+                    RenderingBias="Quality"
+                    ShadowDepth="1"
+                    Color="Black" />
+                                        </Image.Effect>
                                         <Image.Style>
                                             <Style TargetType="Image">
                                                 <Setter Property="Source" Value="{StaticResource PauseNormal}"/>
@@ -1221,6 +1439,13 @@ Width="400"
                                       
                                     </Image>
                                     <Image Width="30" Margin="15" MouseDown="Image_MouseDown_3">
+                                        <Image.Effect>
+                                            <DropShadowEffect
+                    BlurRadius="3"
+                    Direction="-90"
+                    RenderingBias="Quality"
+                    ShadowDepth="1"
+                    Color="Black" />        </Image.Effect>
                                         <Image.Style>
                                             <Style TargetType="Image">
                                                 <Setter Property="Source" Value="{StaticResource NextNormal}"/>
@@ -1234,7 +1459,82 @@ Width="400"
                                         </Image.Style>
 
                                     </Image>
+
+
+                                    <TextBlock  Margin="30,25,12,0" Text="III" FontFamily="/Fonts/#Trajan Pro 3"
+                                        FontSize="30" FontStretch="UltraCondensed"
+                                        FontWeight="UltraBlack" MouseDown="TextBlock_MouseDown_2">
+                                        <TextBlock.Effect>
+                                            <DropShadowEffect
+                    BlurRadius="3"
+                    Direction="-90"
+                    RenderingBias="Quality"
+                    ShadowDepth="1"
+                    Color="Black" />       </TextBlock.Effect>
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Foreground" Value="{StaticResource ButtonTextGradient}"/>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Foreground" Value="{StaticResource ButtonTextGradientOver}"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <TextBlock Margin="0,25,12,0" Text="IV" FontFamily="/Fonts/#Trajan Pro 3"
+                                        FontSize="30"
+                                        FontWeight="UltraBlack" MouseDown="TextBlock_MouseDown_3">
+                                        <TextBlock.Effect>
+                                            <DropShadowEffect
+                    BlurRadius="3"
+                    Direction="-90"
+                    RenderingBias="Quality"
+                    ShadowDepth="1"
+                    Color="Black" />        </TextBlock.Effect>
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Foreground" Value="{StaticResource ButtonTextGradient}"/>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Foreground" Value="{StaticResource ButtonTextGradientOver}"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+
                                 </StackPanel>
+
+
+                                <TextBlock Margin="20,20,0,0"              FontFamily="/Fonts/#Trajan Pro 3"
+                                        FontSize="25"
+                                        FontWeight="Bold"
+                                        Foreground="White" x:Name="tbAudioName">
+                                    <TextBlock.Effect>
+                                        <DropShadowEffect
+                    BlurRadius="3"
+                    Direction="-90"
+                    RenderingBias="Quality"
+                    ShadowDepth="1"
+                    Color="Black" />
+                                    </TextBlock.Effect>
+                                </TextBlock>
+                     
+
+                                    <CheckBox Grid.Row="1" VerticalAlignment="Center"
+                                    HorizontalAlignment="Right" Margin="50,0"
+                                x:Name="cbLoop"
+                       
+                                Content="Enable audio looping"
+                                Style="{StaticResource Checkbox_Options}" />
+                   
+                                <Image
+                                    Width="1920"
+                                    Grid.Row="1" 
+                                Height="2"
+                                    VerticalAlignment="Bottom"
+                                    Source="/resources/images/campaignmenu/LevelSelectDivider.png" />
                             </Grid>
                         </Canvas>
                     </Grid>
