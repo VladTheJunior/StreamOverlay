@@ -832,8 +832,7 @@ namespace StreamOverlay
             }
 
             if (cbScorePanel.IsChecked == false)
-            {
-  
+            {              
                 mainWindow.gScorePanel.Visibility = Visibility.Hidden;
             }
 
@@ -844,6 +843,7 @@ namespace StreamOverlay
 
             if (cbChromakey.IsChecked == true)
             {
+                mainWindow.PreviewImage.Visibility = Visibility.Hidden;
                 mainWindow.OverlayCanvas.Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#ff00b140");
             }
 
@@ -1112,8 +1112,8 @@ namespace StreamOverlay
             mainWindow.gTwitchInfo.SetValue(Canvas.LeftProperty, pTwitch.X);
             mainWindow.gTwitchInfo.SetValue(Canvas.TopProperty, pTwitch.Y);
 
-            mainWindow.gScorePanel.SetValue(Canvas.LeftProperty, 10.0);
-            mainWindow.gScorePanel.SetValue(Canvas.TopProperty, 10.0);
+            mainWindow.gScorePanel.SetValue(Canvas.LeftProperty, 1301.0);
+            mainWindow.gScorePanel.SetValue(Canvas.TopProperty, 60.0);
 
             mainWindow.Cursor = AoE;
             Mouse.OverrideCursor = AoE;

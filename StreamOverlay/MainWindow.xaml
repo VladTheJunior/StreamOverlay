@@ -1244,19 +1244,16 @@ Width="400"
                                 <Button ToolTip="Show Caster Name" HorizontalAlignment="Left" Style="{StaticResource HomeCityHUDButton}" Focusable="False" Click="Button_Click" />
                             </Grid>
                             <Grid   x:Name="gScorePanel" 
-                                  Panel.ZIndex="1"
+                                  Panel.ZIndex="1"    Width="591" Height="60" 
                                 PreviewMouseLeftButtonDown="ObjectMouseDown"
                                 PreviewMouseLeftButtonUp="ObjectMouseUp">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="auto"/>
                                 </Grid.RowDefinitions>
-                                <Image Source="/resources/images/hud/resources_bg.png"
-                                    Width="600" Height="60"
-                               >
-
-                                </Image>
-
-                                <TextBox  VerticalContentAlignment="Center" Width="560" Height="60" Margin="20,0"  x:Name="tbScoreText"
+                                <Grid.Background>
+                                    <ImageBrush ImageSource="/resources/images/hud/resources_bg.png"/>
+                                </Grid.Background>
+                                                 <TextBox  VerticalContentAlignment="Center" Width="560" Height="60" Margin="20,0"  x:Name="tbScoreText"
    HorizontalContentAlignment="Center"
                              Text="Someone 0:0 Somebody"
                                     Background="Transparent"
