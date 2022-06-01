@@ -1112,8 +1112,8 @@ namespace StreamOverlay
             mainWindow.gTwitchInfo.SetValue(Canvas.LeftProperty, pTwitch.X);
             mainWindow.gTwitchInfo.SetValue(Canvas.TopProperty, pTwitch.Y);
 
-            mainWindow.gScorePanel.SetValue(Canvas.LeftProperty, 1301.0);
-            mainWindow.gScorePanel.SetValue(Canvas.TopProperty, 60.0);
+            mainWindow.gScorePanel.SetValue(Canvas.LeftProperty, 1315.0);
+            mainWindow.gScorePanel.SetValue(Canvas.TopProperty, 65.0);
 
             mainWindow.Cursor = AoE;
             Mouse.OverrideCursor = AoE;

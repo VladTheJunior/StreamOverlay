@@ -1244,7 +1244,7 @@ Width="400"
                                 <Button ToolTip="Show Caster Name" HorizontalAlignment="Left" Style="{StaticResource HomeCityHUDButton}" Focusable="False" Click="Button_Click" />
                             </Grid>
                             <Grid   x:Name="gScorePanel" 
-                                  Panel.ZIndex="1"    Width="591" Height="60" 
+                                  Panel.ZIndex="1"    Width="600" Height="60" 
                                 PreviewMouseLeftButtonDown="ObjectMouseDown"
                                 PreviewMouseLeftButtonUp="ObjectMouseUp">
                                 <Grid.RowDefinitions>
