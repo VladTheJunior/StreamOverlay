@@ -466,7 +466,7 @@
                             </CheckBox>
                             <ComboBox
                                 IsEnabled="{Binding ElementName=cbPlayersPanel, Path=IsChecked}"
-                                x:Name="ScorePanel"
+                                x:Name="TeamPanel"
                                 Width="400"
                                 Height="30"
                                 Grid.Row="6"

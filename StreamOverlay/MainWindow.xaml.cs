@@ -329,10 +329,12 @@ namespace StreamOverlay
                     {
                         if (((SolidColorBrush)OverlayCanvas.Background).Color == ((SolidColorBrush)(new BrushConverter().ConvertFromString("#ff00b140"))).Color)
                         {
+                            PreviewImage.Opacity = 1;
                             OverlayCanvas.Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#01000000");
                         }
                         else
                         {
+                            PreviewImage.Opacity = 0;
                             OverlayCanvas.Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#ff00b140");
                         }
 

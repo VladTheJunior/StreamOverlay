@@ -456,7 +456,7 @@ namespace StreamOverlay
             cbSchedule.IsChecked = Settings1.Default.Schedule;
             cbPlayersPanel.IsChecked = Settings1.Default.PlayersPanelEnabled;
 
-            ScorePanel.SelectedIndex = Settings1.Default.PlayersPanelIndex;
+            TeamPanel.SelectedIndex = Settings1.Default.PlayersPanelIndex;
 
             lvMapPool.ItemsSource = MapPool;
 
@@ -843,7 +843,7 @@ namespace StreamOverlay
 
             if (cbChromakey.IsChecked == true)
             {
-                mainWindow.PreviewImage.Visibility = Visibility.Hidden;
+                mainWindow.PreviewImage.Opacity = 0;
                 mainWindow.OverlayCanvas.Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#ff00b140");
             }
 
@@ -894,12 +894,12 @@ namespace StreamOverlay
             {
                 mainWindow.Team1Player1CivPool.Add(new Civ() { Tag = i });
                 mainWindow.Team2Player1CivPool.Add(new Civ() { Tag = i });
-                if (ScorePanel.SelectedIndex >= 1)
+                if (TeamPanel.SelectedIndex >= 1)
                 {
                     mainWindow.Team1Player2CivPool.Add(new Civ() { Tag = i });
                     mainWindow.Team2Player2CivPool.Add(new Civ() { Tag = i });
                 }
-                if (ScorePanel.SelectedIndex >= 2)
+                if (TeamPanel.SelectedIndex >= 2)
                 {
                     mainWindow.Team1Player3CivPool.Add(new Civ() { Tag = i });
                     mainWindow.Team2Player3CivPool.Add(new Civ() { Tag = i });
@@ -908,23 +908,23 @@ namespace StreamOverlay
             mainWindow.lwTeam1Player1CivPool.ItemsSource = mainWindow.Team1Player1CivPool;
             mainWindow.lwTeam2Player1CivPool.ItemsSource = mainWindow.Team2Player1CivPool;
 
-            if (ScorePanel.SelectedIndex >= 1)
+            if (TeamPanel.SelectedIndex >= 1)
             {
                 mainWindow.lwTeam1Player2CivPool.ItemsSource = mainWindow.Team1Player2CivPool;
                 mainWindow.lwTeam2Player2CivPool.ItemsSource = mainWindow.Team2Player2CivPool;
             }
-            if (ScorePanel.SelectedIndex >= 2)
+            if (TeamPanel.SelectedIndex >= 2)
             {
                 mainWindow.lwTeam1Player3CivPool.ItemsSource = mainWindow.Team1Player3CivPool;
                 mainWindow.lwTeam2Player3CivPool.ItemsSource = mainWindow.Team2Player3CivPool;
             }
 
-            if (ScorePanel.SelectedIndex == 0)
+            if (TeamPanel.SelectedIndex == 0)
             {
                 mainWindow.iTeam1.Source = new BitmapImage(new Uri("pack://application:,,,/resources/Team1_1v1.png"));
                 mainWindow.iTeam2.Source = new BitmapImage(new Uri("pack://application:,,,/resources/Team2_1v1.png"));
             }
-            else if (ScorePanel.SelectedIndex == 1)
+            else if (TeamPanel.SelectedIndex == 1)
             {
                 mainWindow.iTeam1.Source = new BitmapImage(new Uri("pack://application:,,,/resources/Team1_2v2.png"));
                 mainWindow.iTeam2.Source = new BitmapImage(new Uri("pack://application:,,,/resources/Team2_2v2.png"));
@@ -1258,7 +1258,7 @@ namespace StreamOverlay
             Settings1.Default.Countdown = (bool)cbCountdown.IsChecked;
             Settings1.Default.PlayersPanelEnabled = (bool)cbPlayersPanel.IsChecked;
 
-            Settings1.Default.PlayersPanelIndex = ScorePanel.SelectedIndex;
+            Settings1.Default.PlayersPanelIndex = TeamPanel.SelectedIndex;
             Settings1.Default.SelectedOverlay = Overlays[SelectedOverlayIndex].title;
             var maps = new StringCollection();
             maps.AddRange(MapPool.Where(x => x.isSelected == true).Select(x => x.title).ToArray());
