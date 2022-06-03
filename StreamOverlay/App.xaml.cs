@@ -10,7 +10,7 @@ namespace StreamOverlay
     {
         public App()
         {
-            Core.Initialize();
+         //   Core.Initialize();
         }
     }
 

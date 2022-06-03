@@ -7,8 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vlc="clr-namespace:LibVLCSharp.WPF;assembly=LibVLCSharp.WPF"
     Title="Stream Overlay"
-    Width="1920"
-    Height="1080"
+Width="1920" Height="1080"
     Background="Black"
     Closed="Window_Closed"
     ResizeMode="NoResize"
@@ -69,13 +68,13 @@
     </Window.Resources>
     <Viewbox>
         <Grid Width="1920" Height="1080">
-            <MediaElement Volume="{Binding ElementName=sVolume, Path=Value}" x:Name="AudioPlayer" LoadedBehavior="Manual" UnloadedBehavior="Manual" MediaEnded="AudioPlayer_MediaEnded"  />
-            <vlc:VideoView x:Name="Animation"  Focusable="True">
-                <Viewbox>
-                    <Grid x:Name="OverlayGrid" Width="1920" Height="1080" >
-                        <Canvas x:Name="OverlayCanvas" PreviewMouseMove="ObjectMouseMove" Background="#01000000" MouseDown="OverlayCanvas_MouseDown">
+            <MediaElement Width="1920" Height="1080" HorizontalAlignment="Left" VerticalAlignment="Top" Volume="{Binding ElementName=sVolume, Path=Value}" x:Name="AudioPlayer" LoadedBehavior="Manual" UnloadedBehavior="Manual" MediaEnded="AudioPlayer_MediaEnded"  />
+            <vlc:VideoView Width="1920" Height="1080" HorizontalAlignment="Left" VerticalAlignment="Top"  x:Name="Animation" Focusable="True" >
+                <Viewbox x:Name="VideoBox" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Grid Width="1920" Height="1080" >
+                        <Canvas Width="1920" Height="1080" HorizontalAlignment="Left" VerticalAlignment="Top"  x:Name="OverlayCanvas" PreviewMouseMove="ObjectMouseMove" Background="#01000000" MouseDown="OverlayCanvas_MouseDown">
 
-                            <Image x:Name="PreviewImage" />
+                                    <Image x:Name="PreviewImage" />
                             <Grid x:Name="gBrandLogo" MouseLeftButtonDown="ObjectMouseDown"
                                   Panel.ZIndex="1"
                                 MouseLeftButtonUp="ObjectMouseUp">
@@ -1143,7 +1142,7 @@ Width="400"
 
                                     <Grid>
                                         <TextBox HorizontalAlignment="Left" Text="casted by CasterName " 
-                           MinWidth="280" MaxWidth="650" Padding="0,0,15,0" Margin="50,80,0,0" Style="{StaticResource hcInfoName}">
+                           MinWidth="320" MaxWidth="650" Padding="0,0,15,0" Margin="40,60,0,0" Style="{StaticResource hcInfoName}">
                                             <TextBox.OpacityMask>
                                                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                                     <GradientStop x:Name="CasterBlackStop" Offset="0" Color="Black" />
@@ -1151,10 +1150,10 @@ Width="400"
                                                 </LinearGradientBrush>
                                             </TextBox.OpacityMask>
                                         </TextBox>
-                                        <Control HorizontalAlignment="Left"  x:Name="resourcePanelBG" Style="{StaticResource Ingame_PanelBGStyle}" Height="60" Width="750" Margin="0" />
+                                        <Control HorizontalAlignment="Left" VerticalAlignment="Top"   x:Name="resourcePanelBG" Style="{StaticResource Ingame_PanelBGStyle}" Height="61" Width="840" Margin="0,9,0,0" />
 
-                                  
-                                        <StackPanel x:Name="resourcePanel" Orientation="Horizontal">
+
+                                        <StackPanel x:Name="resourcePanel" VerticalAlignment="Top"  Margin="0,9,0,0"  Orientation="Horizontal">
                                             <StackPanel.Resources>
                                                 <Style TargetType="TextBlock" BasedOn="{StaticResource RegularTextBlockStyle}">
                                                     <Setter Property="FontFamily" Value="/Fonts/#Trajan Pro 3" />
@@ -1175,8 +1174,8 @@ Width="400"
                                                 </Style>
                                             </StackPanel.Resources>
 
-                                            <StackPanel x:Name="resourcePanel2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="40,0,30,0" Visibility="Visible">
-                                                <TextBlock MinWidth="270" FontSize="24" Foreground="{StaticResource ButtonTextGradient}" x:Name="TwitchChannel" Margin="20,2" Text=""/>
+                                            <StackPanel x:Name="resourcePanel2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="40,10,30,0" Visibility="Visible">
+                                                <TextBlock MinWidth="320" FontSize="28" Foreground="{StaticResource ButtonTextGradient}" x:Name="TwitchChannel" Margin="20,3,0,0" Text=""/>
                                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" >
                                                     
                                                     <Rectangle Width="40" Height="40" Margin="0,0,0,0">
@@ -1191,8 +1190,8 @@ Width="400"
                                                         </Rectangle.Fill>
                                                     </Rectangle>
 
-                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Width="60">
-                                                        <TextBlock Margin="5,2,0,0" x:Name="twitchFollowers" Text="---"/>
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Width="70">
+                                                        <TextBlock Margin="5,4,0,0" FontSize="22" x:Name="twitchFollowers" Text="---"/>
 
                                                     </StackPanel>
                                                 </StackPanel>
@@ -1210,8 +1209,8 @@ Width="400"
                                                         </Rectangle.Fill>
                                                     </Rectangle>
 
-                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="60">
-                                                        <TextBlock Margin="5,2,0,0" x:Name="twitchViewers" Text="---"/>
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="70">
+                                                        <TextBlock Margin="5,4,0,0" FontSize="22" x:Name="twitchViewers" Text="---"/>
 
                                                     </StackPanel>
                                                 </StackPanel>
@@ -1229,8 +1228,8 @@ Width="400"
                                                         </Rectangle.Fill>
                                                     </Rectangle>
 
-                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="60">
-                                                        <TextBlock Margin="5,2,0,0" x:Name="twitchStreamLength" Text="---"/>
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="70">
+                                                        <TextBlock Margin="5,4,0,0" FontSize="22" x:Name="twitchStreamLength" Text="---"/>
 
                                                     </StackPanel>
                                                 </StackPanel>
@@ -1241,7 +1240,7 @@ Width="400"
 
 
                                 </Grid>
-                                <Button ToolTip="Show Caster Name" HorizontalAlignment="Left" Style="{StaticResource HomeCityHUDButton}" Focusable="False" Click="Button_Click" />
+                                <Button ToolTip="Show Caster Name" VerticalAlignment="Top" Margin="0" HorizontalAlignment="Left" Style="{StaticResource HomeCityHUDButton}" Focusable="False" Click="Button_Click" />
                             </Grid>
                             <Grid   x:Name="gScorePanel" 
                                   Panel.ZIndex="1"    Width="600" Height="60" 
@@ -1520,7 +1519,7 @@ Width="400"
                      
 
                                     <CheckBox Grid.Row="1" VerticalAlignment="Center"
-                                    HorizontalAlignment="Right" Margin="50,0"
+                                    HorizontalAlignment="Right" Margin="20,0"
                                 x:Name="cbLoop"
                        
                                 Content="Enable audio looping"

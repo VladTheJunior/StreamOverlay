@@ -418,7 +418,7 @@ namespace StreamOverlay
         int CurrentPlayingOverlayIndex = 0;
         int CurrentPlayingOverlayCount = 0;
 
-        int Version = 26;
+        int Version = 27;
 
         public SettingsDialog()
         {
@@ -720,7 +720,7 @@ namespace StreamOverlay
                 }
                 catch
                 {
-                    
+
                     mbText.Text = "The entered Twitch channel does not exist.";
                     BlurControl.Visibility = Visibility.Visible;
                     gMessageBox.Visibility = Visibility.Visible;
@@ -740,7 +740,7 @@ namespace StreamOverlay
             {
                 mainWindow.PreviewImage.Source = new BitmapImage(new Uri(SelectedOverlay.preview));
 
-                mainWindow._libVLC = new LibVLC();
+                mainWindow._libVLC = new LibVLC(); // "--reset-plugins-cache"
                 mainWindow._mediaPlayer = new MediaPlayer(mainWindow._libVLC);
 
                 mainWindow.Unloaded += mainWindow.Player_Unloaded;
@@ -816,9 +816,9 @@ namespace StreamOverlay
             }
 
 
-                var myCur = Application.GetResourceStream(new Uri("pack://application:,,,/resources/Cursor.cur")).Stream;
-                mainWindow.Schedule.PreviewKeyDown += mainWindow.TextBox_PreviewKeyDown;
-                mainWindow.Schedule.Cursor = new Cursor(myCur);
+            var myCur = Application.GetResourceStream(new Uri("pack://application:,,,/resources/Cursor.cur")).Stream;
+            mainWindow.Schedule.PreviewKeyDown += mainWindow.TextBox_PreviewKeyDown;
+            mainWindow.Schedule.Cursor = new Cursor(myCur);
             myCur = Application.GetResourceStream(new Uri("pack://application:,,,/resources/Cursor.cur")).Stream;
             mainWindow.tbScoreText.Cursor = new Cursor(myCur);
             mainWindow.tbScoreText.PreviewKeyDown += mainWindow.TextBox_PreviewKeyDown;
@@ -832,7 +832,7 @@ namespace StreamOverlay
             }
 
             if (cbScorePanel.IsChecked == false)
-            {              
+            {
                 mainWindow.gScorePanel.Visibility = Visibility.Hidden;
             }
 
@@ -855,7 +855,7 @@ namespace StreamOverlay
                 try
                 {
                     var data = new StringContent(
-                        "[{ \"operationName\":\"ChannelShell\",\"variables\":{ \"login\":\""+ tbTwitchChannel.Text + "\"},\"extensions\":{ \"persistedQuery\":{ \"version\":1,\"sha256Hash\":\"580ab410bcd0c1ad194224957ae2241e5d252b2c5173d8e0cce9d32d5bb14efe\"} } }, {\"operationName\":\"ChannelAvatar\",\"variables\":{\"channelLogin\":\"" + tbTwitchChannel.Text + "\"},\"extensions\":{\"persistedQuery\":{\"version\":1,\"sha256Hash\": \"84ed918aaa9aaf930e58ac81733f552abeef8ac26c0117746865428a7e5c8ab0\"}}},{\"operationName\": \"UseLive\",\"variables\": {\"channelLogin\": \"" + tbTwitchChannel.Text + "\"},\"extensions\": {\"persistedQuery\": {\"version\": 1,\"sha256Hash\": \"639d5f11bfb8bf3053b424d9ef650d04c4ebb7d94711d644afb08fe9a0fad5d9\"}}}]", Encoding.UTF8, "application/json");
+                        "[{ \"operationName\":\"ChannelShell\",\"variables\":{ \"login\":\"" + tbTwitchChannel.Text + "\"},\"extensions\":{ \"persistedQuery\":{ \"version\":1,\"sha256Hash\":\"580ab410bcd0c1ad194224957ae2241e5d252b2c5173d8e0cce9d32d5bb14efe\"} } }, {\"operationName\":\"ChannelAvatar\",\"variables\":{\"channelLogin\":\"" + tbTwitchChannel.Text + "\"},\"extensions\":{\"persistedQuery\":{\"version\":1,\"sha256Hash\": \"84ed918aaa9aaf930e58ac81733f552abeef8ac26c0117746865428a7e5c8ab0\"}}},{\"operationName\": \"UseLive\",\"variables\": {\"channelLogin\": \"" + tbTwitchChannel.Text + "\"},\"extensions\": {\"persistedQuery\": {\"version\": 1,\"sha256Hash\": \"639d5f11bfb8bf3053b424d9ef650d04c4ebb7d94711d644afb08fe9a0fad5d9\"}}}]", Encoding.UTF8, "application/json");
 
 
                     HttpResponseMessage response = await mainWindow.client.PostAsync("https://gql.twitch.tv/gql", data);
@@ -1061,6 +1061,16 @@ namespace StreamOverlay
             mainWindow.InputBindings.Add(new InputBinding(mainWindow.ChromakeyVisibility, new KeyGesture(Key.D0, ModifierKeys.Control)));
 
 
+            PresentationSource presentationsource = PresentationSource.FromVisual(this);
+            Matrix m = presentationsource.CompositionTarget.TransformToDevice;
+
+            double DpiWidthFactor = m.M11;
+            double DpiHeightFactor = m.M22;
+
+            mainWindow.VideoBox.Width = 1920 / DpiWidthFactor;
+            mainWindow.VideoBox.Height = 1080 / DpiHeightFactor;
+
+
             mainWindow.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             mainWindow.Arrange(new Rect(0, 0, mainWindow.DesiredSize.Width, mainWindow.DesiredSize.Height));
 
@@ -1087,6 +1097,16 @@ namespace StreamOverlay
             mainWindow.gScorePanel.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             mainWindow.gScorePanel.Arrange(new Rect(0, 0, mainWindow.gScorePanel.DesiredSize.Width, mainWindow.gScorePanel.DesiredSize.Height));
 
+            mainWindow.gPlayersPanel.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            mainWindow.gPlayersPanel.Arrange(new Rect(0, 0, mainWindow.gPlayersPanel.DesiredSize.Width, mainWindow.gPlayersPanel.DesiredSize.Height));
+
+            mainWindow.gPlayers.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            mainWindow.gPlayers.Arrange(new Rect(0, 0, mainWindow.gPlayers.DesiredSize.Width, mainWindow.gPlayers.DesiredSize.Height));
+
+            mainWindow.gPlaybackControl.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+            mainWindow.gPlaybackControl.Arrange(new Rect(0, 0, mainWindow.gPlaybackControl.DesiredSize.Width, mainWindow.gPlaybackControl.DesiredSize.Height));
+
+
 
             Point pCountdown = AlignPosition(TimerAlign, mainWindow.gCountdown.ActualWidth, mainWindow.gCountdown.ActualHeight);
             mainWindow.gCountdown.SetValue(Canvas.LeftProperty, pCountdown.X);
@@ -1109,8 +1129,8 @@ namespace StreamOverlay
             mainWindow.gEventLogo.SetValue(Canvas.TopProperty, pEvent.Y);
 
             Point pTwitch = AlignPosition(TwitchAlign, mainWindow.gTwitchInfo.ActualWidth, mainWindow.gTwitchInfo.ActualHeight);
-            mainWindow.gTwitchInfo.SetValue(Canvas.LeftProperty, pTwitch.X);
-            mainWindow.gTwitchInfo.SetValue(Canvas.TopProperty, pTwitch.Y);
+            mainWindow.gTwitchInfo.SetValue(Canvas.LeftProperty, 0.0);
+            mainWindow.gTwitchInfo.SetValue(Canvas.TopProperty, 0.0);
 
             mainWindow.gScorePanel.SetValue(Canvas.LeftProperty, 1315.0);
             mainWindow.gScorePanel.SetValue(Canvas.TopProperty, 65.0);

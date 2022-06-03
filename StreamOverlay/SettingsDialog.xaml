@@ -70,7 +70,7 @@
                             FontSize="32"
                             FontWeight="Bold"
                             Foreground="{StaticResource ButtonTextGradient}"
-                            Text="Stream Overlay v0.2.6">
+                            Text="Stream Overlay v0.2.7">
                             <TextBlock.Effect>
                                 <DropShadowEffect
                                     BlurRadius="3"
@@ -345,12 +345,7 @@
                                 Content="Enable Twitch Panel"
                        
                             Style="{StaticResource Checkbox_Options}"/>
-                            <Button x:Name="bTwitchAlign"
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                Margin="30,5"
-                                ToolTip="{Binding TwitchAlign, StringFormat='{}Align {0}'}"
-                                Style="{StaticResource alignTwitchButton}" Click="bTwitchAlign_Click" />
+                    
                             <TextBox  Grid.Row="1" x:Name="tbTwitchChannel"
                             Grid.Column="2" IsEnabled="{Binding ElementName=cbTwitch, Path=IsChecked}" Width="400" Style="{StaticResource hcInfoName}"/>
 
@@ -781,25 +776,16 @@
                                                                                                               <LineBreak />
                               <Run
                                 FontWeight="Bold"
-                                Text="May 30, 2022, version 0.2.6"
+                                Text="June 03, 2022, version 0.2.7"
                                 TextDecorations="Underline" />
 
                             <LineBreak />
-                            <Run Text="- Added the ability to loop the soundtrack." />
+                            <Run Text="- Fixed input score panel sizes." />
                             <LineBreak />
-                            <Run Text="- Added navigation to the soundtracks of each Age of Empires game." />
+                            <Run Text="- Fixed wrong overlay canvas UI size with different DPI." />
+                            <LineBreak />                        
                             <LineBreak />
-                            <Run Text="- Added even more soundtracks." />
-                            <LineBreak />
-                            <Run Text="- Added the ability to play all overlays in a loop." />
-                            <LineBreak />
-                            <Run Text="- Added a TwitchPanel element (click on Twitch Channel logo to show/hide Caster Name input box)." />
-                            <LineBreak />
-                            <Run Text="- Added a text element for the players' score." />
-                            <LineBreak />
-                            <Run Text="- Added the ability to use a chromakey instead of an overlay (use Filters | Chromakey | Opacity in OBS settings)." />
-                            <LineBreak />
-                            <LineBreak />
+
 
                             <Run
                                 FontSize="36"
