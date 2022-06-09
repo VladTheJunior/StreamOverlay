@@ -1426,6 +1426,42 @@
     <None Update="data\audio\Age of Empires\034 Age of Empires - Launch Trailer.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="data\audio\Casting\001 Age of Empires III - Take His Toes.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Casting\001 Casting - Take His Toes.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Casting\002 Age of Empires III - Across the Ocean Sea.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Casting\002 Casting - Across the Ocean Sea.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Casting\002 Casting- Across the Ocean Sea.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Casting\003 Age of Empires IV - Age of Empires IV Main Theme.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Casting\003 Casting - Age of Empires IV Main Theme.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Casting\003 Casting- Age of Empires IV Main Theme.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Casting\004 Age of Empires IV - Main Theme Epic Version.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Casting\004 Casting - Main Theme Epic Version.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Casting\005 Age of Empires IV - Epic Theme.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\audio\Casting\005 Casting - Epic Theme.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="data\logo\Age of Empires 2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

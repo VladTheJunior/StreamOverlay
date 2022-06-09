@@ -185,7 +185,7 @@ namespace StreamOverlay
                         {
                             gCountdown.Visibility = Visibility.Visible;
                         }
-                        
+
                     }));
             }
         }
@@ -380,9 +380,33 @@ namespace StreamOverlay
         public LibVLC _libVLC;
         public MediaPlayer _mediaPlayer;
 
+
+        bool IsCasting = false;
+
         List<string> Playlist = new List<string>();
         int currentAudioIndex = 0;
         public HttpClient client = new HttpClient();
+
+        private double volume = 0.5;
+
+        public double Volume
+        {
+            get
+            {
+                return volume;
+            }
+            set
+            {
+                volume = value;
+                NotifyPropertyChanged("Volume");
+            }
+        }
+
+        public static DependencyProperty SoundVolume = DependencyProperty.Register(
+    "SoundVolume", typeof(double),
+    typeof(MainWindow)
+    );
+
 
         public MainWindow()
         {
@@ -401,10 +425,20 @@ namespace StreamOverlay
 
 
             _timer.Start();
+
+            Binding myBinding = new Binding();
+            myBinding.Source = this;
+            myBinding.Path = new PropertyPath("Volume");
+            myBinding.Mode = BindingMode.TwoWay;
+            myBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+            BindingOperations.SetBinding(this, SoundVolume, myBinding);
+
             Playlist = Directory.GetFiles(Path.Combine(AppContext.BaseDirectory, "data", "audio", "Age of Empires")).Where(x => Path.GetExtension(x).ToLower() == ".mp3").ToList();
             Playlist.AddRange(Directory.GetFiles(Path.Combine(AppContext.BaseDirectory, "data", "audio", "Age of Empires II")).Where(x => Path.GetExtension(x).ToLower() == ".mp3"));
             Playlist.AddRange(Directory.GetFiles(Path.Combine(AppContext.BaseDirectory, "data", "audio", "Age of Empires III")).Where(x => Path.GetExtension(x).ToLower() == ".mp3"));
             Playlist.AddRange(Directory.GetFiles(Path.Combine(AppContext.BaseDirectory, "data", "audio", "Age of Empires IV")).Where(x => Path.GetExtension(x).ToLower() == ".mp3"));
+            Playlist.AddRange(Directory.GetFiles(Path.Combine(AppContext.BaseDirectory, "data", "audio", "Casting")).Where(x => Path.GetExtension(x).ToLower() == ".mp3"));
+
             AudioPlayer.Source = new Uri(Playlist[0]);
             tbAudioName.Text = Path.GetFileName(Playlist[currentAudioIndex]);
             if (Settings1.Default.Audio)
@@ -416,7 +450,7 @@ namespace StreamOverlay
             {
                 bPause.Visibility = Visibility.Collapsed;
             }
-                
+
         }
 
         public void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -463,7 +497,7 @@ namespace StreamOverlay
                 FirstYPos = e.GetPosition(sender as FrameworkElement).Y;
                 MovingObject = sender;
             }
-                
+
         }
 
         private void ObjectMouseUp(object sender, MouseButtonEventArgs e)
@@ -476,14 +510,14 @@ namespace StreamOverlay
 
         private void OverlayCanvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if  (sender is not TextBox)
+            if (sender is not TextBox)
                 this.Focus();
         }
 
         private void Team1_MouseDown(object sender, MouseButtonEventArgs e)
         {
 
-           int Tag = Convert.ToInt32((sender as Grid).Tag);
+            int Tag = Convert.ToInt32((sender as Grid).Tag);
 
             var civ1 = Team1Player1CivPool.FirstOrDefault(x => x.Tag == Tag);
             var civ2 = Team1Player2CivPool.FirstOrDefault(x => x.Tag == Tag);
@@ -502,7 +536,7 @@ namespace StreamOverlay
                 civ3.NextStatus();
             }
             Team1Score = Team1Player1CivPool.Where(x => x.Status == 1).Count();
-            
+
             NotifyPropertyChanged("Team1Score");
 
         }
@@ -606,8 +640,8 @@ namespace StreamOverlay
 
         private void Slider_ValueChanged(System.Object sender, RoutedPropertyChangedEventArgs<System.Double> e)
         {
-         
-            ScaleTransform scale = new ScaleTransform(1+ e.NewValue/100, 1 + e.NewValue / 100);
+
+            ScaleTransform scale = new ScaleTransform(1 + e.NewValue / 100, 1 + e.NewValue / 100);
             iBrandLogo.LayoutTransform = scale;
         }
 
@@ -621,25 +655,67 @@ namespace StreamOverlay
         {
             if (cbLoop.IsChecked == false)
             {
-                if (currentAudioIndex >= Playlist.Count - 1)
-                    currentAudioIndex = 0;
-                else
-                    currentAudioIndex++;
+
+
+                IncreaseIndex:
+                {
+                    if (currentAudioIndex >= Playlist.Count - 1)
+                        currentAudioIndex = 0;
+                    else
+                        currentAudioIndex++;
+                }
+
+                if (IsCasting == false && Path.GetFileName(Playlist[currentAudioIndex]).Contains("Casting - "))
+                {
+                    goto IncreaseIndex;
+                }
+
+
+            }
+            if (!Path.GetFileName(Playlist[currentAudioIndex]).Contains("Casting - "))
+            {
+                IsCasting = false;
             }
             AudioPlayer.Source = new Uri(Playlist[currentAudioIndex]);
+            FadeIn(1000);
             AudioPlayer.Play();
             tbAudioName.Text = Path.GetFileName(Playlist[currentAudioIndex]);
             bPlay.Visibility = Visibility.Collapsed;
             bPause.Visibility = Visibility.Visible;
         }
 
-        private void Image_MouseDown(object sender, MouseButtonEventArgs e)
+        private async void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (currentAudioIndex == 0)
-                currentAudioIndex = Playlist.Count - 1;
-            else
-                currentAudioIndex--;
+
+
+
+
+
+            DecreaseIndex:
+            {
+                if (currentAudioIndex == 0)
+                    currentAudioIndex = Playlist.Count - 1;
+                else
+                    currentAudioIndex--;
+            }
+            if (IsCasting == false && Path.GetFileName(Playlist[currentAudioIndex]).Contains("Casting - "))
+            {
+                goto DecreaseIndex;
+            }
+
+
+
+
+            if (!Path.GetFileName(Playlist[currentAudioIndex]).Contains("Casting - "))
+            {
+                IsCasting = false;
+            }
+
+
+
+            await FadeOut(1000);
             AudioPlayer.Source = new Uri(Playlist[currentAudioIndex]);
+            FadeIn(1000);
             AudioPlayer.Play();
             tbAudioName.Text = Path.GetFileName(Playlist[currentAudioIndex]);
             bPlay.Visibility = Visibility.Collapsed;
@@ -648,66 +724,113 @@ namespace StreamOverlay
 
         private void Image_MouseDown_1(object sender, MouseButtonEventArgs e)
         {
+            FadeIn(1000);
             AudioPlayer.Play();
             bPlay.Visibility = Visibility.Collapsed;
             bPause.Visibility = Visibility.Visible;
         }
 
-        private void Image_MouseDown_2(object sender, MouseButtonEventArgs e)
+        private async void Image_MouseDown_2(object sender, MouseButtonEventArgs e)
         {
+            await FadeOut(1000);
             AudioPlayer.Pause();
             bPlay.Visibility = Visibility.Visible;
             bPause.Visibility = Visibility.Collapsed;
         }
 
-        private void Image_MouseDown_3(object sender, MouseButtonEventArgs e)
+        public async Task FadeOut(int duration)
         {
-            if (currentAudioIndex >= Playlist.Count -1)
-                currentAudioIndex = 0;
-            else
-                currentAudioIndex++;
+            double oldVolume = Volume;
+            this.BeginAnimation(SoundVolume, new DoubleAnimation(0, TimeSpan.FromMilliseconds(duration)));
+            await Task.Delay(duration);
+            Volume = oldVolume;
+        }
+
+        public void FadeIn(int duration)
+        {
+            this.BeginAnimation(SoundVolume, new DoubleAnimation(Volume, TimeSpan.FromMilliseconds(duration)));
+        }
+
+        private async void Image_MouseDown_3(object sender, MouseButtonEventArgs e)
+        {
+
+
+            IncreaseIndex:
+            {
+                if (currentAudioIndex >= Playlist.Count - 1)
+                    currentAudioIndex = 0;
+                else
+                    currentAudioIndex++;
+            }
+
+            if (IsCasting == false && Path.GetFileName(Playlist[currentAudioIndex]).Contains("Casting - "))
+            {
+                goto IncreaseIndex;
+            }
+
+
+
+            if (!Path.GetFileName(Playlist[currentAudioIndex]).Contains("Casting - "))
+            {
+                IsCasting = false;
+            }
+
+            await FadeOut(1000);
             AudioPlayer.Source = new Uri(Playlist[currentAudioIndex]);
+            FadeIn(1000);
+            AudioPlayer.Play();
+
+            tbAudioName.Text = Path.GetFileName(Playlist[currentAudioIndex]);
+            bPlay.Visibility = Visibility.Collapsed;
+            bPause.Visibility = Visibility.Visible;
+        }
+
+        private async void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            IsCasting = false;
+            currentAudioIndex = Playlist.IndexOf(Playlist.FirstOrDefault(x => Path.GetFileName(x).StartsWith("001 Age of Empires - ")));
+            await FadeOut(1000);
+            AudioPlayer.Source = new Uri(Playlist[currentAudioIndex]);
+            FadeIn(1000);
             AudioPlayer.Play();
             tbAudioName.Text = Path.GetFileName(Playlist[currentAudioIndex]);
             bPlay.Visibility = Visibility.Collapsed;
             bPause.Visibility = Visibility.Visible;
         }
 
-        private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
+        private async void TextBlock_MouseDown_1(object sender, MouseButtonEventArgs e)
         {
-
-            currentAudioIndex = Playlist.IndexOf(Playlist.FirstOrDefault(x=> Path.GetFileName(x).StartsWith("001 Age of Empires - ")));
-            AudioPlayer.Source = new Uri(Playlist[currentAudioIndex]);
-            AudioPlayer.Play();
-            tbAudioName.Text = Path.GetFileName(Playlist[currentAudioIndex]);
-            bPlay.Visibility = Visibility.Collapsed;
-            bPause.Visibility = Visibility.Visible;
-        }
-
-        private void TextBlock_MouseDown_1(object sender, MouseButtonEventArgs e)
-        {
+            IsCasting = false;
             currentAudioIndex = Playlist.IndexOf(Playlist.FirstOrDefault(x => Path.GetFileName(x).StartsWith("001 Age of Empires II - ")));
+            await FadeOut(1000);
             AudioPlayer.Source = new Uri(Playlist[currentAudioIndex]);
+            FadeIn(1000);
             AudioPlayer.Play();
             tbAudioName.Text = Path.GetFileName(Playlist[currentAudioIndex]);
             bPlay.Visibility = Visibility.Collapsed;
             bPause.Visibility = Visibility.Visible;
         }
 
-        private void TextBlock_MouseDown_2(object sender, MouseButtonEventArgs e)
+        private async void TextBlock_MouseDown_2(object sender, MouseButtonEventArgs e)
         {
+            IsCasting = false;
             currentAudioIndex = Playlist.IndexOf(Playlist.FirstOrDefault(x => Path.GetFileName(x).StartsWith("001 Age of Empires III - ")));
+            await FadeOut(1000);
             AudioPlayer.Source = new Uri(Playlist[currentAudioIndex]);
+            FadeIn(1000);
             AudioPlayer.Play();
             tbAudioName.Text = Path.GetFileName(Playlist[currentAudioIndex]);
             bPlay.Visibility = Visibility.Collapsed;
             bPause.Visibility = Visibility.Visible;
         }
 
-        private void TextBlock_MouseDown_3(object sender, MouseButtonEventArgs e)
+        private async void TextBlock_MouseDown_3(object sender, MouseButtonEventArgs e)
         {
+            IsCasting = false;
             currentAudioIndex = Playlist.IndexOf(Playlist.FirstOrDefault(x => Path.GetFileName(x).StartsWith("001 Age of Empires IV - ")));
+            await FadeOut(1000);
             AudioPlayer.Source = new Uri(Playlist[currentAudioIndex]);
+            FadeIn(1000);
             AudioPlayer.Play();
             tbAudioName.Text = Path.GetFileName(Playlist[currentAudioIndex]);
             bPlay.Visibility = Visibility.Collapsed;
@@ -720,33 +843,54 @@ namespace StreamOverlay
             if (!CasterShowed)
             {
 
-            
-            DoubleAnimation center = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.8));
-            CircleEase ease1 = new CircleEase();
-            ease1.EasingMode = EasingMode.EaseInOut;
-            center.EasingFunction = ease1;
 
-            DoubleAnimation center2 = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(1));
-            center2.EasingFunction = ease1;
-            CasterTransparentStop.BeginAnimation(GradientStop.OffsetProperty, center);
-            CasterBlackStop.BeginAnimation(GradientStop.OffsetProperty, center2);
+                DoubleAnimation center = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.8));
+                CircleEase ease1 = new CircleEase();
+                ease1.EasingMode = EasingMode.EaseInOut;
+                center.EasingFunction = ease1;
+
+                DoubleAnimation center2 = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(1));
+                center2.EasingFunction = ease1;
+                CasterTransparentStop.BeginAnimation(GradientStop.OffsetProperty, center);
+                CasterBlackStop.BeginAnimation(GradientStop.OffsetProperty, center2);
                 CasterShowed = true;
             }
-            else {
+            else
+            {
                 CircleEase ease1 = new CircleEase();
                 DoubleAnimation center3 = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(0.8));
                 center3.BeginTime = TimeSpan.FromSeconds(0.4);
                 ease1.EasingMode = EasingMode.EaseInOut;
-            center3.EasingFunction = ease1;
+                center3.EasingFunction = ease1;
 
-            DoubleAnimation center4 = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(1));
-            center4.EasingFunction = ease1;
+                DoubleAnimation center4 = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(1));
+                center4.EasingFunction = ease1;
 
-            CasterTransparentStop.BeginAnimation(GradientStop.OffsetProperty, center3);
-            CasterBlackStop.BeginAnimation(GradientStop.OffsetProperty, center4);
+                CasterTransparentStop.BeginAnimation(GradientStop.OffsetProperty, center3);
+                CasterBlackStop.BeginAnimation(GradientStop.OffsetProperty, center4);
                 CasterShowed = false;
             }
 
+        }
+
+        private void sVolume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            this.BeginAnimation(SoundVolume, new DoubleAnimation(e.NewValue, TimeSpan.FromMilliseconds(0)));
+            Volume = e.NewValue;
+        }
+
+        private async void TextBlock_MouseDown_4(object sender, MouseButtonEventArgs e)
+        {
+            _time = TimeSpan.FromMinutes(10);
+            IsCasting = true;
+            currentAudioIndex = Playlist.IndexOf(Playlist.FirstOrDefault(x => Path.GetFileName(x).StartsWith("001 Casting - ")));
+            await FadeOut(1000);
+            AudioPlayer.Source = new Uri(Playlist[currentAudioIndex]);
+            FadeIn(1000);
+            AudioPlayer.Play();
+            tbAudioName.Text = Path.GetFileName(Playlist[currentAudioIndex]);
+            bPlay.Visibility = Visibility.Collapsed;
+            bPause.Visibility = Visibility.Visible;
         }
 
         private void ObjectMouseMove(object sender, MouseEventArgs e)

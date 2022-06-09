@@ -1067,8 +1067,8 @@ namespace StreamOverlay
             double DpiWidthFactor = m.M11;
             double DpiHeightFactor = m.M22;
 
-            mainWindow.VideoBox.Width = 1920 / DpiWidthFactor;
-            mainWindow.VideoBox.Height = 1080 / DpiHeightFactor;
+            mainWindow.VideoBox.Width = SystemParameters.PrimaryScreenWidth;// / DpiWidthFactor;
+            mainWindow.VideoBox.Height = SystemParameters.PrimaryScreenHeight;// / DpiHeightFactor;
 
 
             mainWindow.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
