@@ -17,19 +17,18 @@
 *A tool to create a professional looking overlay with an animated video background for Age of Empires 3 streams*
 
 **Developer:** VladTheJunior<br />
-**Current version:** 0.2.6<br />
+**Current version:** 0.2.7<br />
 
 [Download Portable](https://github.com/VladTheJunior/StreamOverlay/releases/latest/download/StreamOverlay.zip)<br />
-[Download Installer from Goolge Drive](https://drive.google.com/file/d/1VVqeT90sRsKXnBz1D8Dq4DNF_KXtHqf1/view?usp=sharing)<br />
+[Download Installer from Goolge Drive](https://drive.google.com/file/d/1VthQzOMbyl9lZsnxLnWh7WXPe0NbaS_W/view?usp=sharing)<br />
 
 *__Note:__ Portable version may require .NET6 desktop runtime: https://dotnet.microsoft.com/en-us/download/dotnet/6.0*
 *__Another Note__: Versions below .NET 6.0.5 had a bug with displaying tooltips. Be sure that you are using an updated version of .NET if you find this bug.*
 You can also join my Discord server to stay up to date with the latest updates and news about my current developments and projects: [Commando Squad](https://discord.gg/egcZRKgj4q)
 
-### How to add overlay in OBS/Streamlabs OBS
-Select settings as on image below<br />
-![image](https://user-images.githubusercontent.com/30210308/170716870-555ca598-5e89-47d7-bd99-39d15016b507.png)
+## Watch video guide by Joshua:
 
+[![Watch the video](https://img.youtube.com/vi/x6Wg26Mn2WA/hqdefault.jpg)](https://youtu.be/x6Wg26Mn2WA)
 
 ## Table of Contents
 
