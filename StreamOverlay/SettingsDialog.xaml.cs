@@ -1317,6 +1317,15 @@ namespace StreamOverlay
                     break;
             }
         }
+
+        private void Button_Click_8(object sender, RoutedEventArgs e)
+        {
+            foreach (var map in MapPool)
+            {
+                map.isSelected = false;
+            }
+            //NotifyPropertyChanged(
+        }
     }
 
 }

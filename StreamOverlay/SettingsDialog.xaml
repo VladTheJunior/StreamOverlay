@@ -437,12 +437,12 @@
                             </ComboBox>
                             <TextBlock
                             Grid.Row="7"
-                           
+                          
                             VerticalAlignment="Center"
                             FontFamily="/Fonts/#Trajan Pro 3"
                             FontSize="19"
                             FontWeight="Bold"
-                            Foreground="#dbd5c3"  Margin="0,15,0,0">
+                            Foreground="#dbd5c3"  Margin="0,15,0,25">
                                 <Run Text="Select Maps From the Map Pool:" />
                                 <LineBreak/>
                                 <Run Text="(the order of selection is important)" />
@@ -483,7 +483,7 @@
 
 
                         <Grid Grid.Row="1">
-
+                            <Button ToolTip="Reset MapPool" VerticalAlignment="Top" HorizontalAlignment="Left"  Style="{StaticResource CircleButton}" Panel.ZIndex="3"  Margin="-10,-20" Click="Button_Click_8"/>
                             <Border CornerRadius="4">
                                 <Grid>
                                     <Rectangle HorizontalAlignment="Stretch" Style="{StaticResource PanelBGSection}" />
