@@ -418,7 +418,7 @@ namespace StreamOverlay
         int CurrentPlayingOverlayIndex = 0;
         int CurrentPlayingOverlayCount = 0;
 
-        int Version = 27;
+        int Version = 28;
 
         public SettingsDialog()
         {

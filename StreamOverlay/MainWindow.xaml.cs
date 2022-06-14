@@ -881,7 +881,7 @@ namespace StreamOverlay
 
         private async void TextBlock_MouseDown_4(object sender, MouseButtonEventArgs e)
         {
-            _time = TimeSpan.FromMinutes(10);
+            _time = TimeSpan.FromMinutes(11);
             IsCasting = true;
             currentAudioIndex = Playlist.IndexOf(Playlist.FirstOrDefault(x => Path.GetFileName(x).StartsWith("001 Casting - ")));
             await FadeOut(1000);

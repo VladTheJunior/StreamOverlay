@@ -70,7 +70,7 @@
                             FontSize="32"
                             FontWeight="Bold"
                             Foreground="{StaticResource ButtonTextGradient}"
-                            Text="Stream Overlay v0.2.7">
+                            Text="Stream Overlay v0.2.8">
                             <TextBlock.Effect>
                                 <DropShadowEffect
                                     BlurRadius="3"
@@ -776,13 +776,15 @@
                                                                                                               <LineBreak />
                               <Run
                                 FontWeight="Bold"
-                                Text="June 03, 2022, version 0.2.7"
+                                Text="June 14, 2022, version 0.2.8"
                                 TextDecorations="Underline" />
 
                             <LineBreak />
-                            <Run Text="- Fixed input score panel sizes." />
+                            <Run Text="- Added sound fading." />
                             <LineBreak />
-                            <Run Text="- Fixed wrong overlay canvas UI size with different DPI." />
+                            <Run Text="- Added new overlay Novgorod." />
+                            <LineBreak />
+                            <Run Text="- Improved soundtrack control." />
                             <LineBreak />                        
                             <LineBreak />
 

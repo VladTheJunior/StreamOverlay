@@ -9,7 +9,7 @@
     <Company>VladTheJunior</Company>
     <Authors>VladTheJunior</Authors>
     <Copyright>VladTheJunior</Copyright>
-    <Version>0.2.7</Version>
+    <Version>0.2.8</Version>
     <BaseOutputPath>..\publish\</BaseOutputPath>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
@@ -383,6 +383,18 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="data\animations\Moss\video.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\animations\Novgorod\icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\animations\Novgorod\looped">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\animations\Novgorod\preview.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\animations\Novgorod\video.mp4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="data\animations\Rain\icon.png">
