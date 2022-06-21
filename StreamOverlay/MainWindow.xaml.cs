@@ -22,16 +22,24 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Net.Http;
 using System.Windows.Media.Animation;
+using System.Windows.Controls.Primitives;
 
 namespace StreamOverlay
 {
+
+    public class CIVS : ObservableCollection<Civ>
+    {
+    }
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// 
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
         private bool needClose = true;
 
+        public CIVS CivPool { get; set; } = new CIVS();
         public ObservableCollection<Civ> Team1Player1CivPool = new ObservableCollection<Civ>();
         public ObservableCollection<Civ> Team1Player2CivPool = new ObservableCollection<Civ>();
         public ObservableCollection<Civ> Team1Player3CivPool = new ObservableCollection<Civ>();
@@ -424,6 +432,12 @@ namespace StreamOverlay
             }, Application.Current.Dispatcher);
 
 
+            CIVS ss = FindResource("CivPool") as CIVS;
+            for (int j = 0; j < 23; j++)
+            {
+                ss.Add(new Civ { Id = j });
+            }
+            NotifyPropertyChanged("CivPool");
             _timer.Start();
 
             Binding myBinding = new Binding();
@@ -452,7 +466,12 @@ namespace StreamOverlay
             }
 
         }
+        private void g_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var civ = (sender as Image).Tag as Civ;
+            civ.Id = Convert.ToInt32((sender as Image).ToolTip.ToString());
 
+        }
         public void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyboardDevice.Modifiers == ModifierKeys.Control)
@@ -657,7 +676,7 @@ namespace StreamOverlay
             {
 
 
-                IncreaseIndex:
+            IncreaseIndex:
                 {
                     if (currentAudioIndex >= Playlist.Count - 1)
                         currentAudioIndex = 0;
@@ -686,11 +705,6 @@ namespace StreamOverlay
 
         private async void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
-
-
-
-
             DecreaseIndex:
             {
                 if (currentAudioIndex == 0)
@@ -755,7 +769,7 @@ namespace StreamOverlay
         {
 
 
-            IncreaseIndex:
+        IncreaseIndex:
             {
                 if (currentAudioIndex >= Playlist.Count - 1)
                     currentAudioIndex = 0;
@@ -892,6 +906,8 @@ namespace StreamOverlay
             bPlay.Visibility = Visibility.Collapsed;
             bPause.Visibility = Visibility.Visible;
         }
+
+
 
         private void ObjectMouseMove(object sender, MouseEventArgs e)
         {

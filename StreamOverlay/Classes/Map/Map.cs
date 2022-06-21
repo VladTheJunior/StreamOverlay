@@ -7,25 +7,28 @@ using System.Threading.Tasks;
 
 namespace StreamOverlay.Classes.Map
 {
-    public class Map: INotifyPropertyChanged
+    public class Map : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-    public void NotifyPropertyChanged(string propName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
-
-    }
-    public string title { get; set; }
-        public string icon { get; set; }
-        private bool _isSelected;
-        public bool isSelected
+        public void NotifyPropertyChanged(string propName)
         {
-            get { return _isSelected; }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+
+        }
+        public string title { get; set; }
+        public string icon { get; set; }
+
+        
+
+        private int order = 0;
+        public int Order
+        {
+            get { return order; }
             set
             {
-                _isSelected = value;
-                NotifyPropertyChanged("isSelected");
+                order = value;
+                NotifyPropertyChanged("Order");
             }
         }
     }

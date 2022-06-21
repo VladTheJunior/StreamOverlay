@@ -19,6 +19,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -303,7 +304,15 @@ namespace StreamOverlay
 
         #region Properties and Variables
 
+        public ObservableCollection<Civ> CivPool { get; set; } = new ObservableCollection<Civ>();
 
+        public ObservableCollection<Civ> Team1Player1CivPool = new ObservableCollection<Civ>();
+        public ObservableCollection<Civ> Team1Player2CivPool = new ObservableCollection<Civ>();
+        public ObservableCollection<Civ> Team1Player3CivPool = new ObservableCollection<Civ>();
+
+        public ObservableCollection<Civ> Team2Player1CivPool = new ObservableCollection<Civ>();
+        public ObservableCollection<Civ> Team2Player2CivPool = new ObservableCollection<Civ>();
+        public ObservableCollection<Civ> Team2Player3CivPool = new ObservableCollection<Civ>();
 
         private int selectedOverlayIndex;
         public int SelectedOverlayIndex
@@ -410,16 +419,60 @@ namespace StreamOverlay
         }
 
         public ObservableCollection<Map> MapPool = new ObservableCollection<Map>(BuildMaps());
-
-
         ObservableCollection<Overlay> Overlays = new ObservableCollection<Overlay>();
         #endregion
+
+
+        int MapOrder = 0;
 
         int CurrentPlayingOverlayIndex = 0;
         int CurrentPlayingOverlayCount = 0;
 
         int Version = 28;
 
+        private bool filterChecked = false;
+        public bool FilterChecked
+        {
+            get
+            {
+                return filterChecked;
+            }
+            set
+            {
+                filterChecked = value;
+                NotifyPropertyChanged("FilterChecked");
+                collectionView.Refresh();
+            }
+        }
+        private string mapFilter = "";
+        public string MapFilter
+        {
+            get
+            {
+                return mapFilter;
+            }
+            set
+            {
+                mapFilter = value;
+                NotifyPropertyChanged("MapFilter");
+                collectionView.Refresh();
+            }
+        }
+        ICollectionView collectionView;
+        bool Filter(object filter)
+        {
+            if (FilterChecked)
+            {
+                if (filter == null) return (filter as Map).Order != 0;
+                return (filter as Map).title.ToLower().Contains(MapFilter) && (filter as Map).Order != 0;
+            }
+            else
+            {
+                if (filter == null) return true;
+                return (filter as Map).title.ToLower().Contains(MapFilter);
+            }
+
+        }
         public SettingsDialog()
         {
             TimerAlign = "TopRight";
@@ -434,18 +487,25 @@ namespace StreamOverlay
             Timeline.DesiredFrameRateProperty.OverrideMetadata(typeof(Timeline), new FrameworkPropertyMetadata { DefaultValue = 15 });
             InitializeComponent();
             DataContext = this;
-
+            
             AoE = new Cursor(Application.GetResourceStream(new Uri("pack://application:,,,/resources/Cursor.cur")).Stream);
 
-
+            int o = 1;
             foreach (var mapTitle in Settings1.Default.MapPool)
             {
                 var map = MapPool.FirstOrDefault(x => x.title == mapTitle);
                 if (map != null)
                 {
-                    map.isSelected = true;
+                    map.Order = o;
+                    o++;
                 }
             }
+
+            for (int j = 0;j< 23; j++)
+            {
+                CivPool.Add(new Civ { Id=j });
+            }
+            NotifyPropertyChanged("CivPool");
             cbScorePanel.IsChecked = Settings1.Default.ScorePanel;
             cbChromakey.IsChecked = Settings1.Default.Chromakey;
             tbTwitchChannel.Text = Settings1.Default.TwitchChannel;
@@ -458,14 +518,24 @@ namespace StreamOverlay
 
             TeamPanel.SelectedIndex = Settings1.Default.PlayersPanelIndex;
 
+            alignBO();
+            lwTeam1Player1CivPool.ItemsSource = Team1Player1CivPool;
+            lwTeam1Player2CivPool.ItemsSource = Team1Player2CivPool;
+            lwTeam1Player3CivPool.ItemsSource = Team1Player3CivPool;
+
+            lwTeam2Player1CivPool.ItemsSource = Team2Player1CivPool;
+            lwTeam2Player2CivPool.ItemsSource = Team2Player2CivPool;
+            lwTeam2Player3CivPool.ItemsSource = Team2Player3CivPool;
+
             lvMapPool.ItemsSource = MapPool;
 
+            collectionView = CollectionViewSource.GetDefaultView(lvMapPool.ItemsSource);
+            collectionView.Filter += Filter;
 
-
-            ICollectionView collectionView = CollectionViewSource.GetDefaultView(lvMapPool.ItemsSource);
             collectionView.SortDescriptions.Add(new SortDescription("title", ListSortDirection.Ascending));
             var view = (ICollectionViewLiveShaping)CollectionViewSource.GetDefaultView(lvMapPool.ItemsSource);
             view.IsLiveSorting = true;
+
 
             List<Logo> brandLogos =
     Directory.GetFiles(Path.Combine(AppContext.BaseDirectory, "data", "logo")).Where(x => Path.GetExtension(x).ToLower() == ".png").Select(x => new Logo { Name = Path.GetFileNameWithoutExtension(x), Path = x }).ToList();
@@ -881,43 +951,67 @@ namespace StreamOverlay
                 mainWindow.TwitchInfo.Start();
             };
             mainWindow.TwitchInfo.Start();
-
-            List<Map> maps = lvMapPool.SelectedItems.Cast<Map>().Where(x => x.isSelected == true).ToList();
-
+            List<Map> maps = MapPool.Where(x => x.Order != 0).OrderBy(x => x.Order).ToList();
+            mainWindow.tbTeam1.Text = tbTeam1.Text;
+            mainWindow.tbTeam2.Text = tbTeam2.Text;
+            mainWindow.tbScoreText.Text = $"{tbTeam1.Text} 0:0 {tbTeam2.Text}";
 
             if (maps.Count == 0)
             {
                 mainWindow.tbTeam1Score.Visibility = Visibility.Hidden;
                 mainWindow.tbTeam2Score.Visibility = Visibility.Hidden;
             }
-            for (int i = 0; i < maps.Count; i++)
-            {
-                mainWindow.Team1Player1CivPool.Add(new Civ() { Tag = i });
-                mainWindow.Team2Player1CivPool.Add(new Civ() { Tag = i });
-                if (TeamPanel.SelectedIndex >= 1)
-                {
-                    mainWindow.Team1Player2CivPool.Add(new Civ() { Tag = i });
-                    mainWindow.Team2Player2CivPool.Add(new Civ() { Tag = i });
-                }
-                if (TeamPanel.SelectedIndex >= 2)
-                {
-                    mainWindow.Team1Player3CivPool.Add(new Civ() { Tag = i });
-                    mainWindow.Team2Player3CivPool.Add(new Civ() { Tag = i });
-                }
-            }
-            mainWindow.lwTeam1Player1CivPool.ItemsSource = mainWindow.Team1Player1CivPool;
-            mainWindow.lwTeam2Player1CivPool.ItemsSource = mainWindow.Team2Player1CivPool;
 
-            if (TeamPanel.SelectedIndex >= 1)
+            foreach(var civ in Team1Player1CivPool)
             {
+                civ.Status = 0;
+            }
+            foreach (var civ in Team1Player2CivPool)
+            {
+                civ.Status = 0;
+            }
+            foreach (var civ in Team1Player3CivPool)
+            {
+                civ.Status = 0;
+            }
+
+
+            foreach (var civ in Team2Player1CivPool)
+            {
+                civ.Status = 0;
+            }
+            foreach (var civ in Team2Player2CivPool)
+            {
+                civ.Status = 0;
+            }
+            foreach (var civ in Team2Player3CivPool)
+            {
+                civ.Status = 0;
+            }
+
+            mainWindow.Team1Player1CivPool = Team1Player1CivPool;
+            mainWindow.Team2Player1CivPool = Team2Player1CivPool;
+
+
+            mainWindow.Team1Player2CivPool = Team1Player2CivPool;
+            mainWindow.Team2Player2CivPool = Team2Player2CivPool;
+
+
+            mainWindow.Team1Player3CivPool = Team1Player3CivPool;
+            mainWindow.Team2Player3CivPool = Team2Player3CivPool;
+
+
+            mainWindow.lwTeam1Player1CivPool.ItemsSource = mainWindow.Team1Player1CivPool;
+                mainWindow.lwTeam2Player1CivPool.ItemsSource = mainWindow.Team2Player1CivPool;
+
+
                 mainWindow.lwTeam1Player2CivPool.ItemsSource = mainWindow.Team1Player2CivPool;
                 mainWindow.lwTeam2Player2CivPool.ItemsSource = mainWindow.Team2Player2CivPool;
-            }
-            if (TeamPanel.SelectedIndex >= 2)
-            {
+
+
                 mainWindow.lwTeam1Player3CivPool.ItemsSource = mainWindow.Team1Player3CivPool;
                 mainWindow.lwTeam2Player3CivPool.ItemsSource = mainWindow.Team2Player3CivPool;
-            }
+
 
             if (TeamPanel.SelectedIndex == 0)
             {
@@ -1281,7 +1375,7 @@ namespace StreamOverlay
             Settings1.Default.PlayersPanelIndex = TeamPanel.SelectedIndex;
             Settings1.Default.SelectedOverlay = Overlays[SelectedOverlayIndex].title;
             var maps = new StringCollection();
-            maps.AddRange(MapPool.Where(x => x.isSelected == true).Select(x => x.title).ToArray());
+            maps.AddRange(MapPool.Where(x => x.Order != 0).OrderBy(x => x.Order).Select(x => x.title).ToArray());
             Settings1.Default.MapPool = maps;
             Settings1.Default.BrandLogo = (BrandLogos.SelectedItem as Logo).Name;
             Settings1.Default.EventLogo = (EventLogos.SelectedItem as Logo).Name;
@@ -1322,9 +1416,124 @@ namespace StreamOverlay
         {
             foreach (var map in MapPool)
             {
-                map.isSelected = false;
+                map.Order = 0;
             }
             //NotifyPropertyChanged(
+        }
+
+        private void Button_Click_9(object sender, RoutedEventArgs e)
+        {
+            FilterChecked = !FilterChecked;
+        }
+
+        private void alignBO()
+        {
+            if (TeamPanel.SelectedIndex == 0)
+            {
+                Team1Player2CivPool.Clear();
+                Team2Player2CivPool.Clear();
+
+                Team1Player3CivPool.Clear();
+                Team2Player3CivPool.Clear();
+            }
+            if (TeamPanel.SelectedIndex == 1)
+            {
+                Team1Player3CivPool.Clear();
+                Team2Player3CivPool.Clear();
+            }
+            var count = MapPool.Count(x => x.Order != 0);
+            var c = Team1Player1CivPool.Count != count && (Team1Player2CivPool.Count != count && TeamPanel.SelectedIndex > 0) && (Team1Player3CivPool.Count != count && TeamPanel.SelectedIndex > 1);
+            while (Team1Player1CivPool.Count != count)
+            {
+                if (Team1Player1CivPool.Count > count)
+                {
+                    Team1Player1CivPool.RemoveAt(Team1Player1CivPool.Count - 1);
+                    Team2Player1CivPool.RemoveAt(Team2Player1CivPool.Count - 1);
+                }
+                if (Team1Player1CivPool.Count < count)
+                {
+                    Team1Player1CivPool.Add(new Civ() { Tag = Team1Player1CivPool.Count });
+                    Team2Player1CivPool.Add(new Civ() { Tag = Team2Player1CivPool.Count });
+                }
+            }
+            if (TeamPanel.SelectedIndex > 0)
+            {
+                while (Team1Player2CivPool.Count != count)
+                {
+                    if (Team1Player2CivPool.Count > count)
+                    {
+                        Team1Player2CivPool.RemoveAt(Team1Player2CivPool.Count - 1);
+                        Team2Player2CivPool.RemoveAt(Team2Player2CivPool.Count - 1);
+                    }
+                    if (Team1Player2CivPool.Count < count)
+                    {                    
+                            Team1Player2CivPool.Add(new Civ() { Tag = Team1Player2CivPool.Count });
+                            Team2Player2CivPool.Add(new Civ() { Tag = Team2Player2CivPool.Count });                      
+                    }
+                }
+            }
+            if (TeamPanel.SelectedIndex > 1)
+            {
+                while (Team1Player3CivPool.Count != count)
+                {
+                    if (Team1Player3CivPool.Count > count)
+                    {
+                        Team1Player3CivPool.RemoveAt(Team1Player3CivPool.Count - 1);
+                        Team2Player3CivPool.RemoveAt(Team2Player3CivPool.Count - 1);
+                    }
+                    if (Team1Player3CivPool.Count < count)
+                    {
+                            Team1Player3CivPool.Add(new Civ() { Tag = Team1Player3CivPool.Count });
+                            Team2Player3CivPool.Add(new Civ() { Tag = Team2Player3CivPool.Count });
+                    }
+                }
+            }
+
+
+
+             
+            NotifyPropertyChanged("Team1Player1CivPool");
+            NotifyPropertyChanged("Team1Player2CivPool");
+            NotifyPropertyChanged("Team1Player3CivPool");
+
+            NotifyPropertyChanged("Team2Player1CivPool");
+            NotifyPropertyChanged("Team2Player2CivPool");
+            NotifyPropertyChanged("Team2Player3CivPool");
+        }
+
+        private void cb_Checked(object sender, RoutedEventArgs e)
+        {
+            var map = MapPool.FirstOrDefault(x => x.title == (sender as ToggleButton).Tag.ToString());
+            map.Order = MapPool.Count(x => x.Order != 0) + 1;
+            alignBO();
+        }
+
+        private void cb_Unchecked(object sender, RoutedEventArgs e)
+        {
+            var map = MapPool.FirstOrDefault(x => x.title == (sender as ToggleButton).Tag.ToString());
+            foreach (var m in MapPool)
+            {
+                if (m.Order > map.Order)
+                {
+                    m.Order--;
+                }
+            }
+            map.Order = 0;
+            alignBO();
+
+
+        }
+
+        private void TeamPanel_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            alignBO();
+        }
+
+        private void g_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var civ = (sender as Image).Tag as Civ;
+            civ.Id = Convert.ToInt32((sender as Image).ToolTip.ToString());
+            
         }
     }
 

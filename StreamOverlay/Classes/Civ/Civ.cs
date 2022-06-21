@@ -17,7 +17,21 @@ namespace StreamOverlay.Classes.Civ
 
     }
         public int Tag { get; set; }
-    public int Id { get; set; }
+
+        private int id = 0;
+    public int Id
+        {
+            get
+            {
+                return id;
+            }
+            set
+            {
+                id = value;
+                NotifyPropertyChanged("Id");
+                NotifyPropertyChanged("Icon");
+            }
+        }
         public int Status { get; set; }
 
 

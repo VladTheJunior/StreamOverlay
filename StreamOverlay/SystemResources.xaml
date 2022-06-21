@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:local="clr-namespace:StreamOverlay">
     <!--#region Content-->
     <SolidColorBrush x:Key="DisabledForegroundBrush" Color="#888" />
@@ -783,6 +784,7 @@
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Background="Transparent"
+                            Foreground="#dbd5c3"
                             Focusable="True"
                             IsReadOnly="{TemplateBinding IsReadOnly}"
                             Style="{x:Null}"
@@ -4197,5 +4199,343 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style TargetType="{x:Type ToggleButton}" x:Key="CircleButton2">
 
+        <Setter Property="FontFamily" Value="/Fonts/#Trajan Pro 3" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Height" Value="48" />
+        <Setter Property="Width" Value="48" />
+        <Setter Property="KeyboardNavigation.AcceptsReturn" Value="True"/>
+
+        <Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <ScaleTransform ScaleX="1" ScaleY="1" />
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+
+        <Setter Property="Background" Value="{StaticResource MainMenuButtonInnerGradient}" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid Name="test" Height="48" Width="48" >
+                        <Grid Name="buttoncontainer" RenderTransformOrigin="0.5, 0.5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="1"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RenderTransform>
+                                <ScaleTransform ScaleX="1" ScaleY="1" />
+                            </Grid.RenderTransform>
+
+                            <Rectangle Name="background" Grid.Column="1" Height="46" Fill="{StaticResource ButtonInnerGradient}" RadiusX="50" RadiusY="50">
+                            </Rectangle>
+
+                            <Rectangle Name="highlightover" Grid.Column="1" Height="46" Fill="{StaticResource MainMenuButtonInnerGradientOver}" RadiusX="50" RadiusY="50" Opacity="0">
+                            </Rectangle>
+
+                            <Rectangle Name="highlightpress" Grid.Column="1" Height="46" Fill="{StaticResource MainMenuButtonInnerGradientPress}" RadiusX="50" RadiusY="50" Opacity="0">
+                            </Rectangle>
+
+                            <Rectangle Name="strokeblack" Grid.ColumnSpan="3" Height="48" Fill="Transparent" StrokeThickness="3" Stroke="Black" RadiusX="50" RadiusY="50">
+                            </Rectangle>
+
+                            <Rectangle Name="strokegold" Grid.Column="1" Height="46" Fill="Transparent" StrokeThickness="2" Stroke="{StaticResource ButtonStrokeGradient}" RadiusX="50" RadiusY="50">
+                            </Rectangle>
+
+                            <Rectangle Name="strokegoldover" Grid.Column="1" Height="46" Fill="Transparent" StrokeThickness="2" Stroke="{StaticResource MainMenuButtonStrokeGradientOver}" RadiusX="50" RadiusY="50" Opacity="0">
+                            </Rectangle>
+                        </Grid>
+
+                        <Viewbox Width="24" Height="24" x:Name="fchecked"  Visibility="Hidden">
+                            <Canvas Width="24" Height="24">
+                                <Path Fill="{StaticResource ButtonTextGradient}" Data="M13 19.88C13.04 20.18 12.94 20.5 12.72 20.71C12.32 21.1 11.69 21.1 11.3 20.71L7.29 16.7C7.06 16.47 6.96 16.16 7 15.87V10.75L2.21 4.62C1.87 4.19 1.95 3.56 2.38 3.22C2.57 3.08 2.78 3 3 3H17C17.22 3 17.43 3.08 17.62 3.22C18.05 3.56 18.13 4.19 17.79 4.62L13 10.75V19.88M5.04 5L9 10.07V15.58L11 17.58V10.05L14.96 5H5.04M17.75 21L15 18L16.16 16.84L17.75 18.43L21.34 14.84L22.5 16.25L17.75 21" />
+                            </Canvas>
+                        </Viewbox>
+
+                        <Viewbox Width="24" Height="24" x:Name="fall" >
+                            <Canvas Width="24" Height="24">
+                                <Path Fill="{StaticResource ButtonTextGradient}" Data="M15,19.88C15.04,20.18 14.94,20.5 14.71,20.71C14.32,21.1 13.69,21.1 13.3,20.71L9.29,16.7C9.06,16.47 8.96,16.16 9,15.87V10.75L4.21,4.62C3.87,4.19 3.95,3.56 4.38,3.22C4.57,3.08 4.78,3 5,3V3H19V3C19.22,3 19.43,3.08 19.62,3.22C20.05,3.56 20.13,4.19 19.79,4.62L15,10.75V19.88M7.04,5L11,10.06V15.58L13,17.58V10.05L16.96,5H7.04Z" />
+                            </Canvas>
+                        </Viewbox>
+
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <!--
+                        Having these triggers in this order makes it so that is the order they execute in.
+                        When the player clicks on the button for the first time, Button.IsFocused and IsPressed 
+                        get executed, but the last one overrides the current animation. So before when IsFocused
+                        was after IsPressed, only IsFocused occured visually, and since the final state looks identical
+                        to the final state of MouseOver, the end result looked like nothing happened, but subsequent 
+                        clicks executed IsPressed because IsFocused was already true, therefore not changing states 
+                        and not executing.
+                        -->
+                        <!--
+                        -->
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="fchecked" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="fall" Property="Visibility" Value="Hidden"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter TargetName="fchecked" Property="Visibility" Value="Hidden"/>
+                            <Setter TargetName="fall" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+
+                        <Trigger Property="IsFocused" Value="True">
+                            <Trigger.EnterActions>
+                                <StopStoryboard BeginStoryboardName="MouseOverStoryBoard2" />
+                                <StopStoryboard BeginStoryboardName="IsPressedStoryBoard2" />
+                                <BeginStoryboard Name="FocusStoryBoard">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.05" Duration="0:0:.2" />
+                                        <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.05" Duration="0:0:.2" />
+                                        <DoubleAnimation Storyboard.TargetName="highlightpress" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.6" RepeatBehavior="Forever" AutoReverse="True" />
+                                        <DoubleAnimation Storyboard.TargetName="strokegoldover" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.6" RepeatBehavior="Forever" AutoReverse="True" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard Name="FocusStoryBoard2">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.2" />
+                                        <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.2" />
+                                        <DoubleAnimation Storyboard.TargetName="highlightpress" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.2" />
+                                        <DoubleAnimation Storyboard.TargetName="strokegoldover" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard Name="IsPressedStoryBoard">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.05" />
+                                        <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.05" />
+                                        <DoubleAnimation Storyboard.TargetName="highlightpress" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.05" />
+                                        <DoubleAnimation Storyboard.TargetName="strokegoldover" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.05" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <StopStoryboard BeginStoryboardName="MouseOverStoryBoard" />
+                                <StopStoryboard BeginStoryboardName="MouseOverStoryBoard2" />
+                                <BeginStoryboard Name="IsPressedStoryBoard2">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.05" Duration="0:0:.05" />
+                                        <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.05" Duration="0:0:.05" />
+                                        <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.05" Duration="0:0:.05" />
+                                        <DoubleAnimation Storyboard.TargetName="highlightpress" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.6" RepeatBehavior="Forever" AutoReverse="True" />
+                                        <DoubleAnimation Storyboard.TargetName="strokegoldover" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.6" RepeatBehavior="Forever" AutoReverse="True" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+
+                        </Trigger>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <StopStoryboard BeginStoryboardName="IsPressedStoryBoard" />
+                                <BeginStoryboard Name="MouseOverStoryBoard">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1.05" Duration="0:0:.2" />
+                                        <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1.05" Duration="0:0:.2" />
+                                        <DoubleAnimation Storyboard.TargetName="highlightpress" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.6" RepeatBehavior="Forever" AutoReverse="True" />
+                                        <DoubleAnimation Storyboard.TargetName="strokegoldover" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.6" RepeatBehavior="Forever" AutoReverse="True" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <StopStoryboard BeginStoryboardName="IsPressedStoryBoard" />
+                                <BeginStoryboard Name="MouseOverStoryBoard2">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleX)" To="1" Duration="0:0:.2" />
+                                        <DoubleAnimation Storyboard.TargetName="buttoncontainer" Storyboard.TargetProperty="RenderTransform.(ScaleTransform.ScaleY)" To="1" Duration="0:0:.2" />
+                                        <DoubleAnimation Storyboard.TargetName="highlightpress" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.2" />
+                                        <DoubleAnimation Storyboard.TargetName="strokegoldover" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled" Value="False">
+
+                            <Setter TargetName="background" Property="Fill" Value="{StaticResource MainMenuButtonInnerGradientDisabled}" />
+                            <Setter TargetName="strokegold" Property="Stroke" Value="{StaticResource MainMenuButtonStrokeGradientDisabled}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="hcInfoName2" TargetType="{x:Type TextBox}">
+        <Setter Property="Height" Value="40" />
+        <Setter Property="FontFamily" Value="/Fonts/#Trajan Pro 3" />
+        <Setter Property="FontSize" Value="21" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="#d5d5d5" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="MaxLength" Value="64" />
+        <!--  broken in WPFG  -->
+        <Setter Property="CaretBrush" Value="White" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBoxBase}">
+                    <Grid>
+                        <Border
+                        x:Name="Border"
+                        Height="40"
+                        Padding="6,0,0,0"
+                        Background="{StaticResource TextboxInnerGradient}"
+                        BorderBrush="{StaticResource TextboxStrokeGradient}"
+                        BorderThickness="2"
+                        CornerRadius="4">
+                            <ScrollViewer
+                            x:Name="PART_ContentHost"
+                            Margin="0"
+                            HorizontalScrollBarVisibility="Hidden"
+                            VerticalScrollBarVisibility="Hidden" />
+
+                        </Border>
+                        <TextBlock Cursor="IBeam" x:Name="HintText" Text="Type to filter maps..." VerticalAlignment="Center" Margin="10,2" Foreground="LightGray" Visibility="Hidden" />
+                    </Grid>
+
+                    
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="#FFDADADA" />
+                        </Trigger>
+
+                        <Trigger Property="TextBox.Text" Value="{x:Static sys:String.Empty}">
+                                <Setter TargetName="HintText" Property="Visibility" Value="Visible" />
+                            </Trigger>
+                        <Trigger Property="TextBox.Text" Value="{x:Null}">
+                            <Setter TargetName="HintText" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                       
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect
+                    BlurRadius="10"
+                    Direction="-90"
+                    RenderingBias="Quality"
+                    ShadowDepth="1.5"
+                    Color="Black" />
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
+
+    <Style x:Key="{x:Type TabControl}" TargetType="{x:Type TabControl}">
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="4" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TabControl}">
+                    <Grid KeyboardNavigation.TabNavigation="Local" Background="Transparent">
+                        <Grid x:Name="templateRoot" ClipToBounds="True" SnapsToDevicePixels="True" KeyboardNavigation.TabNavigation="Local">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition x:Name="ColumnDefinition0"/>
+                                <ColumnDefinition x:Name="ColumnDefinition1" Width="0"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition x:Name="RowDefinition0" Height="Auto"/>
+                                <RowDefinition x:Name="RowDefinition1" Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TabPanel x:Name="HeaderPanel" Background="Transparent" Grid.Column="0" IsItemsHost="True" Margin="2,2,2,0" Grid.Row="0" KeyboardNavigation.TabIndex="1" Panel.ZIndex="1"/>
+                            <Border x:Name="ContentPanel" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Grid.Column="0" KeyboardNavigation.DirectionalNavigation="Contained" Grid.Row="1" KeyboardNavigation.TabIndex="2" KeyboardNavigation.TabNavigation="Local">
+                                <ContentPresenter x:Name="PART_SelectedContentHost" 
+                                                  ContentTemplate="{TemplateBinding SelectedContentTemplate}" Content="{TemplateBinding SelectedContent}" 
+                                                  ContentStringFormat="{TemplateBinding SelectedContentStringFormat}" ContentSource="SelectedContent" 
+                                                  Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="TextElement.Foreground" TargetName="templateRoot" Value="{StaticResource DisabledForegroundBrush}"/>
+                            <Setter TargetName="ContentPanel" Property="BorderBrush" Value="{StaticResource DisabledBorderBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="{x:Type TabItem}" TargetType="TabItem">
+        <Setter Property="Foreground" Value="{StaticResource ButtonTextGradient}" />
+
+
+        <Setter Property="Width" Value="auto" />
+        <Setter Property="Height" Value="auto" />
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect BlurRadius="10" Color="Black" Direction="-90" ShadowDepth="1.5" RenderingBias="Quality" />
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TabItem}">
+                    <Grid Margin="5,0,0,5">
+                        <Border  Name="Border" Background="Transparent" BorderThickness="2" CornerRadius="4">
+                            <ContentPresenter  x:Name="contentPresenter" ContentSource="Header" Focusable="False" RecognizesAccessKey="True" />
+                            <Border.BorderBrush>
+                                <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStopCollection>
+                                            <GradientStop Color="#755f22" Offset="0" />
+                                            <GradientStop Color="#ceb165" Offset="0.25" />
+                                            <GradientStop Color="#ffe6a6" Offset="0.5" />
+                                            <GradientStop Color="#ceb165" Offset="0.25" />
+                                            <GradientStop Color="#755f22" Offset="1" />
+                                        </GradientStopCollection>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
+                        </Border>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Panel.ZIndex" Value="100" />
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource MainMenuButtonInnerGradientPress}" />
+                            <Setter Property="BorderBrush" Value="{StaticResource MainMenuButtonStrokeGradientOver}"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="False">
+                            <Setter Property="Panel.ZIndex" Value="-100" />
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource MainMenuButtonInnerGradient}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Border" Property="Background" Value="DarkRed" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="Black" />
+                            <Setter Property="Foreground" Value="DarkGray" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>
