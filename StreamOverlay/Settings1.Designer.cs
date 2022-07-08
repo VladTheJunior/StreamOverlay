@@ -192,5 +192,17 @@ namespace StreamOverlay {
                 this["ScorePanel"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int Template {
+            get {
+                return ((int)(this["Template"]));
+            }
+            set {
+                this["Template"] = value;
+            }
+        }
     }
 }

@@ -428,7 +428,7 @@ namespace StreamOverlay
         int CurrentPlayingOverlayIndex = 0;
         int CurrentPlayingOverlayCount = 0;
 
-        int Version = 28;
+        int Version = 30;
 
         private bool filterChecked = false;
         public bool FilterChecked
@@ -515,8 +515,12 @@ namespace StreamOverlay
             cbCountdown.IsChecked = Settings1.Default.Countdown;
             cbSchedule.IsChecked = Settings1.Default.Schedule;
             cbPlayersPanel.IsChecked = Settings1.Default.PlayersPanelEnabled;
+            cbTemplates.SelectedIndex = Settings1.Default.Template;
 
             TeamPanel.SelectedIndex = Settings1.Default.PlayersPanelIndex;
+
+
+
 
             alignBO();
             lwTeam1Player1CivPool.ItemsSource = Team1Player1CivPool;
@@ -707,7 +711,7 @@ namespace StreamOverlay
         {
             foreach (Window window in App.Current.Windows)
             {
-                if (window is MainWindow || window is ThumbnailGenerator)
+                if (window is OverlayWindow || window is ThumbnailGenerator)
                 {
                     if (!window.IsVisible)
                     {
@@ -761,6 +765,9 @@ namespace StreamOverlay
 
         private async void Button_Click_1(object sender, RoutedEventArgs e)
         {
+
+
+
             if (SelectedOverlay == null)
             {
                 (sender as Button).IsEnabled = true;
@@ -768,6 +775,21 @@ namespace StreamOverlay
             }
 
             (sender as Button).IsEnabled = false;
+
+
+            ResourceDictionary newRes = new ResourceDictionary();
+            switch (cbTemplates.SelectedIndex)
+            {
+                default: 
+                    newRes.Source = new Uri("/StreamOverlay;component/Templates/AOE3DE.xaml", UriKind.RelativeOrAbsolute);
+                    break;
+                case 1: 
+                    newRes.Source = new Uri("/StreamOverlay;component/Templates/KOTOW.xaml", UriKind.RelativeOrAbsolute);
+                    break;
+            }
+            
+            Application.Current.Resources.MergedDictionaries.Remove(Application.Current.Resources.MergedDictionaries.FirstOrDefault(x => x.Source.ToString().Contains("/Templates/")));
+            Application.Current.Resources.MergedDictionaries.Add(newRes);
 
             Settings1.Default.Audio = (bool)cbAudio.IsChecked;
             Settings1.Default.Save();
@@ -801,7 +823,7 @@ namespace StreamOverlay
 
             }
 
-            MainWindow mainWindow = new MainWindow();
+            OverlayWindow mainWindow = new OverlayWindow();
 
 
 
@@ -1371,7 +1393,7 @@ namespace StreamOverlay
             Settings1.Default.Schedule = (bool)cbSchedule.IsChecked;
             Settings1.Default.Countdown = (bool)cbCountdown.IsChecked;
             Settings1.Default.PlayersPanelEnabled = (bool)cbPlayersPanel.IsChecked;
-
+            Settings1.Default.Template = cbTemplates.SelectedIndex;
             Settings1.Default.PlayersPanelIndex = TeamPanel.SelectedIndex;
             Settings1.Default.SelectedOverlay = Overlays[SelectedOverlayIndex].title;
             var maps = new StringCollection();

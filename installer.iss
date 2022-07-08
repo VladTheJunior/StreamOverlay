@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Stream Overlay"
-#define MyAppVersion "0.2.8"
+#define MyAppVersion "0.3.0"
 #define MyAppPublisher "VladTheJunior"
 #define MyAppExeName "StreamOverlayUpdater.exe"
 

@@ -31,17 +31,17 @@
     <BitmapImage x:Key="resource_pop" UriSource="/resources/images/hud/resource_pop.png" />
     <BitmapImage x:Key="resource_villagers" UriSource="/resources/images/hud/resource_villagers.png" />
     <BitmapImage x:Key="resource_time" UriSource="/resources/images/hud/resource_time.png" />
-    
+
     <Style TargetType="{x:Type Control}" x:Key="Ingame_PanelBGStyle">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>
                     <Grid>
-                 
-                            <Grid.Background>
-                                <ImageBrush ImageSource="/resources/images/hud/resources_bg.png" />
-                            </Grid.Background>
-                                           </Grid>
+
+                        <Grid.Background>
+                            <ImageBrush ImageSource="/resources/images/hud/resources_bg.png" />
+                        </Grid.Background>
+                    </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -630,7 +630,7 @@
                 <Setter TargetName="Border" Property="Background" Value="{StaticResource ComboBoxInnerGradientOver}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-               
+
                 <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}" />
                 <Setter TargetName="Arrow" Property="Fill" Value="{StaticResource DisabledForegroundBrush}" />
             </Trigger>
@@ -4412,19 +4412,19 @@
                         <TextBlock Cursor="IBeam" x:Name="HintText" Text="Type to filter maps..." VerticalAlignment="Center" Margin="10,2" Foreground="LightGray" Visibility="Hidden" />
                     </Grid>
 
-                    
+
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsFocused" Value="True">
                             <Setter TargetName="Border" Property="BorderBrush" Value="#FFDADADA" />
                         </Trigger>
 
                         <Trigger Property="TextBox.Text" Value="{x:Static sys:String.Empty}">
-                                <Setter TargetName="HintText" Property="Visibility" Value="Visible" />
-                            </Trigger>
+                            <Setter TargetName="HintText" Property="Visibility" Value="Visible" />
+                        </Trigger>
                         <Trigger Property="TextBox.Text" Value="{x:Null}">
                             <Setter TargetName="HintText" Property="Visibility" Value="Visible" />
                         </Trigger>
-                       
+
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

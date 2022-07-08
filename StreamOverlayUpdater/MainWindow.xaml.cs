@@ -107,7 +107,7 @@ namespace StreamOverlayUpdater
         {
             get
             {
-                return "0.2.8";
+                return "0.3.0";
             }
         }
         public string AvailableVersionUrl

@@ -9,7 +9,7 @@
     <Company>VladTheJunior</Company>
     <Authors>VladTheJunior</Authors>
     <Copyright>VladTheJunior</Copyright>
-    <Version>0.2.8</Version>
+    <Version>0.3.0</Version>
     <BaseOutputPath>..\publish\</BaseOutputPath>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
@@ -72,6 +72,7 @@
     <None Remove="data\maps\eu_vistula_basin_mini.png" />
     <None Remove="data\maps\eu_wallachia_mini.png" />
     <None Remove="Fonts\MTCORSVA.TTF" />
+    <None Remove="resources\1.png" />
     <None Remove="resources\images\hud\hud_hcflag_bg.png" />
     <None Remove="resources\images\hud\hud_hcflag_glow.png" />
     <None Remove="resources\images\hud\hud_hcflag_mask.png" />
@@ -84,6 +85,7 @@
     <None Remove="resources\images\hud\resource_xp.png" />
     <None Remove="resources\loss.png" />
     <None Remove="resources\OBS settings.PNG" />
+    <None Remove="resources\SCORE.png" />
     <None Remove="resources\skirmish_victory.png" />
     <None Remove="resources\skirmish_victory_bg.png" />
     <None Remove="resources\Team1_1v1.png" />
@@ -253,6 +255,7 @@
     <Resource Include="Fonts\segoepr.ttf" />
     <Resource Include="Fonts\Trajan.ttf" />
     <Resource Include="Fonts\TT1141M_.ttf" />
+    <Resource Include="resources\1.png" />
     <Resource Include="resources\audio\smallbutton.wav" />
     <Resource Include="resources\button_back_hover.png" />
     <Resource Include="resources\button_back_large_disabled.png" />
@@ -309,6 +312,7 @@
     <Resource Include="resources\OBS settings.PNG" />
     <Resource Include="resources\progressbar_glow.png" />
     <Resource Include="resources\progressbar_glow2.png" />
+    <Resource Include="resources\SCORE.png" />
     <Resource Include="resources\skirmish_victory.png" />
     <Resource Include="resources\skirmish_victory_bg.png" />
     <Resource Include="resources\slider_button.png" />
@@ -371,6 +375,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="data\animations\DesertNight\video.mp4">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\animations\Kings of The Old World\icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\animations\Kings of The Old World\preview.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\animations\Kings of The Old World\video.mp4">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="data\animations\Moss\icon.png">
@@ -1474,10 +1487,19 @@
     <None Update="data\audio\Casting\005 Casting - Epic Theme.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="data\audio\Casting\006 Casting - Last Transmission.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="data\logo\Age of Empires 2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="data\logo\Age of Empires 4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\logo\ESOC-Community-Logo-2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\logo\ESOC-Community-Logo-Text.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="data\logo\Hudson Bay BIGs.png">
@@ -1490,6 +1512,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="data\logo\ESOCommunity.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\logo\Kings of the Old World.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="data\logo\Mandarin Duck Squad.png">
@@ -1517,6 +1542,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="data\logo\Showmatch.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\logo\Time 2 Treaty.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="data\logo\United Empires.png">
