@@ -296,7 +296,11 @@ namespace StreamOverlay
 
             Maps.Add(new Map() { title = "Wallachia", icon = "/data/maps/eu_wallachia_mini.png" });
 
-
+            Maps.Add(new Map() { title = "Central Asia", icon = "/data/maps/central_asia_mini.png" });
+            Maps.Add(new Map() { title = "Karelian Lakes", icon = "/data/maps/eu_karelian_lakes_mini.png" });
+            Maps.Add(new Map() { title = "Portugal", icon = "/data/maps/eu_portugal_mini.png" });
+            Maps.Add(new Map() { title = "Rhine", icon = "/data/maps/eu_rhine_mini.png" });
+            Maps.Add(new Map() { title = "Yamal", icon = "/data/maps/yamal_mini.png" });
             return Maps;
         }
 
@@ -518,7 +522,7 @@ namespace StreamOverlay
             cbTemplates.SelectedIndex = Settings1.Default.Template;
 
             TeamPanel.SelectedIndex = Settings1.Default.PlayersPanelIndex;
-
+            ScaleUI.Value = Settings1.Default.Scale;
 
 
 
@@ -1183,6 +1187,12 @@ namespace StreamOverlay
             double DpiWidthFactor = m.M11;
             double DpiHeightFactor = m.M22;
 
+            mainWindow.stTwitchInfo.ScaleX = ScaleUI.Value / 100;
+            mainWindow.stTwitchInfo.ScaleY = ScaleUI.Value / 100;
+
+            mainWindow.stScorePanel.ScaleX = ScaleUI.Value / 100;
+            mainWindow.stScorePanel.ScaleY = ScaleUI.Value / 100;
+
             mainWindow.VideoBox.Width = SystemParameters.PrimaryScreenWidth;// / DpiWidthFactor;
             mainWindow.VideoBox.Height = SystemParameters.PrimaryScreenHeight;// / DpiHeightFactor;
 
@@ -1248,8 +1258,8 @@ namespace StreamOverlay
             mainWindow.gTwitchInfo.SetValue(Canvas.LeftProperty, 0.0);
             mainWindow.gTwitchInfo.SetValue(Canvas.TopProperty, 0.0);
 
-            mainWindow.gScorePanel.SetValue(Canvas.LeftProperty, 1315.0);
-            mainWindow.gScorePanel.SetValue(Canvas.TopProperty, 65.0);
+            mainWindow.gScorePanel.SetValue(Canvas.LeftProperty, 1920 - 600 * ScaleUI.Value / 100 - 5);
+            mainWindow.gScorePanel.SetValue(Canvas.TopProperty, 60 * ScaleUI.Value / 100 + 5);
 
             mainWindow.Cursor = AoE;
             Mouse.OverrideCursor = AoE;
@@ -1384,6 +1394,7 @@ namespace StreamOverlay
 
         private void Window_Closed(object sender, EventArgs e)
         {
+            Settings1.Default.Scale = ScaleUI.Value;
             Settings1.Default.ScorePanel = (bool)cbScorePanel.IsChecked;
             Settings1.Default.Chromakey = (bool)cbChromakey.IsChecked;
             Settings1.Default.TwitchChannel = tbTwitchChannel.Text;
@@ -1556,6 +1567,14 @@ namespace StreamOverlay
             var civ = (sender as Image).Tag as Civ;
             civ.Id = Convert.ToInt32((sender as Image).ToolTip.ToString());
             
+        }
+
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                e.Handled = true;
+            }
         }
     }
 

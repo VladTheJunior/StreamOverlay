@@ -204,5 +204,17 @@ namespace StreamOverlay {
                 this["Template"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public double Scale {
+            get {
+                return ((double)(this["Scale"]));
+            }
+            set {
+                this["Scale"] = value;
+            }
+        }
     }
 }

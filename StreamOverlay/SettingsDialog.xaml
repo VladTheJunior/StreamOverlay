@@ -13,7 +13,8 @@
         Initialized="Window_Initialized"
         Style="{StaticResource WindowStyle}"
         mc:Ignorable="d"
-        Closed="Window_Closed">
+        Closed="Window_Closed"
+        PreviewKeyDown="Window_PreviewKeyDown">
     <Window.Resources>
         <local:PathToBrushConverter x:Key="PathToBrushConverter" />
         <local:VisibilityConverter x:Key="VisibilityConverter" />
@@ -22,7 +23,11 @@
         <Grid x:Name="mainGridPanel"
               Width="1920"
               Height="1080">
-            <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1297*" />
+                <ColumnDefinition Width="623*" />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.ColumnSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50" />
                     <RowDefinition Height="*" />
@@ -267,6 +272,7 @@
                                         <RowDefinition Height="auto" />
                                         <RowDefinition Height="auto" />
                                         <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="auto" />
@@ -403,6 +409,37 @@
                                         <ComboBoxItem Content="Age of Empires 3: DE" />
                                         <ComboBoxItem Content="Kings of The Old World" />
                                     </ComboBox>
+                                    <TextBlock VerticalAlignment="Center"
+                                               Grid.Row="11"
+                                               Grid.Column="0"
+                                               FontFamily="/Fonts/#Trajan Pro 3"
+                                               FontSize="19"
+                                               FontWeight="Bold"
+                                               Foreground="#dbd5c3"
+                                               Text="Select ingame HUD layout scale: " />
+                                    <StackPanel Orientation="Horizontal"
+                                                Margin="0,10"
+                                                Grid.Row="11"
+                                                Grid.Column="2">
+                                        <TextBlock VerticalAlignment="Center"
+                                                   FontFamily="/Fonts/#Trajan Pro 3"
+                                                   FontSize="19"
+                                                   FontWeight="Bold"
+                                                   Foreground="#dbd5c3"
+                                                   Text="80% " />
+                                        <Slider x:Name="ScaleUI"
+                                                Width="295"
+                                                VerticalAlignment="Center"
+                                                Maximum="100"
+                                                Minimum="80"
+                                                Value="100" />
+                                        <TextBlock VerticalAlignment="Center"
+                                                   FontFamily="/Fonts/#Trajan Pro 3"
+                                                   FontSize="19"
+                                                   FontWeight="Bold"
+                                                   Foreground="#dbd5c3"
+                                                   Text=" 100%" />
+                                    </StackPanel>
                                 </Grid>
                             </Grid>
                         </TabItem>
@@ -2811,12 +2848,15 @@
             </Grid>
             <ContentControl x:Name="BlurControl"
                             Template="{StaticResource ScreenBlur}"
-                            Visibility="Collapsed" />
+                            Visibility="Collapsed"
+                            Grid.ColumnSpan="2" />
             <Grid x:Name="gReleaseNotes"
-                  Width="1337"
+                  Width="1336"
                   Height="888"
                   HorizontalAlignment="Center"
-                  Visibility="Collapsed">
+                  Visibility="Collapsed"
+                  Grid.ColumnSpan="2"
+                  Margin="0,96,0,96">
                 <Grid.Background>
                     <ImageBrush ImageSource="{StaticResource wood_bkg}" />
                 </Grid.Background>
@@ -3065,9 +3105,11 @@
             <Grid x:Name="gMessageBox"
                   Width="900"
                   Height="300"
-                  HorizontalAlignment="Center"
+                  HorizontalAlignment="Left"
                   VerticalAlignment="Center"
-                  Visibility="Collapsed">
+                  Visibility="Collapsed"
+                  Grid.ColumnSpan="2"
+                  Margin="510,0,0,0">
                 <Grid.Background>
                     <ImageBrush ImageSource="{StaticResource wood_bkg}" />
                 </Grid.Background>

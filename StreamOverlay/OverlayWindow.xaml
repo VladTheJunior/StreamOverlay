@@ -2791,6 +2791,11 @@
                                   MouseLeftButtonDown="ObjectMouseDown"
                                   Panel.ZIndex="1"
                                   MouseLeftButtonUp="ObjectMouseUp">
+                                <Grid.LayoutTransform>
+                                    <ScaleTransform x:Name="stTwitchInfo"
+                                                    CenterX="0"
+                                                    CenterY="0" />
+                                </Grid.LayoutTransform>
                                 <Grid HorizontalAlignment="Left"
                                       Margin="55,0,0,0">
                                     <Grid>
@@ -2963,9 +2968,16 @@
                                         Click="Button_Click" />
                             </Grid>
                             <Grid x:Name="gScorePanel"
-                                  Panel.ZIndex="1"
+                                  Panel.ZIndex="3"
                                   Width="600"
                                   Height="60">
+                                <Grid.LayoutTransform>
+                                    <ScaleTransform x:Name="stScorePanel"
+                                                    CenterX="0"
+                                                    CenterY="0"
+                                                   
+                                                     />
+                                </Grid.LayoutTransform>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="auto" />
                                 </Grid.RowDefinitions>
