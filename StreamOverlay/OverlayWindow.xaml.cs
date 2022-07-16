@@ -43,40 +43,23 @@ namespace StreamOverlay
 
 
 
-        private string _wating = "waiting";
+       
         public string Time
         {
             get
             {
                 if (_time.TotalSeconds == 0)
                 {
-                    if (_wating == "waiting..")
-                    {
-                        _wating = "waiting...";
-                        return "waiting...";
-                    }
-                    if (_wating == "waiting...")
-                    {
-                        _wating = "waiting";
-                        return "waiting";
-                    }
-                    if (_wating == "waiting")
-                    {
-                        _wating = "waiting.";
-                        return "waiting.";
-                    }
-                    else
-                    {
-                        _wating = "waiting..";
-                        return "waiting..";
-                    }
+                    WaitingAnimation.Visibility = Visibility.Visible;
+                    lTimer.Visibility = Visibility.Hidden;
                 }
                 else
                 {
-                    _wating = "waiting";
-                    return _time.ToString("c");
-                }
+                    WaitingAnimation.Visibility = Visibility.Hidden;
+                    lTimer.Visibility = Visibility.Visible;
 
+                }
+                return _time.ToString("c");
             }
         }
 
@@ -332,11 +315,34 @@ namespace StreamOverlay
                         {
                             PreviewImage.Opacity = 1;
                             OverlayCanvas.Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#01000000");
+                            ResourceDictionary newRes = new ResourceDictionary();
+                            var settingsDialog = Application.Current.Windows.Cast<Window>().FirstOrDefault(window => window is SettingsDialog) as SettingsDialog;
+                            switch (settingsDialog.cbTemplates.SelectedIndex)
+                            {
+                                default:
+                                    newRes.Source = new Uri("/StreamOverlay;component/Templates/AOE3DE.xaml", UriKind.RelativeOrAbsolute);
+                                    break;
+                                case 1:
+                                    newRes.Source = new Uri("/StreamOverlay;component/Templates/KOTOW.xaml", UriKind.RelativeOrAbsolute);
+                                    break;
+                            }
+
+                            Application.Current.Resources.MergedDictionaries.Remove(Application.Current.Resources.MergedDictionaries.FirstOrDefault(x => x.Source.ToString().Contains("/Templates/")));
+                            Application.Current.Resources.MergedDictionaries.Add(newRes);
                         }
                         else
                         {
                             PreviewImage.Opacity = 0;
                             OverlayCanvas.Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#ff00b140");
+
+
+                            ResourceDictionary newRes = new ResourceDictionary();
+                            var settingsDialog = Application.Current.Windows.Cast<Window>().FirstOrDefault(window => window is SettingsDialog) as SettingsDialog;
+
+                            newRes.Source = new Uri("/StreamOverlay;component/Templates/AOE3DE.xaml", UriKind.RelativeOrAbsolute);
+
+                            Application.Current.Resources.MergedDictionaries.Remove(Application.Current.Resources.MergedDictionaries.FirstOrDefault(x => x.Source.ToString().Contains("/Templates/")));
+                            Application.Current.Resources.MergedDictionaries.Add(newRes);
                         }
 
                     }));
@@ -411,9 +417,12 @@ namespace StreamOverlay
 
         public OverlayWindow()
         {
+
             client.DefaultRequestHeaders.Add("Client-Id", "kimne78kx3ncx6brgo4mv6wki5h1ko");
             InitializeComponent();
             DataContext = this;
+            Storyboard s = (Storyboard)TryFindResource("wait");
+            s.Begin();
             var myCur = Application.GetResourceStream(new Uri("pack://application:,,,/resources/Cursor.cur")).Stream;
             Cursor = new Cursor(myCur);
             _time = TimeSpan.FromSeconds(0);
@@ -448,7 +457,8 @@ namespace StreamOverlay
 
             AudioPlayer.Source = new Uri(Playlist[0]);
             tbAudioName.Text = Path.GetFileName(Playlist[currentAudioIndex]);
-            if (Settings1.Default.Audio)
+            var settingsDialog = Application.Current.Windows.Cast<Window>().FirstOrDefault(window => window is SettingsDialog) as SettingsDialog;
+            if (settingsDialog.Setting.AutoplaySound)
             {
                 AudioPlayer.Play();
                 bPlay.Visibility = Visibility.Collapsed;
@@ -488,6 +498,81 @@ namespace StreamOverlay
             _mediaPlayer.Dispose();
             _libVLC.Dispose();
             AudioPlayer.Stop();
+            var settingsDialog = Application.Current.Windows.Cast<Window>().FirstOrDefault(window => window is SettingsDialog) as SettingsDialog;
+
+            settingsDialog.Setting.Countdown.Source = _time;
+            Point CurrentPosition = new Point(Canvas.GetLeft(gCountdown), Canvas.GetTop(gCountdown));
+            settingsDialog.Setting.Countdown.Position = new Position()
+            {
+                X = CurrentPosition.X,
+                Y = CurrentPosition.Y,
+                Type = Position.GetTypeFromPosition(CurrentPosition, gCountdown.ActualWidth, gCountdown.ActualHeight)
+            };
+
+            settingsDialog.Setting.Countdown.IsVisible = gCountdown.Visibility == Visibility.Visible;
+
+            settingsDialog.Setting.Schedule.Source = Schedule.Text;
+            CurrentPosition = new Point(Canvas.GetLeft(gSchedule), Canvas.GetTop(gSchedule));
+            settingsDialog.Setting.Schedule.Position = new Position()
+            {
+                X = CurrentPosition.X,
+                Y = CurrentPosition.Y,
+                Type = Position.GetTypeFromPosition(CurrentPosition, gSchedule.ActualWidth, gSchedule.ActualHeight)
+            };
+
+            settingsDialog.Setting.Schedule.IsVisible = gSchedule.Visibility == Visibility.Visible;
+
+
+            CurrentPosition = new Point(Canvas.GetLeft(gBrandLogo), Canvas.GetTop(gBrandLogo));
+            settingsDialog.Setting.BrandLogo.Position = new Position()
+            {
+                X = CurrentPosition.X,
+                Y = CurrentPosition.Y,
+                Type = Position.GetTypeFromPosition(CurrentPosition, gBrandLogo.ActualWidth, gBrandLogo.ActualHeight)
+            };
+
+            settingsDialog.Setting.BrandLogo.IsVisible = gBrandLogo.Visibility == Visibility.Visible;
+            settingsDialog.Setting.BrandLogo.Zoom = sBrandLogo.Value;
+
+
+            CurrentPosition = new Point(Canvas.GetLeft(gEventLogo), Canvas.GetTop(gEventLogo));
+            settingsDialog.Setting.EventLogo.Position = new Position()
+            {
+                X = CurrentPosition.X,
+                Y = CurrentPosition.Y,
+                Type = Position.GetTypeFromPosition(CurrentPosition, gEventLogo.ActualWidth, gEventLogo.ActualHeight)
+            };
+
+            settingsDialog.Setting.EventLogo.IsVisible = gEventLogo.Visibility == Visibility.Visible;
+            settingsDialog.Setting.EventLogo.Zoom = sEventLogo.Value;
+
+
+            settingsDialog.Setting.TwitchPanel.Source = TwitchChannel.Text;
+            CurrentPosition = new Point(Canvas.GetLeft(gTwitchInfo), Canvas.GetTop(gTwitchInfo));
+            settingsDialog.Setting.TwitchPanel.Position = new Position()
+            {
+                X = CurrentPosition.X,
+                Y = CurrentPosition.Y,
+                Type = Position.GetTypeFromPosition(CurrentPosition, gTwitchInfo.ActualWidth, gTwitchInfo.ActualHeight)
+            };
+
+            settingsDialog.Setting.TwitchPanel.IsVisible = gTwitchInfo.Visibility == Visibility.Visible;
+
+            settingsDialog.Setting.Map.IsVisible = gMapPool.Visibility == Visibility.Visible;
+
+
+            //settingsDialog.Setting.Map.Source = TwitchChannel.Text;
+            CurrentPosition = new Point(Canvas.GetLeft(gMapPool), Canvas.GetTop(gMapPool));
+            settingsDialog.Setting.Map.Position = new Position()
+            {
+                X = CurrentPosition.X,
+                Y = CurrentPosition.Y,
+                Type = Position.GetTypeFromPosition(CurrentPosition, gMapPool.ActualWidth, gMapPool.ActualHeight)
+            };
+
+
+            settingsDialog.Setting.Chromakey = ((SolidColorBrush)OverlayCanvas.Background).Color == ((SolidColorBrush)(new BrushConverter().ConvertFromString("#ff00b140"))).Color;
+            settingsDialog.Setting.PlayersPanel.IsVisible = gPlayersPanel.Visibility == Visibility.Visible;
         }
 
 

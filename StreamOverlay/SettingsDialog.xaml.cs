@@ -2,6 +2,7 @@
 using StreamOverlay.Classes.Civ;
 using StreamOverlay.Classes.Map;
 using StreamOverlay.Classes.Overlays;
+using StreamOverlay.Classes.Settings;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,6 +28,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using static StreamOverlay.Classes.Twitch.Twitch;
 using MediaPlayer = LibVLCSharp.Shared.MediaPlayer;
+
 
 namespace StreamOverlay
 {
@@ -356,71 +358,6 @@ namespace StreamOverlay
             }
         }
 
-        private string timerAlign { get; set; }
-        public string TimerAlign
-        {
-            get { return timerAlign; }
-            set
-            {
-                timerAlign = value;
-                NotifyPropertyChanged("TimerAlign");
-            }
-        }
-
-        private string scheduleAlign { get; set; }
-        public string ScheduleAlign
-        {
-            get { return scheduleAlign; }
-            set
-            {
-                scheduleAlign = value;
-                NotifyPropertyChanged("ScheduleAlign");
-            }
-        }
-
-        private string mapAlign { get; set; }
-        public string MapAlign
-        {
-            get { return mapAlign; }
-            set
-            {
-                mapAlign = value;
-                NotifyPropertyChanged("MapAlign");
-            }
-        }
-
-        private string brandAlign { get; set; }
-        public string BrandAlign
-        {
-            get { return brandAlign; }
-            set
-            {
-                brandAlign = value;
-                NotifyPropertyChanged("BrandAlign");
-            }
-        }
-
-        private string eventAlign { get; set; }
-        public string EventAlign
-        {
-            get { return eventAlign; }
-            set
-            {
-                eventAlign = value;
-                NotifyPropertyChanged("EventAlign");
-            }
-        }
-
-        private string twitchAlign { get; set; }
-        public string TwitchAlign
-        {
-            get { return twitchAlign; }
-            set
-            {
-                twitchAlign = value;
-                NotifyPropertyChanged("TwitchAlign");
-            }
-        }
 
         public ObservableCollection<Map> MapPool = new ObservableCollection<Map>(BuildMaps());
         ObservableCollection<Overlay> Overlays = new ObservableCollection<Overlay>();
@@ -477,25 +414,64 @@ namespace StreamOverlay
             }
 
         }
+
+        public Setting Setting { get; set; } = new Setting();
+
         public SettingsDialog()
         {
-            TimerAlign = "TopRight";
-            ScheduleAlign = "BottomRight";
-            MapAlign = "BottomLeft";
-            BrandAlign = "TopLeft";
-            EventAlign = "TopLeft";
-            TwitchAlign = "TopLeft";
-
-
 
             Timeline.DesiredFrameRateProperty.OverrideMetadata(typeof(Timeline), new FrameworkPropertyMetadata { DefaultValue = 15 });
             InitializeComponent();
             DataContext = this;
-            
+            try
+            {
+                Setting = JsonSerializer.Deserialize<Setting>(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "setting.json")));
+            }
+            catch
+            {
+                Setting = new Setting();
+
+                Setting.AppVersion = Version;
+                Setting.AppLanguage = cbLanguages.SelectedIndex;
+
+                Setting.PlayersPanel.Source = 0;
+
+                Setting.Countdown.Position = new Position() { Type = PositionType.TopRight, X = 0, Y = 0 };
+                Setting.Countdown.Zoom = 0;
+                Setting.Countdown.Source = TimeSpan.Zero;
+                Setting.Countdown.IsVisible = false;
+
+                Setting.Map.Position = new Position() { Type = PositionType.BottomLeft, X = 0, Y = 0 };
+                Setting.Map.Zoom = 0;
+                Setting.Map.Source = null;
+                Setting.Map.IsVisible = true;
+
+                Setting.Schedule.Position = new Position() { Type = PositionType.BottomRight, X = 0, Y = 0 };
+                Setting.Schedule.Zoom = 0;
+                Setting.Schedule.Source = "";
+                Setting.Schedule.IsVisible = false;
+
+                Setting.EventLogo.Position = new Position() { Type = PositionType.TopLeft, X = 0, Y = 0 };
+                Setting.EventLogo.Zoom = 0;
+                Setting.EventLogo.Source = "";
+                Setting.EventLogo.IsVisible = false;
+
+                Setting.BrandLogo.Position = new Position() { Type = PositionType.TopLeft, X = 0, Y = 0 };
+                Setting.BrandLogo.Zoom = 0;
+                Setting.BrandLogo.Source = "";
+                Setting.BrandLogo.IsVisible = false;
+
+                Setting.TwitchPanel.Position = new Position() { Type = PositionType.TopLeft, X = 0, Y = 0 };
+                Setting.TwitchPanel.Zoom = 0;
+                Setting.TwitchPanel.Source = "";
+                Setting.TwitchPanel.IsVisible = false;
+
+            }
+
             AoE = new Cursor(Application.GetResourceStream(new Uri("pack://application:,,,/resources/Cursor.cur")).Stream);
 
             int o = 1;
-            foreach (var mapTitle in Settings1.Default.MapPool)
+            foreach (var mapTitle in Setting.MapPool)
             {
                 var map = MapPool.FirstOrDefault(x => x.title == mapTitle);
                 if (map != null)
@@ -505,24 +481,16 @@ namespace StreamOverlay
                 }
             }
 
-            for (int j = 0;j< 23; j++)
+            for (int j = 0; j < 23; j++)
             {
-                CivPool.Add(new Civ { Id=j });
+                CivPool.Add(new Civ { Id = j });
             }
             NotifyPropertyChanged("CivPool");
-            cbScorePanel.IsChecked = Settings1.Default.ScorePanel;
-            cbChromakey.IsChecked = Settings1.Default.Chromakey;
-            tbTwitchChannel.Text = Settings1.Default.TwitchChannel;
-            cbTwitch.IsChecked = Settings1.Default.TwitchPanel;
-            cbOverlayLoop.IsChecked = Settings1.Default.OverlayLoop;
-            cbAudio.IsChecked = Settings1.Default.Audio;
-            cbCountdown.IsChecked = Settings1.Default.Countdown;
-            cbSchedule.IsChecked = Settings1.Default.Schedule;
-            cbPlayersPanel.IsChecked = Settings1.Default.PlayersPanelEnabled;
-            cbTemplates.SelectedIndex = Settings1.Default.Template;
 
-            TeamPanel.SelectedIndex = Settings1.Default.PlayersPanelIndex;
-            ScaleUI.Value = Settings1.Default.Scale;
+
+            cbTemplates.SelectedIndex = Setting.ElementsStyle;
+            TeamPanel.SelectedIndex = Convert.ToInt32(Setting.PlayersPanel.Source.ToString());
+
 
 
 
@@ -555,7 +523,7 @@ namespace StreamOverlay
             ICollectionView brand_view = CollectionViewSource.GetDefaultView(brandLogos);
             brand_view.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
             BrandLogos.ItemsSource = brand_view;
-            var brand = brandLogos.FirstOrDefault(x => x.Name == Settings1.Default.BrandLogo);
+            var brand = brandLogos.FirstOrDefault(x => x.Name == Setting.BrandLogo.Source);
             if (brand != null)
             {
                 BrandLogos.SelectedItem = brand;
@@ -569,7 +537,7 @@ namespace StreamOverlay
                 if (File.Exists(Path.Combine(anim, "video.mp4")) && File.Exists(Path.Combine(anim, "icon.png")) && File.Exists(Path.Combine(anim, "preview.png")))
                 {
                     Overlays.Add(new Overlay() { isLooped = File.Exists(Path.Combine(anim, "looped")), title = Path.GetFileName(anim), preview = Path.Combine(anim, "preview.png"), icon = Path.Combine(anim, "icon.png"), video = Path.Combine(anim, "video.mp4") });
-                    if (Path.GetFileName(anim) == Settings1.Default.SelectedOverlay)
+                    if (Path.GetFileName(anim) == Setting.SelectedOverlay)
                     {
                         SelectedOverlayIndex = i;
                     }
@@ -586,7 +554,7 @@ namespace StreamOverlay
             brand_view.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
             EventLogos.ItemsSource = event_view;
 
-            var eve = eventLogos.FirstOrDefault(x => x.Name == Settings1.Default.EventLogo);
+            var eve = eventLogos.FirstOrDefault(x => x.Name == Setting.EventLogo.Source);
             if (eve != null)
             {
                 EventLogos.SelectedItem = eve;
@@ -782,23 +750,48 @@ namespace StreamOverlay
 
 
             ResourceDictionary newRes = new ResourceDictionary();
+            if (cbChromakey.IsChecked == true)
+            {
+                newRes.Source = new Uri("/StreamOverlay;component/Templates/AOE3DE.xaml", UriKind.RelativeOrAbsolute);
+            }
+            else
             switch (cbTemplates.SelectedIndex)
             {
-                default: 
+                default:
                     newRes.Source = new Uri("/StreamOverlay;component/Templates/AOE3DE.xaml", UriKind.RelativeOrAbsolute);
                     break;
-                case 1: 
+                case 1:
                     newRes.Source = new Uri("/StreamOverlay;component/Templates/KOTOW.xaml", UriKind.RelativeOrAbsolute);
                     break;
             }
-            
+
             Application.Current.Resources.MergedDictionaries.Remove(Application.Current.Resources.MergedDictionaries.FirstOrDefault(x => x.Source.ToString().Contains("/Templates/")));
             Application.Current.Resources.MergedDictionaries.Add(newRes);
 
-            Settings1.Default.Audio = (bool)cbAudio.IsChecked;
-            Settings1.Default.Save();
-
-
+            newRes = new ResourceDictionary();
+            switch (cbLanguages.SelectedIndex)
+            {
+                default:
+                    newRes.Source = new Uri("/StreamOverlay;component/Languages/en-US.xaml", UriKind.RelativeOrAbsolute);
+                    break;
+                case 1:
+                    newRes.Source = new Uri("/StreamOverlay;component/Languages/ru-RU.xaml", UriKind.RelativeOrAbsolute);
+                    break;
+                case 2:
+                    newRes.Source = new Uri("/StreamOverlay;component/Languages/fr-FR.xaml", UriKind.RelativeOrAbsolute);
+                    break;
+                case 3:
+                    newRes.Source = new Uri("/StreamOverlay;component/Languages/de-DE.xaml", UriKind.RelativeOrAbsolute);
+                    break;
+                case 4:
+                    newRes.Source = new Uri("/StreamOverlay;component/Languages/es-ES.xaml", UriKind.RelativeOrAbsolute);
+                    break;
+                case 5:
+                    newRes.Source = new Uri("/StreamOverlay;component/Languages/zh-CH.xaml", UriKind.RelativeOrAbsolute);
+                    break;
+            }
+            Application.Current.Resources.MergedDictionaries.Remove(Application.Current.Resources.MergedDictionaries.FirstOrDefault(x => x.Source.ToString().Contains("/Languages/")));
+            Application.Current.Resources.MergedDictionaries.Add(newRes);
             if (cbTwitch.IsChecked == true)
             {
                 try
@@ -988,7 +981,7 @@ namespace StreamOverlay
                 mainWindow.tbTeam2Score.Visibility = Visibility.Hidden;
             }
 
-            foreach(var civ in Team1Player1CivPool)
+            foreach (var civ in Team1Player1CivPool)
             {
                 civ.Status = 0;
             }
@@ -1028,15 +1021,15 @@ namespace StreamOverlay
 
 
             mainWindow.lwTeam1Player1CivPool.ItemsSource = mainWindow.Team1Player1CivPool;
-                mainWindow.lwTeam2Player1CivPool.ItemsSource = mainWindow.Team2Player1CivPool;
+            mainWindow.lwTeam2Player1CivPool.ItemsSource = mainWindow.Team2Player1CivPool;
 
 
-                mainWindow.lwTeam1Player2CivPool.ItemsSource = mainWindow.Team1Player2CivPool;
-                mainWindow.lwTeam2Player2CivPool.ItemsSource = mainWindow.Team2Player2CivPool;
+            mainWindow.lwTeam1Player2CivPool.ItemsSource = mainWindow.Team1Player2CivPool;
+            mainWindow.lwTeam2Player2CivPool.ItemsSource = mainWindow.Team2Player2CivPool;
 
 
-                mainWindow.lwTeam1Player3CivPool.ItemsSource = mainWindow.Team1Player3CivPool;
-                mainWindow.lwTeam2Player3CivPool.ItemsSource = mainWindow.Team2Player3CivPool;
+            mainWindow.lwTeam1Player3CivPool.ItemsSource = mainWindow.Team1Player3CivPool;
+            mainWindow.lwTeam2Player3CivPool.ItemsSource = mainWindow.Team2Player3CivPool;
 
 
             if (TeamPanel.SelectedIndex == 0)
@@ -1111,7 +1104,7 @@ namespace StreamOverlay
                 center14.EasingFunction = ease1;
 
 
-                mainWindow.tbBO.Text = $"Best of {maps.Count}";
+                mainWindow.tbBO.Text = (this.FindResource("BestOf") as string) + " " + maps.Count.ToString();
 
                 mainWindow.AnimateMapPool.Interval = new TimeSpan(0, 0, 0);
 
@@ -1234,29 +1227,32 @@ namespace StreamOverlay
 
 
 
-            Point pCountdown = AlignPosition(TimerAlign, mainWindow.gCountdown.ActualWidth, mainWindow.gCountdown.ActualHeight);
-            mainWindow.gCountdown.SetValue(Canvas.LeftProperty, pCountdown.X);
-            mainWindow.gCountdown.SetValue(Canvas.TopProperty, pCountdown.Y);
 
-            Point pSchedule = AlignPosition(ScheduleAlign, mainWindow.gSchedule.ActualWidth, mainWindow.gSchedule.ActualHeight);
-            mainWindow.gSchedule.SetValue(Canvas.LeftProperty, pSchedule.X);
-            mainWindow.gSchedule.SetValue(Canvas.TopProperty, pSchedule.Y);
+            Setting.Countdown.Position.GetPositionFromType(mainWindow.gCountdown.ActualWidth, mainWindow.gCountdown.ActualHeight);
+            mainWindow.gCountdown.SetValue(Canvas.LeftProperty, Setting.Countdown.Position.X);
+            mainWindow.gCountdown.SetValue(Canvas.TopProperty, Setting.Countdown.Position.Y);
 
-            Point pMap = AlignPosition(MapAlign, mainWindow.gMapPool.ActualWidth, mainWindow.gMapPool.ActualHeight);
-            mainWindow.gMapPool.SetValue(Canvas.LeftProperty, pMap.X);
-            mainWindow.gMapPool.SetValue(Canvas.TopProperty, pMap.Y);
+            Setting.Schedule.Position.GetPositionFromType(mainWindow.gSchedule.ActualWidth, mainWindow.gSchedule.ActualHeight);
+            mainWindow.gSchedule.SetValue(Canvas.LeftProperty, Setting.Schedule.Position.X);
+            mainWindow.gSchedule.SetValue(Canvas.TopProperty, Setting.Schedule.Position.Y);
 
-            Point pBrand = AlignPosition(BrandAlign, mainWindow.gBrandLogo.ActualWidth, mainWindow.gBrandLogo.ActualHeight);
-            mainWindow.gBrandLogo.SetValue(Canvas.LeftProperty, pBrand.X);
-            mainWindow.gBrandLogo.SetValue(Canvas.TopProperty, pBrand.Y);
+            Setting.Map.Position.GetPositionFromType(mainWindow.gMapPool.ActualWidth, mainWindow.gMapPool.ActualHeight);
+            mainWindow.gMapPool.SetValue(Canvas.LeftProperty, Setting.Map.Position.X);
+            mainWindow.gMapPool.SetValue(Canvas.TopProperty, Setting.Map.Position.Y);
 
-            Point pEvent = AlignPosition(EventAlign, mainWindow.gEventLogo.ActualWidth, mainWindow.gEventLogo.ActualHeight);
-            mainWindow.gEventLogo.SetValue(Canvas.LeftProperty, pEvent.X);
-            mainWindow.gEventLogo.SetValue(Canvas.TopProperty, pEvent.Y);
+            Setting.BrandLogo.Position.GetPositionFromType(mainWindow.gBrandLogo.ActualWidth, mainWindow.gBrandLogo.ActualHeight);
+            mainWindow.gBrandLogo.SetValue(Canvas.LeftProperty, Setting.BrandLogo.Position.X);
+            mainWindow.gBrandLogo.SetValue(Canvas.TopProperty, Setting.BrandLogo.Position.Y);
+            mainWindow.sBrandLogo.Value = Setting.BrandLogo.Zoom;
 
-            Point pTwitch = AlignPosition(TwitchAlign, mainWindow.gTwitchInfo.ActualWidth, mainWindow.gTwitchInfo.ActualHeight);
-            mainWindow.gTwitchInfo.SetValue(Canvas.LeftProperty, 0.0);
-            mainWindow.gTwitchInfo.SetValue(Canvas.TopProperty, 0.0);
+            Setting.EventLogo.Position.GetPositionFromType(mainWindow.gEventLogo.ActualWidth, mainWindow.gEventLogo.ActualHeight);
+            mainWindow.gEventLogo.SetValue(Canvas.LeftProperty, Setting.EventLogo.Position.X);
+            mainWindow.gEventLogo.SetValue(Canvas.TopProperty, Setting.EventLogo.Position.Y);
+            mainWindow.sEventLogo.Value = Setting.EventLogo.Zoom;
+
+            Setting.TwitchPanel.Position.GetPositionFromType(mainWindow.gTwitchInfo.ActualWidth, mainWindow.gTwitchInfo.ActualHeight);
+            mainWindow.gTwitchInfo.SetValue(Canvas.LeftProperty, Setting.TwitchPanel.Position.X);
+            mainWindow.gTwitchInfo.SetValue(Canvas.TopProperty, Setting.TwitchPanel.Position.Y);
 
             mainWindow.gScorePanel.SetValue(Canvas.LeftProperty, 1920 - 600 * ScaleUI.Value / 100 - 5);
             mainWindow.gScorePanel.SetValue(Canvas.TopProperty, 60 * ScaleUI.Value / 100 + 5);
@@ -1294,95 +1290,100 @@ namespace StreamOverlay
 
         private void bTimerAlign_Click(object sender, RoutedEventArgs e)
         {
-            switch (TimerAlign)
+            switch (Setting.Countdown.Position.Type)
             {
-                case "TopRight":
-                    TimerAlign = "BottomRight";
+                case PositionType.TopRight:
+                    Setting.Countdown.Position.Type = PositionType.BottomRight;
                     break;
-                case "BottomRight":
-                    TimerAlign = "BottomLeft";
+                case PositionType.BottomRight:
+                    Setting.Countdown.Position.Type = PositionType.BottomLeft;
                     break;
-                case "BottomLeft":
-                    TimerAlign = "TopLeft";
+                case PositionType.BottomLeft:
+                    Setting.Countdown.Position.Type = PositionType.TopLeft;
                     break;
-                case "TopLeft":
-                    TimerAlign = "TopRight";
+                case PositionType.TopLeft:
+                case PositionType.Custom:
+                    Setting.Countdown.Position.Type = PositionType.TopRight;
                     break;
             }
         }
 
         private void bScheduleAlign_Click(object sender, RoutedEventArgs e)
         {
-            switch (ScheduleAlign)
+            switch (Setting.Schedule.Position.Type)
             {
-                case "TopRight":
-                    ScheduleAlign = "BottomRight";
+                case PositionType.TopRight:
+                    Setting.Schedule.Position.Type = PositionType.BottomRight;
                     break;
-                case "BottomRight":
-                    ScheduleAlign = "BottomLeft";
+                case PositionType.BottomRight:
+                    Setting.Schedule.Position.Type = PositionType.BottomLeft;
                     break;
-                case "BottomLeft":
-                    ScheduleAlign = "TopLeft";
+                case PositionType.BottomLeft:
+                    Setting.Schedule.Position.Type = PositionType.TopLeft;
                     break;
-                case "TopLeft":
-                    ScheduleAlign = "TopRight";
+                case PositionType.TopLeft:
+                case PositionType.Custom:
+                    Setting.Schedule.Position.Type = PositionType.TopRight;
                     break;
             }
         }
 
         private void bBrandAlign_Click(object sender, RoutedEventArgs e)
         {
-            switch (BrandAlign)
+            switch (Setting.BrandLogo.Position.Type)
             {
-                case "TopRight":
-                    BrandAlign = "BottomRight";
+                case PositionType.TopRight:
+                    Setting.BrandLogo.Position.Type = PositionType.BottomRight;
                     break;
-                case "BottomRight":
-                    BrandAlign = "BottomLeft";
+                case PositionType.BottomRight:
+                    Setting.BrandLogo.Position.Type = PositionType.BottomLeft;
                     break;
-                case "BottomLeft":
-                    BrandAlign = "TopLeft";
+                case PositionType.BottomLeft:
+                    Setting.BrandLogo.Position.Type = PositionType.TopLeft;
                     break;
-                case "TopLeft":
-                    BrandAlign = "TopRight";
+                case PositionType.TopLeft:
+                case PositionType.Custom:
+                    Setting.BrandLogo.Position.Type = PositionType.TopRight;
                     break;
             }
         }
 
         private void bEventAlign_Click(object sender, RoutedEventArgs e)
         {
-            switch (EventAlign)
+            switch (Setting.EventLogo.Position.Type)
             {
-                case "TopRight":
-                    EventAlign = "BottomRight";
+                case PositionType.TopRight:
+                    Setting.EventLogo.Position.Type = PositionType.BottomRight;
                     break;
-                case "BottomRight":
-                    EventAlign = "BottomLeft";
+                case PositionType.BottomRight:
+                    Setting.EventLogo.Position.Type = PositionType.BottomLeft;
                     break;
-                case "BottomLeft":
-                    EventAlign = "TopLeft";
+                case PositionType.BottomLeft:
+                    Setting.EventLogo.Position.Type = PositionType.TopLeft;
                     break;
-                case "TopLeft":
-                    EventAlign = "TopRight";
+                case PositionType.TopLeft:
+                case PositionType.Custom:
+                    Setting.EventLogo.Position.Type = PositionType.TopRight;
                     break;
             }
         }
 
         private void bMapAlign_Click(object sender, RoutedEventArgs e)
         {
-            switch (MapAlign)
+            switch (Setting.Map.Position.Type)
             {
-                case "TopRight":
-                    MapAlign = "BottomRight";
+                case PositionType.TopRight:
+                    Setting.Map.Position.Type = PositionType.BottomRight;
                     break;
-                case "BottomRight":
-                    MapAlign = "BottomLeft";
+                case PositionType.BottomRight:
+                    Setting.Map.Position.Type = PositionType.BottomLeft;
                     break;
-                case "BottomLeft":
-                    MapAlign = "TopLeft";
+                case PositionType.BottomLeft:
+                    Setting.Map.Position.Type = PositionType.TopLeft;
                     break;
-                case "TopLeft":
-                    MapAlign = "TopRight";
+                case PositionType.TopLeft:
+                case PositionType.Custom:
+                    Setting.Map.Position.Type = PositionType.TopRight;
                     break;
             }
         }
@@ -1392,27 +1393,27 @@ namespace StreamOverlay
             WindowState = WindowState.Minimized;
         }
 
-        private void Window_Closed(object sender, EventArgs e)
+        private async void Window_Closed(object sender, EventArgs e)
         {
-            Settings1.Default.Scale = ScaleUI.Value;
-            Settings1.Default.ScorePanel = (bool)cbScorePanel.IsChecked;
-            Settings1.Default.Chromakey = (bool)cbChromakey.IsChecked;
-            Settings1.Default.TwitchChannel = tbTwitchChannel.Text;
-            Settings1.Default.TwitchPanel = (bool)cbTwitch.IsChecked;
-            Settings1.Default.OverlayLoop = (bool)cbOverlayLoop.IsChecked;
-            Settings1.Default.Audio = (bool)cbAudio.IsChecked;
-            Settings1.Default.Schedule = (bool)cbSchedule.IsChecked;
-            Settings1.Default.Countdown = (bool)cbCountdown.IsChecked;
-            Settings1.Default.PlayersPanelEnabled = (bool)cbPlayersPanel.IsChecked;
-            Settings1.Default.Template = cbTemplates.SelectedIndex;
-            Settings1.Default.PlayersPanelIndex = TeamPanel.SelectedIndex;
-            Settings1.Default.SelectedOverlay = Overlays[SelectedOverlayIndex].title;
-            var maps = new StringCollection();
+
+            var maps = new List<string>();
             maps.AddRange(MapPool.Where(x => x.Order != 0).OrderBy(x => x.Order).Select(x => x.title).ToArray());
-            Settings1.Default.MapPool = maps;
-            Settings1.Default.BrandLogo = (BrandLogos.SelectedItem as Logo).Name;
-            Settings1.Default.EventLogo = (EventLogos.SelectedItem as Logo).Name;
-            Settings1.Default.Save();
+            Setting.MapPool = maps;
+            Setting.SelectedOverlay = Overlays[SelectedOverlayIndex].title;
+            Setting.BrandLogo.Source = (BrandLogos.SelectedItem as Logo).Name;
+            Setting.EventLogo.Source = (EventLogos.SelectedItem as Logo).Name;
+            Setting.PlayersPanel.Source = TeamPanel.SelectedIndex;
+            Setting.ElementsStyle = cbTemplates.SelectedIndex;
+
+            Setting.AppVersion = Version;
+            Setting.AppLanguage = cbLanguages.SelectedIndex;
+
+
+            await File.WriteAllTextAsync(Path.Combine(AppContext.BaseDirectory, "setting.json"), JsonSerializer.Serialize(Setting, new JsonSerializerOptions
+            {
+                WriteIndented = true
+            }));
+
         }
 
         private void Button_Click_5(object sender, RoutedEventArgs e)
@@ -1428,19 +1429,20 @@ namespace StreamOverlay
 
         private void bTwitchAlign_Click(object sender, RoutedEventArgs e)
         {
-            switch (TwitchAlign)
+            switch (Setting.TwitchPanel.Position.Type)
             {
-                case "TopRight":
-                    TwitchAlign = "BottomRight";
+                case PositionType.TopRight:
+                    Setting.TwitchPanel.Position.Type = PositionType.BottomRight;
                     break;
-                case "BottomRight":
-                    TwitchAlign = "BottomLeft";
+                case PositionType.BottomRight:
+                    Setting.TwitchPanel.Position.Type = PositionType.BottomLeft;
                     break;
-                case "BottomLeft":
-                    TwitchAlign = "TopLeft";
+                case PositionType.BottomLeft:
+                    Setting.TwitchPanel.Position.Type = PositionType.TopLeft;
                     break;
-                case "TopLeft":
-                    TwitchAlign = "TopRight";
+                case PositionType.TopLeft:
+                case PositionType.Custom:
+                    Setting.TwitchPanel.Position.Type = PositionType.TopRight;
                     break;
             }
         }
@@ -1499,9 +1501,9 @@ namespace StreamOverlay
                         Team2Player2CivPool.RemoveAt(Team2Player2CivPool.Count - 1);
                     }
                     if (Team1Player2CivPool.Count < count)
-                    {                    
-                            Team1Player2CivPool.Add(new Civ() { Tag = Team1Player2CivPool.Count });
-                            Team2Player2CivPool.Add(new Civ() { Tag = Team2Player2CivPool.Count });                      
+                    {
+                        Team1Player2CivPool.Add(new Civ() { Tag = Team1Player2CivPool.Count });
+                        Team2Player2CivPool.Add(new Civ() { Tag = Team2Player2CivPool.Count });
                     }
                 }
             }
@@ -1516,15 +1518,15 @@ namespace StreamOverlay
                     }
                     if (Team1Player3CivPool.Count < count)
                     {
-                            Team1Player3CivPool.Add(new Civ() { Tag = Team1Player3CivPool.Count });
-                            Team2Player3CivPool.Add(new Civ() { Tag = Team2Player3CivPool.Count });
+                        Team1Player3CivPool.Add(new Civ() { Tag = Team1Player3CivPool.Count });
+                        Team2Player3CivPool.Add(new Civ() { Tag = Team2Player3CivPool.Count });
                     }
                 }
             }
 
 
 
-             
+
             NotifyPropertyChanged("Team1Player1CivPool");
             NotifyPropertyChanged("Team1Player2CivPool");
             NotifyPropertyChanged("Team1Player3CivPool");
@@ -1566,7 +1568,7 @@ namespace StreamOverlay
         {
             var civ = (sender as Image).Tag as Civ;
             civ.Id = Convert.ToInt32((sender as Image).ToolTip.ToString());
-            
+
         }
 
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)

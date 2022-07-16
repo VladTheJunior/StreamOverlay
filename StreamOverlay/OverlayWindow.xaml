@@ -19,6 +19,135 @@
         FocusManager.FocusedElement="{Binding ElementName=Animation}"
         mc:Ignorable="d">
     <Window.Resources>
+        <Storyboard RepeatBehavior="Forever"
+                    x:Key="wait">
+            <DoubleAnimation Storyboard.TargetName="Dot1"
+                             BeginTime="0:0:0.1"
+                             Storyboard.TargetProperty="Opacity"
+                             From=".4"
+                             To="1"
+                             AutoReverse="True"
+                             Duration="0:0:0.8" />
+            <DoubleAnimation Storyboard.TargetName="scaleDot1"
+                             BeginTime="0:0:0.1"
+                             Storyboard.TargetProperty="ScaleX"
+                             From="1"
+                             To="3"
+                             AutoReverse="True"
+                             Duration="0:0:0.8" />
+            <DoubleAnimation Storyboard.TargetName="scaleDot1"
+                             BeginTime="0:0:0.1"
+                             Storyboard.TargetProperty="ScaleY"
+                             From="1"
+                             To="3"
+                             AutoReverse="True"
+                             Duration="0:0:0.8" />
+            <DoubleAnimation Storyboard.TargetName="Dot2"
+                             BeginTime="0:0:0.2"
+                             Storyboard.TargetProperty="Opacity"
+                             From=".4"
+                             To="1"
+                             AutoReverse="True"
+                             Duration="0:0:0.8" />
+            <DoubleAnimation Storyboard.TargetName="scaleDot2"
+                             BeginTime="0:0:0.2"
+                             Storyboard.TargetProperty="ScaleX"
+                             From="1"
+                             To="3"
+                             AutoReverse="True"
+                             Duration="0:0:0.8" />
+            <DoubleAnimation Storyboard.TargetName="scaleDot2"
+                             BeginTime="0:0:0.2"
+                             Storyboard.TargetProperty="ScaleY"
+                             From="1"
+                             To="3"
+                             AutoReverse="True"
+                             Duration="0:0:0.8" />
+            <DoubleAnimation Storyboard.TargetName="Dot3"
+                             BeginTime="0:0:0.3"
+                             Storyboard.TargetProperty="Opacity"
+                             From=".4"
+                             To="1"
+                             AutoReverse="True"
+                             Duration="0:0:0.8" />
+            <DoubleAnimation Storyboard.TargetName="scaleDot3"
+                             BeginTime="0:0:0.3"
+                             Storyboard.TargetProperty="ScaleX"
+                             From="1"
+                             To="3"
+                             AutoReverse="True"
+                             Duration="0:0:0.8" />
+            <DoubleAnimation Storyboard.TargetName="scaleDot3"
+                             BeginTime="0:0:0.3"
+                             Storyboard.TargetProperty="ScaleY"
+                             From="1"
+                             To="3"
+                             AutoReverse="True"
+                             Duration="0:0:0.8" />
+            <DoubleAnimation Storyboard.TargetName="Dot4"
+                             BeginTime="0:0:0.4"
+                             Storyboard.TargetProperty="Opacity"
+                             From=".4"
+                             To="1"
+                             AutoReverse="True"
+                             Duration="0:0:0.8" />
+            <DoubleAnimation Storyboard.TargetName="scaleDot4"
+                             BeginTime="0:0:0.4"
+                             Storyboard.TargetProperty="ScaleX"
+                             From="1"
+                             To="3"
+                             AutoReverse="True"
+                             Duration="0:0:0.8" />
+            <DoubleAnimation Storyboard.TargetName="scaleDot4"
+                             BeginTime="0:0:0.4"
+                             Storyboard.TargetProperty="ScaleY"
+                             From="1"
+                             To="3"
+                             AutoReverse="True"
+                             Duration="0:0:0.8" />
+            <DoubleAnimation Storyboard.TargetName="Dot5"
+                             BeginTime="0:0:0.5"
+                             Storyboard.TargetProperty="Opacity"
+                             From=".4"
+                             To="1"
+                             AutoReverse="True"
+                             Duration="0:0:0.8" />
+            <DoubleAnimation Storyboard.TargetName="scaleDot5"
+                             BeginTime="0:0:0.5"
+                             Storyboard.TargetProperty="ScaleX"
+                             From="1"
+                             To="3"
+                             AutoReverse="True"
+                             Duration="0:0:0.8" />
+            <DoubleAnimation Storyboard.TargetName="scaleDot5"
+                             BeginTime="0:0:0.5"
+                             Storyboard.TargetProperty="ScaleY"
+                             From="1"
+                             To="3"
+                             AutoReverse="True"
+                             Duration="0:0:0.8" />
+            <DoubleAnimation Storyboard.TargetName="Dot6"
+                             BeginTime="0:0:0.6"
+                             Storyboard.TargetProperty="Opacity"
+                             From=".4"
+                             To="1"
+                             AutoReverse="True"
+                             Duration="0:0:0.8" />
+            <DoubleAnimation Storyboard.TargetName="scaleDot6"
+                             BeginTime="0:0:0.6"
+                             Storyboard.TargetProperty="ScaleX"
+                             From="1"
+                             To="3"
+                             AutoReverse="True"
+                             Duration="0:0:0.8" />
+            <DoubleAnimation Storyboard.TargetName="scaleDot6"
+                             BeginTime="0:0:0.6"
+                             Storyboard.TargetProperty="ScaleY"
+                             From="1"
+                             To="3"
+                             AutoReverse="True"
+                             Duration="0:0:0.8" />
+        </Storyboard>
         <local:CIVS x:Key="CivPool" />
         <DrawingImage x:Key="LoopNormal"
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -423,8 +552,9 @@
                                                    FontFamily="/Fonts/#Trajan Pro 3"
                                                    FontSize="30"
                                                    FontWeight="Bold"
+                                                   Typography.Capitals="AllPetiteCaps"
                                                    Foreground="{StaticResource ButtonTextGradient}"
-                                                   Text="COUNTDOWN">
+                                                   Text="{DynamicResource Countdown}">
                                             <TextBlock.Effect>
                                                 <DropShadowEffect BlurRadius="3"
                                                                   Direction="-90"
@@ -440,6 +570,77 @@
                                                    FontSize="60"
                                                    Foreground="White"
                                                    Text="{Binding Time}"></TextBlock>
+                                        <StackPanel HorizontalAlignment="Center"
+                                                    Grid.Row="1"
+                                                    x:Name="WaitingAnimation"
+                                                    Orientation="Horizontal">
+                                            <Ellipse x:Name="Dot1"
+                                                     Fill="White"
+                                                     Opacity=".4"
+                                                     Width="8"
+                                                     Height="8"
+                                                     RenderTransformOrigin="0.5,0.5">
+                                                <Ellipse.RenderTransform>
+                                                    <ScaleTransform x:Name="scaleDot1" />
+                                                </Ellipse.RenderTransform>
+                                            </Ellipse>
+                                            <Ellipse x:Name="Dot2"
+                                                     Fill="White"
+                                                     Opacity=".4"
+                                                     Width="8"
+                                                     Height="8"
+                                                     Margin="24,0,0,0"
+                                                     RenderTransformOrigin="0.5,0.5">
+                                                <Ellipse.RenderTransform>
+                                                    <ScaleTransform x:Name="scaleDot2" />
+                                                </Ellipse.RenderTransform>
+                                            </Ellipse>
+                                            <Ellipse x:Name="Dot3"
+                                                     Fill="White"
+                                                     Opacity=".4"
+                                                     Width="8"
+                                                     Height="8"
+                                                     Margin="24,0,0,0"
+                                                     RenderTransformOrigin="0.5,0.5">
+                                                <Ellipse.RenderTransform>
+                                                    <ScaleTransform x:Name="scaleDot3" />
+                                                </Ellipse.RenderTransform>
+                                            </Ellipse>
+                                            <Ellipse x:Name="Dot4"
+                                                     Fill="White"
+                                                     Opacity=".4"
+                                                     Width="8"
+                                                     Height="8"
+                                                     Margin="24,0,0,0"
+                                                     RenderTransformOrigin="0.5,0.5">
+                                                <Ellipse.RenderTransform>
+                                                    <ScaleTransform x:Name="scaleDot4" />
+                                                </Ellipse.RenderTransform>
+                                            </Ellipse>
+                                            <Ellipse x:Name="Dot5"
+                                                     Fill="White"
+                                                     Opacity=".4"
+                                                     Width="8"
+                                                     Height="8"
+                                                     Margin="24,0,0,0"
+                                                     RenderTransformOrigin="0.5,0.5">
+                                                <Ellipse.RenderTransform>
+                                                    <ScaleTransform x:Name="scaleDot5" />
+                                                </Ellipse.RenderTransform>
+                                            </Ellipse>
+                                            <Ellipse x:Name="Dot6"
+                                                     Fill="White"
+                                                     Opacity=".4"
+                                                     Width="8"
+                                                     Height="8"
+                                                     Margin="24,0,0,0"
+                                                     RenderTransformOrigin="0.5,0.5">
+                                                <Ellipse.RenderTransform>
+                                                    <ScaleTransform x:Name="scaleDot6"/>
+
+                                                </Ellipse.RenderTransform>
+                                            </Ellipse>
+                                        </StackPanel>
                                     </Grid>
                                 </Border>
                             </Grid>
@@ -480,9 +681,10 @@
                                                    VerticalAlignment="Bottom"
                                                    FontFamily="/Fonts/#Trajan Pro 3"
                                                    FontSize="30"
+                                                   Typography.Capitals="AllPetiteCaps"
                                                    FontWeight="Bold"
                                                    Foreground="{StaticResource ButtonTextGradient}"
-                                                   Text="SCHEDULE">
+                                                   Text="{DynamicResource Schedule}">
                                             <TextBlock.Effect>
                                                 <DropShadowEffect BlurRadius="3"
                                                                   Direction="-90"
@@ -2805,7 +3007,7 @@
                                                  MaxWidth="650"
                                                  Padding="0,0,15,0"
                                                  Margin="40,60,0,0"
-                                                 Style="{StaticResource hcInfoName}">
+                                                 Style="{DynamicResource CasterBox}">
                                             <TextBox.OpacityMask>
                                                 <LinearGradientBrush StartPoint="0,0"
                                                                      EndPoint="0,1">
@@ -2872,7 +3074,7 @@
                                                            FontSize="28"
                                                            Foreground="{StaticResource ButtonTextGradient}"
                                                            x:Name="TwitchChannel"
-                                                           Margin="20,3,0,0"
+                                                           Margin="20,6,0,0"
                                                            Text="" />
                                                 <StackPanel Orientation="Horizontal"
                                                             HorizontalAlignment="Left"
@@ -2974,15 +3176,13 @@
                                 <Grid.LayoutTransform>
                                     <ScaleTransform x:Name="stScorePanel"
                                                     CenterX="0"
-                                                    CenterY="0"
-                                                   
-                                                     />
+                                                    CenterY="0" />
                                 </Grid.LayoutTransform>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="auto" />
                                 </Grid.RowDefinitions>
                                 <Grid.Background>
-                                    <ImageBrush ImageSource="/resources/images/hud/resources_bg.png" />
+                                    <ImageBrush ImageSource="{DynamicResource TwitchPanelInfo}" />
                                 </Grid.Background>
                                 <TextBox VerticalContentAlignment="Center"
                                          Width="560"

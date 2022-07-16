@@ -10,6 +10,7 @@
                 <ResourceDictionary Source="SystemResources.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/ColorPicker;component/Styles/DefaultColorPickerStyle.xaml" />
                 <ResourceDictionary Source="Templates/KOTOW.xaml" />
+                <ResourceDictionary Source="Languages/en-US.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

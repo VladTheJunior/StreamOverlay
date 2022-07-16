@@ -79,9 +79,11 @@
     <None Remove="Fonts\MTCORSVA.TTF" />
     <None Remove="resources\1.png" />
     <None Remove="resources\images\hud\hud_hcflag_bg.png" />
+    <None Remove="resources\images\hud\hud_hcflag_bg_kotow.png" />
     <None Remove="resources\images\hud\hud_hcflag_glow.png" />
     <None Remove="resources\images\hud\hud_hcflag_mask.png" />
     <None Remove="resources\images\hud\resources_bg.png" />
+    <None Remove="resources\images\hud\resources_bg_kotow.png" />
     <None Remove="resources\images\hud\resources_iconbg.png" />
     <None Remove="resources\images\hud\resource_gold.png" />
     <None Remove="resources\images\hud\resource_pop.png" />
@@ -309,9 +311,11 @@
     <Resource Include="resources\images\hud\hud_chat_combobox_itembg.png" />
     <Resource Include="resources\images\hud\hud_chat_combobox_over.png" />
     <Resource Include="resources\images\hud\hud_hcflag_bg.png" />
+    <Resource Include="resources\images\hud\hud_hcflag_bg_kotow.png" />
     <Resource Include="resources\images\hud\hud_hcflag_glow.png" />
     <Resource Include="resources\images\hud\hud_hcflag_mask.png" />
     <Resource Include="resources\images\hud\resources_bg.png" />
+    <Resource Include="resources\images\hud\resources_bg_kotow.png" />
     <Resource Include="resources\images\hud\resources_iconbg.png" />
     <Resource Include="resources\images\hud\resource_gold.png" />
     <Resource Include="resources\images\hud\resource_pop.png" />
@@ -340,14 +344,6 @@
     <Resource Include="resources\wood.png" />
     <Resource Include="resources\wood_shadow.png" />
     <Resource Include="resources\Cursor.cur" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Settings1.Designer.cs">
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings1.settings</DependentUpon>
-    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -1560,10 +1556,17 @@
     <None Update="data\logo\United Empires.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Settings1.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings1.Designer.cs</LastGenOutput>
-    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Languages\es-ES.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Languages\ru-RU.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 
 </Project>

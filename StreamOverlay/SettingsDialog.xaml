@@ -273,6 +273,7 @@
                                         <RowDefinition Height="auto" />
                                         <RowDefinition Height="auto" />
                                         <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="auto" />
@@ -280,11 +281,13 @@
                                         <ColumnDefinition Width="auto" />
                                     </Grid.ColumnDefinitions>
                                     <CheckBox x:Name="cbOverlayLoop"
+                                              IsChecked="{Binding Setting.LoopBackgrounds}"
                                               Grid.Row="0"
                                               Grid.Column="0"
                                               Content="Play All Backgrounds in a Loop"
                                               Style="{StaticResource Checkbox_Options}" />
                                     <CheckBox x:Name="cbAudio"
+                                              IsChecked="{Binding Setting.AutoplaySound}"
                                               Grid.Row="1"
                                               Grid.Column="0"
                                               Content="Play Age of Empires Soundtracks"
@@ -292,6 +295,7 @@
                                     <CheckBox x:Name="cbChromakey"
                                               Grid.Row="2"
                                               Grid.Column="0"
+                                              IsChecked="{Binding Setting.Chromakey}"
                                               Content="Use Chromakey Instead of Background"
                                               Style="{StaticResource Checkbox_Options}" />
                                     <CheckBox x:Name="tbAnimation"
@@ -304,14 +308,17 @@
                                               Grid.Row="5"
                                               Grid.Column="0"
                                               Content="Enable Twitch Panel"
+                                              IsChecked="{Binding Setting.TwitchPanel.IsVisible}"
                                               Style="{StaticResource Checkbox_Options}" />
                                     <TextBox Grid.Row="5"
                                              x:Name="tbTwitchChannel"
                                              Grid.Column="2"
+                                             Text="{Binding Setting.TwitchPanel.Source}"
                                              IsEnabled="{Binding ElementName=cbTwitch, Path=IsChecked}"
                                              Width="400"
                                              Style="{StaticResource hcInfoName}" />
                                     <CheckBox x:Name="cbCountdown"
+                                              IsChecked="{Binding Setting.Countdown.IsVisible}"
                                               Grid.Row="6"
                                               Grid.Column="0"
                                               Content="Enable Countdown Timer"
@@ -320,19 +327,20 @@
                                             Grid.Row="6"
                                             Grid.Column="1"
                                             Margin="30,5"
-                                            ToolTip="{Binding TimerAlign, StringFormat='{}Align {0}'}"
+                                            ToolTip="{Binding Setting.Countdown.Position.Type, StringFormat='{}Align {0}'}"
                                             Style="{StaticResource alignTimerButton}"
                                             Click="bTimerAlign_Click" />
                                     <CheckBox x:Name="cbSchedule"
                                               Grid.Row="7"
                                               Grid.Column="0"
+                                              IsChecked="{Binding Setting.Schedule.IsVisible}"
                                               Content="Enable Schedule"
                                               Style="{StaticResource Checkbox_Options}" />
                                     <Button x:Name="bScheduleAlign"
                                             Grid.Row="7"
                                             Grid.Column="1"
                                             Margin="30,5"
-                                            ToolTip="{Binding ScheduleAlign, StringFormat='{}Align {0}'}"
+                                            ToolTip="{Binding Setting.Schedule.Position.Type, StringFormat='{}Align {0}'}"
                                             Style="{StaticResource alignScheduleButton}"
                                             Click="bScheduleAlign_Click" />
                                     <TextBlock Grid.Row="8"
@@ -346,7 +354,7 @@
                                             Grid.Row="8"
                                             Grid.Column="1"
                                             Margin="30,5"
-                                            ToolTip="{Binding BrandAlign, StringFormat='{}Align {0}'}"
+                                            ToolTip="{Binding Setting.BrandLogo.Position.Type, StringFormat='{}Align {0}'}"
                                             Style="{StaticResource alignBrandButton}"
                                             Click="bBrandAlign_Click" />
                                     <ComboBox x:Name="BrandLogos"
@@ -374,7 +382,7 @@
                                             Grid.Row="9"
                                             Grid.Column="1"
                                             Margin="30,5"
-                                            ToolTip="{Binding EventAlign, StringFormat='{}Align {0}'}"
+                                            ToolTip="{Binding Setting.EventLogo.Position.Type, StringFormat='{}Align {0}'}"
                                             Style="{StaticResource alignEventButton}"
                                             Click="bEventAlign_Click" />
                                     <ComboBox x:Name="EventLogos"
@@ -432,7 +440,7 @@
                                                 VerticalAlignment="Center"
                                                 Maximum="100"
                                                 Minimum="80"
-                                                Value="100" />
+                                                Value="{Binding Setting.HUDScale}" />
                                         <TextBlock VerticalAlignment="Center"
                                                    FontFamily="/Fonts/#Trajan Pro 3"
                                                    FontSize="19"
@@ -440,6 +448,29 @@
                                                    Foreground="#dbd5c3"
                                                    Text=" 100%" />
                                     </StackPanel>
+                                    <TextBlock VerticalAlignment="Center"
+                                               Grid.Row="12"
+                                               Grid.Column="0"
+                                               FontFamily="/Fonts/#Trajan Pro 3"
+                                               FontSize="19"
+                                               FontWeight="Bold"
+                                               Foreground="#dbd5c3"
+                                               Text="Select Language of Overlay Elements: " />
+                                    <ComboBox x:Name="cbLanguages"
+                                              Margin="0,3"
+                                              Width="400"
+                                              Height="30"
+                                              Grid.Row="12"
+                                              Grid.Column="2"
+                                              SelectedIndex="0"
+                                              Style="{StaticResource OptionsCombobox}">
+                                        <ComboBoxItem Content="English" />
+                                        <ComboBoxItem Content="Русский" />
+                                        <ComboBoxItem IsEnabled="False" Content="Français" />
+                                        <ComboBoxItem IsEnabled="False" Content="Deutsch" />
+                                        <ComboBoxItem Content="Español" />
+                                        <ComboBoxItem IsEnabled="False" Content="中文" />
+                                    </ComboBox>
                                 </Grid>
                             </Grid>
                         </TabItem>
@@ -480,7 +511,7 @@
                                         Grid.Column="1"
                                         VerticalAlignment="Center"
                                         Margin="30,5"
-                                        ToolTip="{Binding MapAlign, StringFormat='{}Align {0}'}"
+                                        ToolTip="{Binding Setting.Map.Position.Type, StringFormat='{}Align {0}'}"
                                         Style="{StaticResource alignMapButton}"
                                         Click="bMapAlign_Click" />
                                 <TextBox Grid.Row="0"
@@ -734,6 +765,7 @@
                                 <CheckBox x:Name="cbScorePanel"
                                           Grid.Row="2"
                                           Grid.Column="0"
+                                          IsChecked="{Binding Setting.ScoreInputPanel.IsVisible}"
                                           Content="Enable Score Input Panel"
                                           Style="{StaticResource Checkbox_Options}" />
                                 <TextBlock Grid.Row="0"
@@ -765,6 +797,7 @@
                                          Style="{StaticResource hcInfoName}" />
                                 <CheckBox x:Name="cbPlayersPanel"
                                           Grid.Row="3"
+                                          IsChecked="{Binding Setting.PlayersPanel.IsVisible}"
                                           Grid.Column="0"
                                           Style="{StaticResource Checkbox_Options}">
                                     <TextBlock>

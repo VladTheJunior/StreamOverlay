@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:StreamOverlay"
+                    xmlns:v="clr-namespace:System;assembly=mscorlib">
+    <v:String x:Key="Countdown">countdown</v:String>
+    <v:String x:Key="Waiting">waiting</v:String>
+    <v:String x:Key="Schedule">schedule</v:String>
+    <v:String x:Key="BestOf">Best of</v:String>
+</ResourceDictionary>

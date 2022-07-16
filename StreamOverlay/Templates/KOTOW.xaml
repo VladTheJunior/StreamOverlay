@@ -8,7 +8,14 @@
         <GradientStop Offset="0.8" Color="#112250" />
         <GradientStop Offset="1" Color="#08112a" />
     </LinearGradientBrush>
-    
+    <LinearGradientBrush x:Key="Gradient2"
+                         StartPoint="0.5,0"
+                         EndPoint="0.5,1">
+        <GradientStop Offset="0"
+                      Color="#101c27" />
+        <GradientStop Offset="1"
+                      Color="#020b13" />
+    </LinearGradientBrush>
     
     <Style x:Key="OuterBorder" TargetType="Border">
         <Setter Property="CornerRadius" Value="10"/>
@@ -46,5 +53,67 @@
 
     <Style x:Key="TextTitle" TargetType="TextBlock">
         <Setter Property="Margin" Value="0,0,0,7"/>
+    </Style>
+
+    <BitmapImage x:Key="TwitchPanelInfo"
+                 UriSource="/resources/images/hud/resources_bg_kotow.png" />
+    <BitmapImage x:Key="TwitchPanelLogo"
+                 UriSource="/resources/images/hud/hud_hcflag_bg_kotow.png" />
+    <Style x:Key="CasterBox"
+           TargetType="{x:Type TextBox}">
+        <Setter Property="Height"
+                Value="40" />
+        <Setter Property="FontFamily"
+                Value="/Fonts/#Trajan Pro 3" />
+        <Setter Property="FontSize"
+                Value="21" />
+        <Setter Property="FontWeight"
+                Value="Bold" />
+        <Setter Property="Foreground"
+                Value="#d5d5d5" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Left" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+        <Setter Property="MaxLength"
+                Value="64" />
+        <!--  broken in WPFG  -->
+        <Setter Property="CaretBrush"
+                Value="White" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBoxBase}">
+                    <Border x:Name="Border"
+                            Height="40"
+                            Padding="6,4,0,0"
+                            Background="{StaticResource Gradient2}"
+                            BorderBrush="{StaticResource TextboxStrokeGradient}"
+                            BorderThickness="2"
+                            CornerRadius="4">
+                        <ScrollViewer x:Name="PART_ContentHost"
+                                      Margin="0,2,0,0"
+                                      HorizontalScrollBarVisibility="Hidden"
+                                      VerticalScrollBarVisibility="Hidden" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused"
+                                 Value="True">
+                            <Setter TargetName="Border"
+                                    Property="BorderBrush"
+                                    Value="#FFDADADA" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect BlurRadius="10"
+                                  Direction="-90"
+                                  RenderingBias="Quality"
+                                  ShadowDepth="1.5"
+                                  Color="Black" />
+            </Setter.Value>
+        </Setter>
     </Style>
 </ResourceDictionary>
