@@ -575,7 +575,7 @@
                                                     x:Name="WaitingAnimation"
                                                     Orientation="Horizontal">
                                             <Ellipse x:Name="Dot1"
-                                                     Fill="White"
+                                                     Fill="{StaticResource ButtonStrokeGradient}"
                                                      Opacity=".4"
                                                      Width="8"
                                                      Height="8"
@@ -585,7 +585,7 @@
                                                 </Ellipse.RenderTransform>
                                             </Ellipse>
                                             <Ellipse x:Name="Dot2"
-                                                     Fill="White"
+                                                     Fill="{StaticResource ButtonStrokeGradient}"
                                                      Opacity=".4"
                                                      Width="8"
                                                      Height="8"
@@ -596,7 +596,7 @@
                                                 </Ellipse.RenderTransform>
                                             </Ellipse>
                                             <Ellipse x:Name="Dot3"
-                                                     Fill="White"
+                                                     Fill="{StaticResource ButtonStrokeGradient}"
                                                      Opacity=".4"
                                                      Width="8"
                                                      Height="8"
@@ -607,7 +607,7 @@
                                                 </Ellipse.RenderTransform>
                                             </Ellipse>
                                             <Ellipse x:Name="Dot4"
-                                                     Fill="White"
+                                                     Fill="{StaticResource ButtonStrokeGradient}"
                                                      Opacity=".4"
                                                      Width="8"
                                                      Height="8"
@@ -618,7 +618,7 @@
                                                 </Ellipse.RenderTransform>
                                             </Ellipse>
                                             <Ellipse x:Name="Dot5"
-                                                     Fill="White"
+                                                     Fill="{StaticResource ButtonStrokeGradient}"
                                                      Opacity=".4"
                                                      Width="8"
                                                      Height="8"
@@ -629,7 +629,7 @@
                                                 </Ellipse.RenderTransform>
                                             </Ellipse>
                                             <Ellipse x:Name="Dot6"
-                                                     Fill="White"
+                                                     Fill="{StaticResource ButtonStrokeGradient}"
                                                      Opacity=".4"
                                                      Width="8"
                                                      Height="8"
@@ -2991,7 +2991,7 @@
                             </Grid>
                             <Grid x:Name="gTwitchInfo"
                                   MouseLeftButtonDown="ObjectMouseDown"
-                                  Panel.ZIndex="1"
+                                  Panel.ZIndex="5"
                                   MouseLeftButtonUp="ObjectMouseUp">
                                 <Grid.LayoutTransform>
                                     <ScaleTransform x:Name="stTwitchInfo"
@@ -3003,7 +3003,8 @@
                                     <Grid>
                                         <TextBox HorizontalAlignment="Left"
                                                  Text="casted by CasterName "
-                                                 MinWidth="320"
+                                                 MinWidth="260"
+                                                 FontSize="18"
                                                  MaxWidth="650"
                                                  Padding="0,0,15,0"
                                                  Margin="40,60,0,0"
@@ -3025,7 +3026,7 @@
                                                  x:Name="resourcePanelBG"
                                                  Style="{StaticResource Ingame_PanelBGStyle}"
                                                  Height="61"
-                                                 Width="840"
+                                                 Width="720"
                                                  Margin="0,9,0,0" />
                                         <StackPanel x:Name="resourcePanel"
                                                     VerticalAlignment="Top"
@@ -3070,11 +3071,11 @@
                                                         HorizontalAlignment="Left"
                                                         Margin="40,10,30,0"
                                                         Visibility="Visible">
-                                                <TextBlock MinWidth="320"
-                                                           FontSize="28"
+                                                <TextBlock MinWidth="260"
+                                                           FontSize="22"
                                                            Foreground="{StaticResource ButtonTextGradient}"
                                                            x:Name="TwitchChannel"
-                                                           Margin="20,6,0,0"
+                                                           Margin="20,4,0,0"
                                                            Text="" />
                                                 <StackPanel Orientation="Horizontal"
                                                             HorizontalAlignment="Left"
@@ -3098,7 +3099,7 @@
                                                                 VerticalAlignment="Center"
                                                                 Width="70">
                                                         <TextBlock Margin="5,4,0,0"
-                                                                   FontSize="22"
+                                                                   FontSize="18"
                                                                    x:Name="twitchFollowers"
                                                                    Text="---" />
                                                     </StackPanel>
@@ -3125,7 +3126,7 @@
                                                                 VerticalAlignment="Center"
                                                                 MinWidth="70">
                                                         <TextBlock Margin="5,4,0,0"
-                                                                   FontSize="22"
+                                                                   FontSize="18"
                                                                    x:Name="twitchViewers"
                                                                    Text="---" />
                                                     </StackPanel>
@@ -3152,7 +3153,7 @@
                                                                 VerticalAlignment="Center"
                                                                 MinWidth="70">
                                                         <TextBlock Margin="5,4,0,0"
-                                                                   FontSize="22"
+                                                                   FontSize="18"
                                                                    x:Name="twitchStreamLength"
                                                                    Text="---" />
                                                     </StackPanel>
