@@ -749,7 +749,12 @@
                                        VerticalAlignment="Bottom"
                                        Height="400"
                                        HorizontalAlignment="Right"
-                                       x:Name="iTeam2" />
+                                       RenderTransformOrigin="0.5,0.5"
+                                       x:Name="iTeam2">
+                                    <Image.RenderTransform>
+                                        <ScaleTransform ScaleX="-1" />
+                                    </Image.RenderTransform>
+                                </Image>
                                 <Grid Style="{DynamicResource PlayersPanel}"
                                       Height="270"
                                       Width="1292"

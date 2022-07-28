@@ -361,6 +361,13 @@ namespace StreamOverlay
 
         public ObservableCollection<Map> MapPool = new ObservableCollection<Map>(BuildMaps());
         ObservableCollection<Overlay> Overlays = new ObservableCollection<Overlay>();
+
+
+
+        public List<Logo> persons1v1 = new List<Logo>();
+        public List<Logo> persons2v2 = new List<Logo>();
+        public List<Logo> persons3v3 = new List<Logo>();
+
         #endregion
 
 
@@ -513,12 +520,95 @@ namespace StreamOverlay
             view.IsLiveSorting = true;
 
 
-            List<Logo> brandLogos =
-    Directory.GetFiles(Path.Combine(AppContext.BaseDirectory, "data", "logo")).Where(x => Path.GetExtension(x).ToLower() == ".png").Select(x => new Logo { Name = Path.GetFileNameWithoutExtension(x), Path = x }).ToList();
+            List<Logo> brandLogos =    Directory.GetFiles(Path.Combine(AppContext.BaseDirectory, "data", "logo")).Where(x => Path.GetExtension(x).ToLower() == ".png").Select(x => new Logo { Name = Path.GetFileNameWithoutExtension(x), Path = x }).ToList();
             brandLogos.Insert(0, new Logo() { Name = "<NOT SET>", Path = "" });
 
 
+            persons1v1 =Directory.GetFiles(Path.Combine(AppContext.BaseDirectory, "data", "persons", "1v1"), "*.*", SearchOption.AllDirectories).Where(x => Path.GetExtension(x).ToLower() == ".png").Select(x => new Logo { Name = Path.GetRelativePath(Path.Combine(AppContext.BaseDirectory, "data", "persons", "1v1"), x), Path = x }).ToList();
+            persons1v1.Insert(0, new Logo() { Name = "<NOT SET>", Path = "" });
 
+            persons2v2 = Directory.GetFiles(Path.Combine(AppContext.BaseDirectory, "data", "persons", "2v2"), "*.*", SearchOption.AllDirectories).Where(x => Path.GetExtension(x).ToLower() == ".png").Select(x => new Logo { Name = Path.GetRelativePath(Path.Combine(AppContext.BaseDirectory, "data", "persons", "2v2"), x), Path = x }).ToList();
+            persons2v2.Insert(0, new Logo() { Name = "<NOT SET>", Path = "" });
+
+            persons3v3 = Directory.GetFiles(Path.Combine(AppContext.BaseDirectory, "data", "persons", "3v3"), "*.*", SearchOption.AllDirectories).Where(x => Path.GetExtension(x).ToLower() == ".png").Select(x => new Logo { Name = Path.GetRelativePath(Path.Combine(AppContext.BaseDirectory, "data", "persons", "3v3"), x), Path = x }).ToList();
+            persons3v3.Insert(0, new Logo() { Name = "<NOT SET>", Path = "" });
+
+
+            if (TeamPanel.SelectedIndex == 0)
+            {
+                cbTeam1Persons.ItemsSource = persons1v1;
+                cbTeam2Persons.ItemsSource = persons1v1;
+
+                var team1 = persons1v1.FirstOrDefault(x => x.Name == Setting.Team1Persons);
+                if (team1 != null)
+                {
+                    cbTeam1Persons.SelectedItem = team1;
+                }
+                else
+                {
+                    cbTeam1Persons.SelectedIndex = 0;
+                }
+
+                var team2 = persons1v1.FirstOrDefault(x => x.Name == Setting.Team2Persons);
+                if (team2 != null)
+                {
+                    cbTeam2Persons.SelectedItem = team2;
+                }
+                else
+                {
+                    cbTeam2Persons.SelectedIndex = 0;
+                }
+            }
+            if (TeamPanel.SelectedIndex == 1)
+            {
+                cbTeam1Persons.ItemsSource = persons2v2;
+                cbTeam2Persons.ItemsSource = persons2v2;
+
+                var team1 = persons2v2.FirstOrDefault(x => x.Name == Setting.Team1Persons);
+                if (team1 != null)
+                {
+                    cbTeam1Persons.SelectedItem = team1;
+                }
+                else
+                {
+                    cbTeam1Persons.SelectedIndex = 0;
+                }
+
+                var team2 = persons2v2.FirstOrDefault(x => x.Name == Setting.Team2Persons);
+                if (team2 != null)
+                {
+                    cbTeam2Persons.SelectedItem = team2;
+                }
+                else
+                {
+                    cbTeam2Persons.SelectedIndex = 0;
+                }
+            }
+            if (TeamPanel.SelectedIndex == 2)
+            {
+                cbTeam1Persons.ItemsSource = persons3v3;
+                cbTeam2Persons.ItemsSource = persons3v3;
+
+                var team1 = persons3v3.FirstOrDefault(x => x.Name == Setting.Team1Persons);
+                if (team1 != null)
+                {
+                    cbTeam1Persons.SelectedItem = team1;
+                }
+                else
+                {
+                    cbTeam1Persons.SelectedIndex = 0;
+                }
+
+                var team2 = persons3v3.FirstOrDefault(x => x.Name == Setting.Team2Persons);
+                if (team2 != null)
+                {
+                    cbTeam2Persons.SelectedItem = team2;
+                }
+                else
+                {
+                    cbTeam2Persons.SelectedIndex = 0;
+                }
+            }
 
             ICollectionView brand_view = CollectionViewSource.GetDefaultView(brandLogos);
             brand_view.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
@@ -1032,21 +1122,9 @@ namespace StreamOverlay
             mainWindow.lwTeam2Player3CivPool.ItemsSource = mainWindow.Team2Player3CivPool;
 
 
-            if (TeamPanel.SelectedIndex == 0)
-            {
-                mainWindow.iTeam1.Source = new BitmapImage(new Uri("pack://application:,,,/resources/Team1_1v1.png"));
-                mainWindow.iTeam2.Source = new BitmapImage(new Uri("pack://application:,,,/resources/Team2_1v1.png"));
-            }
-            else if (TeamPanel.SelectedIndex == 1)
-            {
-                mainWindow.iTeam1.Source = new BitmapImage(new Uri("pack://application:,,,/resources/Team1_2v2.png"));
-                mainWindow.iTeam2.Source = new BitmapImage(new Uri("pack://application:,,,/resources/Team2_2v2.png"));
-            }
-            else
-            {
-                mainWindow.iTeam1.Source = new BitmapImage(new Uri("pack://application:,,,/resources/Team1_3v3.png"));
-                mainWindow.iTeam2.Source = new BitmapImage(new Uri("pack://application:,,,/resources/Team2_3v3.png"));
-            }
+                mainWindow.iTeam1.Source = iTeam1.Source;
+            mainWindow.iTeam2.Source = iTeam2.Source;
+
 
 
             if (cbPlayersPanel.IsChecked == false)
@@ -1404,7 +1482,8 @@ namespace StreamOverlay
             Setting.EventLogo.Source = (EventLogos.SelectedItem as Logo).Name;
             Setting.PlayersPanel.Source = TeamPanel.SelectedIndex;
             Setting.ElementsStyle = cbTemplates.SelectedIndex;
-
+            Setting.Team1Persons = (cbTeam1Persons.SelectedItem as Logo).Name;
+            Setting.Team2Persons = (cbTeam2Persons.SelectedItem as Logo).Name;
             Setting.AppVersion = Version;
             Setting.AppLanguage = cbLanguages.SelectedIndex;
 
@@ -1562,6 +1641,27 @@ namespace StreamOverlay
         private void TeamPanel_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             alignBO();
+            if (TeamPanel.SelectedIndex == 0)
+            {
+                cbTeam1Persons.ItemsSource = persons1v1;
+                cbTeam2Persons.ItemsSource = persons1v1;
+                cbTeam1Persons.SelectedIndex = 0;
+                cbTeam2Persons.SelectedIndex = 0;
+            }
+            if (TeamPanel.SelectedIndex == 1)
+            {
+                cbTeam1Persons.ItemsSource = persons2v2;
+                cbTeam2Persons.ItemsSource = persons2v2;
+                cbTeam1Persons.SelectedIndex = 0;
+                cbTeam2Persons.SelectedIndex = 0;
+            }
+            if (TeamPanel.SelectedIndex == 2)
+            {
+                cbTeam1Persons.ItemsSource = persons3v3;
+                cbTeam2Persons.ItemsSource = persons3v3;
+                cbTeam1Persons.SelectedIndex = 0;
+                cbTeam2Persons.SelectedIndex = 0;
+            }
         }
 
         private void g_MouseDown(object sender, MouseButtonEventArgs e)
@@ -1577,6 +1677,22 @@ namespace StreamOverlay
             {
                 e.Handled = true;
             }
+        }
+
+        private void cbTeam1Persons_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbTeam1Persons.SelectedIndex > 0)
+                iTeam1.Source = new BitmapImage(new Uri((cbTeam1Persons.SelectedItem as Logo).Path));
+            else
+                iTeam1.Source = new BitmapImage();
+        }
+
+        private void cbTeam2Persons_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbTeam2Persons.SelectedIndex > 0)
+                iTeam2.Source = new BitmapImage(new Uri((cbTeam2Persons.SelectedItem as Logo).Path));
+            else
+                iTeam2.Source = new BitmapImage();
         }
     }
 

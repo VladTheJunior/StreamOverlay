@@ -95,12 +95,6 @@
     <None Remove="resources\SCORE.png" />
     <None Remove="resources\skirmish_victory.png" />
     <None Remove="resources\skirmish_victory_bg.png" />
-    <None Remove="resources\Team1_1v1.png" />
-    <None Remove="resources\Team1_2v2.png" />
-    <None Remove="resources\Team1_3v3.png" />
-    <None Remove="resources\Team2_1v1.png" />
-    <None Remove="resources\Team2_2v2.png" />
-    <None Remove="resources\Team2_3v3.png" />
     <None Remove="resources\win.png" />
   </ItemGroup>
 
@@ -333,12 +327,6 @@
     <Resource Include="resources\slider_button_disabled.png" />
     <Resource Include="resources\slider_button_hover.png" />
     <Resource Include="resources\slider_line.png" />
-    <Resource Include="resources\Team1_1v1.png" />
-    <Resource Include="resources\Team1_2v2.png" />
-    <Resource Include="resources\Team1_3v3.png" />
-    <Resource Include="resources\Team2_1v1.png" />
-    <Resource Include="resources\Team2_2v2.png" />
-    <Resource Include="resources\Team2_3v3.png" />
     <Resource Include="resources\titlebar_tile.png" />
     <Resource Include="resources\win.png" />
     <Resource Include="resources\wood.png" />
@@ -1556,6 +1544,249 @@
     <None Update="data\logo\United Empires.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="data\persons\1v1\Characters\Ahmad Al-Mansur\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Alain Magnan\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Alain Magnan\2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Amelia Black\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Amelia Black\2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Amelia Black\3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Amelia Black\4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Amelia Black\5.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Amelia Black\6.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Chayton Black\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Chayton Black\2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Chayton Black\3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Chayton Black\4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Chayton Black\5.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Claude-Pierre Pecaudy\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Daimyo Mototada\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Delgado\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Elisabet Ramsey\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Frank Warbonnet\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\General Custer\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\General Jackson\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\General Kichiro\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\General Kichiro\2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\George Washington\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\High Priest\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Hizir Reis\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Jian Huang\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Jian Huang\2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Jian Huang\3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Jian Huang\4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\John Black\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\John Black\2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\John Black\3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\John Black\4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Kanyenke\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Kanyenke\2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Kassa Hailu\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Morgan Black\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Morgan Black\2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Morgan Black\3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Morgan Black\4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Nanib Sahir\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Nanib Sahir\2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Nanib Sahir\3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Nanib Sahir\4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Nanib Sahir\5.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Nathaniel Black\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Nathaniel Black\2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Nathaniel Black\3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Nonahkee\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Nonahkee\2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Oruc Reis\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Pierre Beaumont\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Pierre Beaumont\2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Queen Sabla Wengel\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Sahin The Falcon\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Sheriff Holme\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Simón Bolívar\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Sir Francis Drake\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Stuart Black\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Sven Kuechler\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Sven Kuechler\2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Sven Kuechler\3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Usman\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Warwick\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Warwick\2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\1v1\Characters\Yermak\1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\2v2\Boneguard&amp;Warwick.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\2v2\Chayton&amp;Holme.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\2v2\Cooper&amp;Amelia.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\2v2\Custer&amp;Chayton.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\2v2\Huang&amp;Chen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\2v2\John&amp;Kanyenke.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\2v2\Kanyenke&amp;Nathaniel.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\2v2\Morgan&amp;Elisabet.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\2v2\Nathaniel&amp;Washington.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\2v2\Patel&amp;Sahir.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\2v2\Tokugawa&amp;Kichiro.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\2v2\Washington&amp;Nathaniel.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\3v3\Nerds.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="data\persons\3v3\Party.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -1567,6 +1798,10 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="data\persons\" />
   </ItemGroup>
 
 </Project>

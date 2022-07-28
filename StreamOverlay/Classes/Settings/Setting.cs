@@ -113,6 +113,11 @@ namespace StreamOverlay
                 NotifyPropertyChanged("LoopBackgrounds");
             }
         }
+
+        public string Team1Persons { get; set; } = "<NOT SET>";
+        public string Team2Persons { get; set; } = "<NOT SET>";
+
+
         public List<string> MapPool { get; set; } = new List<string>();
         public Element Countdown { get; set; } = new Element();
         public Element Schedule { get; set; } = new Element();
